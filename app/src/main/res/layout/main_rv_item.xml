@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/rv_item_date_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="6 June 2018" />
+
+    <ImageView
+        android:id="@+id/rv_item_warning_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorAccent"
+        android:contentDescription="@string/warning"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/stat_sys_warning" />
+
+    <TextView
+        android:id="@+id/rv_item_warning_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_item_warning_iv"
+        app:layout_constraintStart_toEndOf="@+id/rv_item_warning_iv"
+        app:layout_constraintTop_toTopOf="@+id/rv_item_warning_iv"
+        tools:text="Warning message" />
+
+    <TextView
+        android:id="@+id/rv_item_breakfast_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/breakfast"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/rv_item_lunch_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_date_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_lunch_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/lunch"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/rv_item_dinner_tv"
+        app:layout_constraintStart_toEndOf="@+id/rv_item_breakfast_tv"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_date_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_dinner_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/dinner"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/rv_item_bedtime_tv"
+        app:layout_constraintStart_toEndOf="@+id/rv_item_lunch_tv"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_date_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_bedtime_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/bedtime"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rv_item_afterdinner_tv"
+        app:layout_constraintTop_toTopOf="@+id/rv_item_dinner_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_beforebreakfast_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/before"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/rv_item_afterbreakfast_tv"
+        app:layout_constraintStart_toStartOf="@+id/rv_item_breakfast_tv"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_breakfast_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_beforelunch_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/before"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/rv_item_afterlunch_tv"
+        app:layout_constraintStart_toStartOf="@+id/rv_item_lunch_tv"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_lunch_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_beforedinner_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/before"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/rv_item_afterdinner_tv"
+        app:layout_constraintStart_toStartOf="@+id/rv_item_dinner_tv"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_dinner_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_afterbreakfast_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/after"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item_breakfast_tv"
+        app:layout_constraintStart_toEndOf="@+id/rv_item_beforebreakfast_tv"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_breakfast_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_afterlunch_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/after"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item_lunch_tv"
+        app:layout_constraintStart_toEndOf="@+id/rv_item_beforelunch_tv"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_lunch_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_afterdinner_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/after"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item_dinner_tv"
+        app:layout_constraintStart_toEndOf="@+id/rv_item_beforedinner_tv"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_dinner_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_beforebreakfast_glycemia_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        tools:text="101"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item_beforebreakfast_tv"
+        app:layout_constraintStart_toStartOf="@+id/rv_item_beforebreakfast_tv"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_beforebreakfast_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_afterbreakfast_glycemia_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        tools:text="102"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item_afterbreakfast_tv"
+        app:layout_constraintStart_toStartOf="@+id/rv_item_afterbreakfast_tv"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_afterbreakfast_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_beforelunch_glycemia_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        tools:text="103"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item_beforelunch_tv"
+        app:layout_constraintStart_toStartOf="@+id/rv_item_beforelunch_tv"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_beforelunch_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_afterlunch_glycemia_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        tools:text="104"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item_afterlunch_tv"
+        app:layout_constraintStart_toStartOf="@+id/rv_item_afterlunch_tv"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_afterlunch_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_beforedinner_glycemia_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        tools:text="105"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item_beforedinner_tv"
+        app:layout_constraintStart_toStartOf="@+id/rv_item_beforedinner_tv"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_beforedinner_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_afterdinner_glycemia_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        tools:text="106"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item_afterdinner_tv"
+        app:layout_constraintStart_toStartOf="@+id/rv_item_afterdinner_tv"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_afterdinner_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_bedtime_glycemia_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="107"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_item_afterdinner_glycemia_tv"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item_bedtime_tv"
+        app:layout_constraintStart_toStartOf="@+id/rv_item_bedtime_tv" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="viewStart"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_beforebreakfast_glycemia_tv"
+        tools:text="Cardio: 20 min exercise bike\n Weight: 3 sessions 12 repetitions squats 10kg" />
+
+</android.support.constraint.ConstraintLayout>
