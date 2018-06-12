@@ -7,4 +7,14 @@
     <string name="bedtime">Bedtime</string>
     <string name="before">before</string>
     <string name="after">after</string>
+    <string name="insulin_injection">Insulin injection</string>
+    <string name="rapidinsulin">rapid</string>
+    <string name="longinsulin">long</string>
+    <string name="glycemia">Glycemia</string>
+    <string name="extra_injection">Extra injection</string>
+    <string name="enter_meal_description">enter meal description here</string>
+    <string name="workouts">Workouts</string>
+    <string name="enter_your_workout_here">Enter your workout here</string>
+    <string name="notes">Notes</string>
+    <string name="enter_your_notes_here">Enter your notes here</string>
 </resources>

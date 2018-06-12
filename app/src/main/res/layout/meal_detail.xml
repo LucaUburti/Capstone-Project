@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?><!-- INCLUDED BY activity_day_detail.xml -->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/meal_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:textSize="@dimen/title_size"
+        app:layout_constraintEnd_toEndOf="@+id/meal_description_et"
+        app:layout_constraintStart_toStartOf="@+id/meal_description_et"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Meal name" />
+
+    <EditText
+        android:id="@+id/meal_description_et"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textAlignment="viewStart"
+        android:textSize="@dimen/body_size"
+        app:layout_constraintBottom_toBottomOf="@+id/meal_extrarapid_injection_et"
+        app:layout_constraintEnd_toStartOf="@+id/meal_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meal_name"
+        android:inputType="textMultiLine"
+        android:hint="@string/enter_meal_description"/>
+
+
+
+    <TextView
+        android:id="@+id/meal_insulininjection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:text="@string/insulin_injection"
+        android:textSize="@dimen/body_size"
+        app:layout_constraintEnd_toStartOf="@+id/meal_glycemia_before"
+        app:layout_constraintStart_toStartOf="@+id/meal_guideline"
+        app:layout_constraintTop_toTopOf="@+id/meal_name" />
+
+    <TextView
+        android:id="@+id/meal_insulininjection_rapid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rapidinsulin"
+        android:textSize="@dimen/body_size"
+        app:layout_constraintStart_toStartOf="@+id/meal_insulininjection"
+        app:layout_constraintTop_toBottomOf="@+id/meal_insulininjection"
+        android:labelFor="@id/meal_rapid_injection_et"/>
+
+    <TextView
+        android:id="@+id/meal_insulininjection_long"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/longinsulin"
+        android:textSize="@dimen/body_size"
+        app:layout_constraintEnd_toEndOf="@+id/meal_insulininjection"
+        app:layout_constraintTop_toBottomOf="@+id/meal_insulininjection"
+        android:labelFor="@id/meal_long_injection_et"/>
+
+    <TextView
+        android:id="@+id/meal_glycemia_before"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+
+        android:text="@string/glycemia"
+        android:textAlignment="center"
+        android:textSize="@dimen/body_size"
+        app:layout_constraintBottom_toBottomOf="@+id/meal_insulininjection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/meal_insulininjection"
+        app:layout_constraintTop_toTopOf="@+id/meal_insulininjection" />
+
+
+    <TextView
+        android:id="@+id/meal_glycemia_before_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+android:labelFor="@id/meal_glycemia_before_et"
+        android:text="@string/before"
+        android:textAlignment="center"
+        android:textSize="@dimen/body_size"
+        app:layout_constraintEnd_toEndOf="@+id/meal_glycemia_before"
+        app:layout_constraintStart_toStartOf="@+id/meal_glycemia_before"
+        app:layout_constraintTop_toBottomOf="@+id/meal_glycemia_before" />
+
+
+    <EditText
+        android:id="@+id/meal_rapid_injection_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="3"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="@dimen/headline_size"
+        app:layout_constraintEnd_toEndOf="@+id/meal_insulininjection_rapid"
+        app:layout_constraintStart_toStartOf="@+id/meal_insulininjection_rapid"
+        app:layout_constraintTop_toBottomOf="@+id/meal_insulininjection_rapid" />
+
+    <EditText
+        android:id="@+id/meal_long_injection_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="3"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="@dimen/headline_size"
+        app:layout_constraintEnd_toEndOf="@+id/meal_insulininjection_long"
+        app:layout_constraintStart_toStartOf="@+id/meal_insulininjection_long"
+        app:layout_constraintTop_toBottomOf="@+id/meal_insulininjection_long" />
+
+    <EditText
+        android:id="@+id/meal_glycemia_before_et"
+        android:layout_width="51dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="3"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="@dimen/headline_size"
+        app:layout_constraintEnd_toEndOf="@+id/meal_glycemia_before"
+        app:layout_constraintStart_toStartOf="@+id/meal_glycemia_before"
+        app:layout_constraintTop_toBottomOf="@+id/meal_glycemia_before_text" />
+
+    <TextView
+        android:id="@+id/meal_extrainjection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/extra_injection"
+        android:textSize="@dimen/body_size"
+        app:layout_constraintEnd_toEndOf="@+id/meal_long_injection_et"
+        app:layout_constraintStart_toStartOf="@+id/meal_rapid_injection_et"
+        app:layout_constraintTop_toBottomOf="@+id/meal_rapid_injection_et" />
+
+    <TextView
+        android:id="@+id/meal_extrainjectionrapid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/rapidinsulin"
+        android:textSize="@dimen/body_size"
+        app:layout_constraintEnd_toEndOf="@+id/meal_extrainjection"
+        app:layout_constraintStart_toStartOf="@+id/meal_extrainjection"
+        app:layout_constraintTop_toBottomOf="@+id/meal_extrainjection"
+        android:labelFor="@id/meal_extrarapid_injection_et"/>
+
+    <EditText
+        android:id="@+id/meal_extrarapid_injection_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="3"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="@dimen/headline_size"
+        app:layout_constraintEnd_toEndOf="@+id/meal_extrainjectionrapid"
+        app:layout_constraintStart_toStartOf="@+id/meal_extrainjectionrapid"
+        app:layout_constraintTop_toBottomOf="@+id/meal_extrainjectionrapid" />
+
+
+    <TextView
+        android:id="@+id/meal_glycemia_after"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/glycemia"
+        android:textAlignment="center"
+        android:textSize="@dimen/body_size"
+        app:layout_constraintEnd_toEndOf="@+id/meal_glycemia_before_et"
+        app:layout_constraintStart_toStartOf="@+id/meal_glycemia_before_et"
+        app:layout_constraintTop_toBottomOf="@+id/meal_glycemia_before_et" />
+
+    <TextView
+        android:id="@+id/meal_glycemia_after_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/after"
+        android:textAlignment="center"
+        android:textSize="@dimen/body_size"
+        app:layout_constraintEnd_toEndOf="@+id/meal_glycemia_after"
+        app:layout_constraintStart_toStartOf="@+id/meal_glycemia_after"
+        app:layout_constraintTop_toBottomOf="@+id/meal_glycemia_after"
+        android:labelFor="@id/meal_glycemia_after_et"/>
+
+    <EditText
+        android:id="@+id/meal_glycemia_after_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="3"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="@dimen/headline_size"
+        app:layout_constraintEnd_toEndOf="@+id/meal_glycemia_after_text"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="@+id/meal_glycemia_after_text"
+        app:layout_constraintTop_toBottomOf="@+id/meal_glycemia_after_text" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/meal_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintGuide_percent="0.4" />
+</android.support.constraint.ConstraintLayout>
