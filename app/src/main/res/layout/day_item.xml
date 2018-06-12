@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/rv_item_date_tv"
@@ -37,9 +37,9 @@
         android:layout_marginStart="8dp"
         android:textSize="@dimen/headline_size"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/rv_item_warning_iv"
-        app:layout_constraintStart_toEndOf="@+id/rv_item_warning_iv"
-        app:layout_constraintTop_toTopOf="@+id/rv_item_warning_iv"
+        app:layout_constraintBottom_toBottomOf="@id/rv_item_warning_iv"
+        app:layout_constraintStart_toEndOf="@id/rv_item_warning_iv"
+        app:layout_constraintTop_toTopOf="@id/rv_item_warning_iv"
         tools:text="Warning message" />
 
     <TextView
@@ -51,9 +51,9 @@
         android:layout_marginTop="16dp"
         android:text="@string/breakfast"
         android:textSize="@dimen/headline_size"
-        app:layout_constraintEnd_toStartOf="@+id/rv_item_lunch_tv"
+        app:layout_constraintEnd_toStartOf="@id/rv_item_lunch_tv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_date_tv" />
+        app:layout_constraintTop_toBottomOf="@id/rv_item_date_tv" />
 
     <TextView
         android:id="@+id/rv_item_lunch_tv"
@@ -64,9 +64,9 @@
         android:layout_marginTop="16dp"
         android:text="@string/lunch"
         android:textSize="@dimen/headline_size"
-        app:layout_constraintEnd_toStartOf="@+id/rv_item_dinner_tv"
-        app:layout_constraintStart_toEndOf="@+id/rv_item_breakfast_tv"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_date_tv" />
+        app:layout_constraintEnd_toStartOf="@id/rv_item_dinner_tv"
+        app:layout_constraintStart_toEndOf="@id/rv_item_breakfast_tv"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_date_tv" />
 
     <TextView
         android:id="@+id/rv_item_dinner_tv"
@@ -77,9 +77,9 @@
         android:layout_marginTop="16dp"
         android:text="@string/dinner"
         android:textSize="@dimen/headline_size"
-        app:layout_constraintEnd_toStartOf="@+id/rv_item_bedtime_tv"
-        app:layout_constraintStart_toEndOf="@+id/rv_item_lunch_tv"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_date_tv" />
+        app:layout_constraintEnd_toStartOf="@id/rv_item_bedtime_tv"
+        app:layout_constraintStart_toEndOf="@id/rv_item_lunch_tv"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_date_tv" />
 
     <TextView
         android:id="@+id/rv_item_bedtime_tv"
@@ -91,8 +91,8 @@
         android:text="@string/bedtime"
         android:textSize="@dimen/headline_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/rv_item_afterdinner_tv"
-        app:layout_constraintTop_toTopOf="@+id/rv_item_dinner_tv" />
+        app:layout_constraintStart_toEndOf="@id/rv_item_afterdinner_tv"
+        app:layout_constraintTop_toTopOf="@id/rv_item_dinner_tv" />
 
     <TextView
         android:id="@+id/rv_item_beforebreakfast_tv"
@@ -102,9 +102,9 @@
         android:layout_marginStart="8dp"
         android:text="@string/before"
         android:textSize="@dimen/body_size"
-        app:layout_constraintEnd_toStartOf="@+id/rv_item_afterbreakfast_tv"
-        app:layout_constraintStart_toStartOf="@+id/rv_item_breakfast_tv"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_breakfast_tv" />
+        app:layout_constraintEnd_toStartOf="@id/rv_item_afterbreakfast_tv"
+        app:layout_constraintStart_toStartOf="@id/rv_item_breakfast_tv"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_breakfast_tv" />
 
     <TextView
         android:id="@+id/rv_item_beforelunch_tv"
@@ -114,9 +114,9 @@
         android:layout_marginStart="8dp"
         android:text="@string/before"
         android:textSize="@dimen/body_size"
-        app:layout_constraintEnd_toStartOf="@+id/rv_item_afterlunch_tv"
-        app:layout_constraintStart_toStartOf="@+id/rv_item_lunch_tv"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_lunch_tv" />
+        app:layout_constraintEnd_toStartOf="@id/rv_item_afterlunch_tv"
+        app:layout_constraintStart_toStartOf="@id/rv_item_lunch_tv"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_lunch_tv" />
 
     <TextView
         android:id="@+id/rv_item_beforedinner_tv"
@@ -126,9 +126,9 @@
         android:layout_marginStart="8dp"
         android:text="@string/before"
         android:textSize="@dimen/body_size"
-        app:layout_constraintEnd_toStartOf="@+id/rv_item_afterdinner_tv"
-        app:layout_constraintStart_toStartOf="@+id/rv_item_dinner_tv"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_dinner_tv" />
+        app:layout_constraintEnd_toStartOf="@id/rv_item_afterdinner_tv"
+        app:layout_constraintStart_toStartOf="@id/rv_item_dinner_tv"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_dinner_tv" />
 
     <TextView
         android:id="@+id/rv_item_afterbreakfast_tv"
@@ -137,9 +137,9 @@
         android:layout_marginEnd="8dp"
         android:text="@string/after"
         android:textSize="@dimen/body_size"
-        app:layout_constraintEnd_toEndOf="@+id/rv_item_breakfast_tv"
-        app:layout_constraintStart_toEndOf="@+id/rv_item_beforebreakfast_tv"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_breakfast_tv" />
+        app:layout_constraintEnd_toEndOf="@id/rv_item_breakfast_tv"
+        app:layout_constraintStart_toEndOf="@id/rv_item_beforebreakfast_tv"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_breakfast_tv" />
 
     <TextView
         android:id="@+id/rv_item_afterlunch_tv"
@@ -148,9 +148,9 @@
         android:layout_marginEnd="8dp"
         android:text="@string/after"
         android:textSize="@dimen/body_size"
-        app:layout_constraintEnd_toEndOf="@+id/rv_item_lunch_tv"
-        app:layout_constraintStart_toEndOf="@+id/rv_item_beforelunch_tv"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_lunch_tv" />
+        app:layout_constraintEnd_toEndOf="@id/rv_item_lunch_tv"
+        app:layout_constraintStart_toEndOf="@id/rv_item_beforelunch_tv"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_lunch_tv" />
 
     <TextView
         android:id="@+id/rv_item_afterdinner_tv"
@@ -159,9 +159,9 @@
         android:layout_marginEnd="8dp"
         android:text="@string/after"
         android:textSize="@dimen/body_size"
-        app:layout_constraintEnd_toEndOf="@+id/rv_item_dinner_tv"
-        app:layout_constraintStart_toEndOf="@+id/rv_item_beforedinner_tv"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_dinner_tv" />
+        app:layout_constraintEnd_toEndOf="@id/rv_item_dinner_tv"
+        app:layout_constraintStart_toEndOf="@id/rv_item_beforedinner_tv"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_dinner_tv" />
 
     <TextView
         android:id="@+id/rv_item_beforebreakfast_glycemia_tv"
@@ -171,9 +171,9 @@
         tools:text="101"
         android:textSize="@dimen/headline_size"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/rv_item_beforebreakfast_tv"
-        app:layout_constraintStart_toStartOf="@+id/rv_item_beforebreakfast_tv"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_beforebreakfast_tv" />
+        app:layout_constraintEnd_toEndOf="@id/rv_item_beforebreakfast_tv"
+        app:layout_constraintStart_toStartOf="@id/rv_item_beforebreakfast_tv"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_beforebreakfast_tv" />
 
     <TextView
         android:id="@+id/rv_item_afterbreakfast_glycemia_tv"
@@ -183,9 +183,9 @@
         tools:text="102"
         android:textSize="@dimen/headline_size"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/rv_item_afterbreakfast_tv"
-        app:layout_constraintStart_toStartOf="@+id/rv_item_afterbreakfast_tv"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_afterbreakfast_tv" />
+        app:layout_constraintEnd_toEndOf="@id/rv_item_afterbreakfast_tv"
+        app:layout_constraintStart_toStartOf="@id/rv_item_afterbreakfast_tv"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_afterbreakfast_tv" />
 
     <TextView
         android:id="@+id/rv_item_beforelunch_glycemia_tv"
@@ -195,9 +195,9 @@
         tools:text="103"
         android:textStyle="bold"
         android:textSize="@dimen/headline_size"
-        app:layout_constraintEnd_toEndOf="@+id/rv_item_beforelunch_tv"
-        app:layout_constraintStart_toStartOf="@+id/rv_item_beforelunch_tv"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_beforelunch_tv" />
+        app:layout_constraintEnd_toEndOf="@id/rv_item_beforelunch_tv"
+        app:layout_constraintStart_toStartOf="@id/rv_item_beforelunch_tv"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_beforelunch_tv" />
 
     <TextView
         android:id="@+id/rv_item_afterlunch_glycemia_tv"
@@ -207,9 +207,9 @@
         tools:text="104"
         android:textStyle="bold"
         android:textSize="@dimen/headline_size"
-        app:layout_constraintEnd_toEndOf="@+id/rv_item_afterlunch_tv"
-        app:layout_constraintStart_toStartOf="@+id/rv_item_afterlunch_tv"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_afterlunch_tv" />
+        app:layout_constraintEnd_toEndOf="@id/rv_item_afterlunch_tv"
+        app:layout_constraintStart_toStartOf="@id/rv_item_afterlunch_tv"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_afterlunch_tv" />
 
     <TextView
         android:id="@+id/rv_item_beforedinner_glycemia_tv"
@@ -219,9 +219,9 @@
         tools:text="105"
         android:textStyle="bold"
         android:textSize="@dimen/headline_size"
-        app:layout_constraintEnd_toEndOf="@+id/rv_item_beforedinner_tv"
-        app:layout_constraintStart_toStartOf="@+id/rv_item_beforedinner_tv"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_beforedinner_tv" />
+        app:layout_constraintEnd_toEndOf="@id/rv_item_beforedinner_tv"
+        app:layout_constraintStart_toStartOf="@id/rv_item_beforedinner_tv"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_beforedinner_tv" />
 
     <TextView
         android:id="@+id/rv_item_afterdinner_glycemia_tv"
@@ -231,9 +231,9 @@
         tools:text="106"
         android:textStyle="bold"
         android:textSize="@dimen/headline_size"
-        app:layout_constraintEnd_toEndOf="@+id/rv_item_afterdinner_tv"
-        app:layout_constraintStart_toStartOf="@+id/rv_item_afterdinner_tv"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_afterdinner_tv" />
+        app:layout_constraintEnd_toEndOf="@id/rv_item_afterdinner_tv"
+        app:layout_constraintStart_toStartOf="@id/rv_item_afterdinner_tv"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_afterdinner_tv" />
 
     <TextView
         android:id="@+id/rv_item_bedtime_glycemia_tv"
@@ -241,9 +241,9 @@
         android:layout_height="wrap_content"
         tools:text="107"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/rv_item_afterdinner_glycemia_tv"
-        app:layout_constraintEnd_toEndOf="@+id/rv_item_bedtime_tv"
-        app:layout_constraintStart_toStartOf="@+id/rv_item_bedtime_tv" />
+        app:layout_constraintBottom_toBottomOf="@id/rv_item_afterdinner_glycemia_tv"
+        app:layout_constraintEnd_toEndOf="@id/rv_item_bedtime_tv"
+        app:layout_constraintStart_toStartOf="@id/rv_item_bedtime_tv" />
 
     <TextView
         android:id="@+id/rv_item_workout"
@@ -256,7 +256,7 @@
         android:textSize="@dimen/body_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_beforebreakfast_glycemia_tv"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_beforebreakfast_glycemia_tv"
         tools:text="Cardio: 20 min exercise bike\n Weight: 3 sessions 12 repetitions squats 10kg" />
 
 </android.support.constraint.ConstraintLayout>
