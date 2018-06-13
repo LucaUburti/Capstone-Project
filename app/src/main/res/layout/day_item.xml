@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:id="@+id/day_item_cl">
 
     <TextView
         android:id="@+id/rv_item_date_tv"
@@ -47,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:text="@string/breakfast"
         android:textSize="@dimen/headline_size"
@@ -241,6 +242,7 @@
         android:layout_height="wrap_content"
         tools:text="107"
         android:textStyle="bold"
+        android:textSize="@dimen/headline_size"
         app:layout_constraintBottom_toBottomOf="@id/rv_item_afterdinner_glycemia_tv"
         app:layout_constraintEnd_toEndOf="@id/rv_item_bedtime_tv"
         app:layout_constraintStart_toStartOf="@id/rv_item_bedtime_tv" />
@@ -249,11 +251,13 @@
         android:id="@+id/rv_item_workout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:textAlignment="viewStart"
         android:textSize="@dimen/body_size"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rv_item_beforebreakfast_glycemia_tv"

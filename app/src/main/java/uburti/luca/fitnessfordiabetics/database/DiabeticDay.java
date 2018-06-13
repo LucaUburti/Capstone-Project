@@ -1,10 +1,14 @@
 package uburti.luca.fitnessfordiabetics.database;
 
-import java.util.Date;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 
+@Entity
 public class DiabeticDay {
+    @PrimaryKey(autoGenerate = true)
     private int id;
-    private Date date;
+    private long date;
 
     private String breakfast;
     private int breakfastInjectionRapid;
@@ -30,37 +34,21 @@ public class DiabeticDay {
     private int bedtimeInjectionRapidExtra;
     private int glycemiaBedtime;
 
-    private String Workouts;
-    private String Notes;
+    private String workouts;
+    private String notes;
 
-    public DiabeticDay(int id, Date date, String breakfast, int breakfastInjectionRapid, int breakfastInjectionLong, int breakfastInjectionRapidExtra, int glycemiaBeforeBreakfast, int glycemiaAfterBreakfast, String lunch, int lunchInjectionRapid, int lunchInjectionLong, int lunchInjectionRapidExtra, int glycemiaBeforeLunch, int glycemiaAfterLunch, String dinner, int dinnerInjectionRapid, int dinnerInjectionLong, int dinnerInjectionRapidExtra, int glycemiaBeforeDinner, int glycemiaAfterDinner, int bedtimeInjectionRapidExtra, int glycemiaBedtime, String workouts, String notes) {
-        this.id = id;
-        this.date = date;
-        this.breakfast = breakfast;
-        this.breakfastInjectionRapid = breakfastInjectionRapid;
-        this.breakfastInjectionLong = breakfastInjectionLong;
-        this.breakfastInjectionRapidExtra = breakfastInjectionRapidExtra;
-        this.glycemiaBeforeBreakfast = glycemiaBeforeBreakfast;
-        this.glycemiaAfterBreakfast = glycemiaAfterBreakfast;
-        this.lunch = lunch;
-        this.lunchInjectionRapid = lunchInjectionRapid;
-        this.lunchInjectionLong = lunchInjectionLong;
-        this.lunchInjectionRapidExtra = lunchInjectionRapidExtra;
-        this.glycemiaBeforeLunch = glycemiaBeforeLunch;
-        this.glycemiaAfterLunch = glycemiaAfterLunch;
-        this.dinner = dinner;
-        this.dinnerInjectionRapid = dinnerInjectionRapid;
-        this.dinnerInjectionLong = dinnerInjectionLong;
-        this.dinnerInjectionRapidExtra = dinnerInjectionRapidExtra;
-        this.glycemiaBeforeDinner = glycemiaBeforeDinner;
-        this.glycemiaAfterDinner = glycemiaAfterDinner;
-        this.bedtimeInjectionRapidExtra = bedtimeInjectionRapidExtra;
-        this.glycemiaBedtime = glycemiaBedtime;
-        Workouts = workouts;
-        Notes = notes;
+    public boolean isBlankDay() {
+        return blankDay;
     }
 
-    public DiabeticDay(Date date, String breakfast, int breakfastInjectionRapid, int breakfastInjectionLong, int breakfastInjectionRapidExtra, int glycemiaBeforeBreakfast, int glycemiaAfterBreakfast, String lunch, int lunchInjectionRapid, int lunchInjectionLong, int lunchInjectionRapidExtra, int glycemiaBeforeLunch, int glycemiaAfterLunch, String dinner, int dinnerInjectionRapid, int dinnerInjectionLong, int dinnerInjectionRapidExtra, int glycemiaBeforeDinner, int glycemiaAfterDinner, int bedtimeInjectionRapidExtra, int glycemiaBedtime, String workouts, String notes) {
+    public void setBlankDay(boolean blankDay) {
+        this.blankDay = blankDay;
+    }
+
+    @Ignore
+    private boolean blankDay=false;
+
+    public DiabeticDay(int id, long date, String breakfast, int breakfastInjectionRapid, int breakfastInjectionLong, int breakfastInjectionRapidExtra, int glycemiaBeforeBreakfast, int glycemiaAfterBreakfast, String lunch, int lunchInjectionRapid, int lunchInjectionLong, int lunchInjectionRapidExtra, int glycemiaBeforeLunch, int glycemiaAfterLunch, String dinner, int dinnerInjectionRapid, int dinnerInjectionLong, int dinnerInjectionRapidExtra, int glycemiaBeforeDinner, int glycemiaAfterDinner, int bedtimeInjectionRapidExtra, int glycemiaBedtime, String workouts, String notes) {
         this.id = id;
         this.date = date;
         this.breakfast = breakfast;
@@ -83,15 +71,49 @@ public class DiabeticDay {
         this.glycemiaAfterDinner = glycemiaAfterDinner;
         this.bedtimeInjectionRapidExtra = bedtimeInjectionRapidExtra;
         this.glycemiaBedtime = glycemiaBedtime;
-        Workouts = workouts;
-        Notes = notes;
+        this.workouts = workouts;
+        this.notes = notes;
+    }
+
+    @Ignore
+    public DiabeticDay(long date, boolean blankDay) {
+        this.date = date;
+        this.blankDay = blankDay;
+    }
+
+    @Ignore
+    public DiabeticDay(long date, String breakfast, int breakfastInjectionRapid, int breakfastInjectionLong, int breakfastInjectionRapidExtra, int glycemiaBeforeBreakfast, int glycemiaAfterBreakfast, String lunch, int lunchInjectionRapid, int lunchInjectionLong, int lunchInjectionRapidExtra, int glycemiaBeforeLunch, int glycemiaAfterLunch, String dinner, int dinnerInjectionRapid, int dinnerInjectionLong, int dinnerInjectionRapidExtra, int glycemiaBeforeDinner, int glycemiaAfterDinner, int bedtimeInjectionRapidExtra, int glycemiaBedtime, String workouts, String notes) {
+//        this.id = id;
+        this.date = date;
+        this.breakfast = breakfast;
+        this.breakfastInjectionRapid = breakfastInjectionRapid;
+        this.breakfastInjectionLong = breakfastInjectionLong;
+        this.breakfastInjectionRapidExtra = breakfastInjectionRapidExtra;
+        this.glycemiaBeforeBreakfast = glycemiaBeforeBreakfast;
+        this.glycemiaAfterBreakfast = glycemiaAfterBreakfast;
+        this.lunch = lunch;
+        this.lunchInjectionRapid = lunchInjectionRapid;
+        this.lunchInjectionLong = lunchInjectionLong;
+        this.lunchInjectionRapidExtra = lunchInjectionRapidExtra;
+        this.glycemiaBeforeLunch = glycemiaBeforeLunch;
+        this.glycemiaAfterLunch = glycemiaAfterLunch;
+        this.dinner = dinner;
+        this.dinnerInjectionRapid = dinnerInjectionRapid;
+        this.dinnerInjectionLong = dinnerInjectionLong;
+        this.dinnerInjectionRapidExtra = dinnerInjectionRapidExtra;
+        this.glycemiaBeforeDinner = glycemiaBeforeDinner;
+        this.glycemiaAfterDinner = glycemiaAfterDinner;
+        this.bedtimeInjectionRapidExtra = bedtimeInjectionRapidExtra;
+        this.glycemiaBedtime = glycemiaBedtime;
+        this.workouts = workouts;
+        this.notes = notes;
     }
 
     public int getId() {
         return id;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
@@ -176,10 +198,106 @@ public class DiabeticDay {
     }
 
     public String getWorkouts() {
-        return Workouts;
+        return workouts;
     }
 
     public String getNotes() {
-        return Notes;
+        return notes;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
+
+    public void setBreakfast(String breakfast) {
+        this.breakfast = breakfast;
+    }
+
+    public void setBreakfastInjectionRapid(int breakfastInjectionRapid) {
+        this.breakfastInjectionRapid = breakfastInjectionRapid;
+    }
+
+    public void setBreakfastInjectionLong(int breakfastInjectionLong) {
+        this.breakfastInjectionLong = breakfastInjectionLong;
+    }
+
+    public void setBreakfastInjectionRapidExtra(int breakfastInjectionRapidExtra) {
+        this.breakfastInjectionRapidExtra = breakfastInjectionRapidExtra;
+    }
+
+    public void setGlycemiaBeforeBreakfast(int glycemiaBeforeBreakfast) {
+        this.glycemiaBeforeBreakfast = glycemiaBeforeBreakfast;
+    }
+
+    public void setGlycemiaAfterBreakfast(int glycemiaAfterBreakfast) {
+        this.glycemiaAfterBreakfast = glycemiaAfterBreakfast;
+    }
+
+    public void setLunch(String lunch) {
+        this.lunch = lunch;
+    }
+
+    public void setLunchInjectionRapid(int lunchInjectionRapid) {
+        this.lunchInjectionRapid = lunchInjectionRapid;
+    }
+
+    public void setLunchInjectionLong(int lunchInjectionLong) {
+        this.lunchInjectionLong = lunchInjectionLong;
+    }
+
+    public void setLunchInjectionRapidExtra(int lunchInjectionRapidExtra) {
+        this.lunchInjectionRapidExtra = lunchInjectionRapidExtra;
+    }
+
+    public void setGlycemiaBeforeLunch(int glycemiaBeforeLunch) {
+        this.glycemiaBeforeLunch = glycemiaBeforeLunch;
+    }
+
+    public void setGlycemiaAfterLunch(int glycemiaAfterLunch) {
+        this.glycemiaAfterLunch = glycemiaAfterLunch;
+    }
+
+    public void setDinner(String dinner) {
+        this.dinner = dinner;
+    }
+
+    public void setDinnerInjectionRapid(int dinnerInjectionRapid) {
+        this.dinnerInjectionRapid = dinnerInjectionRapid;
+    }
+
+    public void setDinnerInjectionLong(int dinnerInjectionLong) {
+        this.dinnerInjectionLong = dinnerInjectionLong;
+    }
+
+    public void setDinnerInjectionRapidExtra(int dinnerInjectionRapidExtra) {
+        this.dinnerInjectionRapidExtra = dinnerInjectionRapidExtra;
+    }
+
+    public void setGlycemiaBeforeDinner(int glycemiaBeforeDinner) {
+        this.glycemiaBeforeDinner = glycemiaBeforeDinner;
+    }
+
+    public void setGlycemiaAfterDinner(int glycemiaAfterDinner) {
+        this.glycemiaAfterDinner = glycemiaAfterDinner;
+    }
+
+    public void setBedtimeInjectionRapidExtra(int bedtimeInjectionRapidExtra) {
+        this.bedtimeInjectionRapidExtra = bedtimeInjectionRapidExtra;
+    }
+
+    public void setGlycemiaBedtime(int glycemiaBedtime) {
+        this.glycemiaBedtime = glycemiaBedtime;
+    }
+
+    public void setWorkouts(String workouts) {
+        this.workouts = workouts;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }
