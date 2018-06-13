@@ -1,5 +1,6 @@
 package uburti.luca.fitnessfordiabetics.database;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -14,10 +15,13 @@ import java.util.List;
 public interface DayDao {
 
     @Query("SELECT * FROM DiabeticDay ORDER BY date")
-    List<DiabeticDay> loadAllDays();
+    LiveData<List<DiabeticDay>> loadAllDays();
 
     @Query("SELECT * FROM DiabeticDay WHERE date >= :startDate")
-    List<DiabeticDay>  loadDaysStartingFrom(int startDate);
+    LiveData<List<DiabeticDay>>  loadDaysStartingFrom(int startDate);
+
+    @Query("SELECT * FROM DiabeticDay WHERE id = :dayId")
+    LiveData<DiabeticDay>  loadDay(int dayId);
 
     @Insert()
     void insertDay(DiabeticDay diabeticDay);
