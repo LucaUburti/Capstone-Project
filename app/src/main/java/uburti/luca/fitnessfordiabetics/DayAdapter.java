@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,16 +18,16 @@ import butterknife.ButterKnife;
 import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
 
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
-    List<DiabeticDay> diabeticDays;
-    Context context;
+    private List<DiabeticDay> diabeticDays;
+    private Context context;
 
     private final DayClickHandler dayClickHandler;
 
     public interface DayClickHandler {
-        void onDayClicked(int clickedItemIndex);
+        void onDayClicked(int dayId, long date);
     }
 
-    public DayAdapter(List<DiabeticDay> diabeticDays, Context context, DayClickHandler dayClickHandler) {
+    DayAdapter(List<DiabeticDay> diabeticDays, Context context, DayClickHandler dayClickHandler) {
         this.diabeticDays = diabeticDays;
         this.context = context;
         this.dayClickHandler = dayClickHandler;
@@ -44,11 +43,11 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull DayAdapter.DayViewHolder holder, int position) {
         DiabeticDay diabeticDay = diabeticDays.get(position);
-        long dateInMillis= diabeticDay.getDate();
-        int flags= DateUtils.FORMAT_SHOW_DATE|DateUtils.FORMAT_SHOW_YEAR;
+        long dateInMillis = diabeticDay.getDate();
+        int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR;
         String date = DateUtils.formatDateTime(context, dateInMillis, flags);
 
-        if (diabeticDay.isBlankDay()){
+        if (diabeticDay.isBlankDay()) {
             holder.dateTv.setText(date);    //no data in DB, just populate the mock day with the date
             holder.dayItemCl.setBackgroundColor(Color.parseColor(context.getString(R.string.blank_day_bg)));
             holder.beforeBreakfastGlycemiaTv.setText("");
@@ -102,7 +101,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         @BindView(R.id.rv_item_workout)
         TextView workoutTv;
 
-        public DayViewHolder(View itemView) {
+        DayViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
@@ -111,9 +110,10 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         @Override
         public void onClick(View v) {
             DiabeticDay diabeticDay = diabeticDays.get(getAdapterPosition());
-            int dayId=diabeticDay.getId();
+            int dayId = diabeticDay.getId();
+            long date = diabeticDay.getDate();
 
-            dayClickHandler.onDayClicked(dayId);
+            dayClickHandler.onDayClicked(dayId, date);
         }
     }
 }

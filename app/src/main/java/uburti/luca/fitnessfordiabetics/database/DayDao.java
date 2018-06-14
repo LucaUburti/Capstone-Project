@@ -17,8 +17,8 @@ public interface DayDao {
     @Query("SELECT * FROM DiabeticDay ORDER BY date")
     LiveData<List<DiabeticDay>> loadAllDays();
 
-    @Query("SELECT * FROM DiabeticDay WHERE date >= :startDate")
-    LiveData<List<DiabeticDay>>  loadDaysStartingFrom(int startDate);
+    @Query("SELECT * FROM DiabeticDay WHERE date >= :startDate ORDER BY date")
+    LiveData<List<DiabeticDay>>  loadDaysStartingFrom(long startDate);
 
     @Query("SELECT * FROM DiabeticDay WHERE id = :dayId")
     LiveData<DiabeticDay>  loadDay(int dayId);

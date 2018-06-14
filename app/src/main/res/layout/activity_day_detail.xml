@@ -11,13 +11,12 @@
     android:layout_height="wrap_content">
 
 
-
         <TextView
             android:id="@+id/detail_date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:textSize="@dimen/title_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,12 +28,12 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:background="@color/colorAccent"
             android:contentDescription="@string/warning"
+            app:layout_constraintBottom_toBottomOf="@+id/detail_date_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/detail_date_tv"
             app:srcCompat="@android:drawable/stat_sys_warning" />
 
         <TextView
@@ -60,7 +59,7 @@
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_warning_iv" />
+            app:layout_constraintTop_toBottomOf="@+id/detail_date_tv" />
 
         <include
             android:id="@+id/breakfast_detail"
