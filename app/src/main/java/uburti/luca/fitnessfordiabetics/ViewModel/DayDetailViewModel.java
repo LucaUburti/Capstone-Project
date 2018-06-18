@@ -14,19 +14,11 @@ import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
 
 
 public class DayDetailViewModel extends ViewModel {
-    private LiveData<DiabeticDay> diabeticDay;
     public boolean unsavedChanges;
     public DiabeticDay tempDiabeticDay; //for storing editexts contents on rotations
 
     public DayDetailViewModel() {
     }
 
-    public DayDetailViewModel(AppDatabase appDatabase, int dayId) {
-        diabeticDay = appDatabase.dayDao().loadDay(dayId);
-        Log.d("DayDetailViewModel", "querying DB for dayId: " + dayId);
-    }
 
-    public LiveData<DiabeticDay> getDiabeticDay() {
-        return diabeticDay;
-    }
 }

@@ -20,4 +20,9 @@
     <string name="blank_day_bg">#bbbbbb</string>
     <string name="edited_day_bg">#ffffff</string>
     <string name="save_changes">Save changes</string>
+    <string name="unsaved_changes">Unsaved changes</string>
+    <string name="stay_on_this_page">Stay on this page</string>
+    <string name="discard_changes">Discard changes</string>
+    <string name="error_saving_to_the_db">Error saving to the DB!</string>
+    <string name="please_insert_a_valid_number">The number you typed is probably incorrect. Please insert a valid number.</string>
 </resources>

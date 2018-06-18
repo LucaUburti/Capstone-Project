@@ -1,111 +1,118 @@
 package uburti.luca.fitnessfordiabetics.utils;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import uburti.luca.fitnessfordiabetics.DayDetail;
+import java.text.DateFormat;
+import java.util.Date;
+
 import uburti.luca.fitnessfordiabetics.R;
 import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
 
 public class Utils {
 
 
-
-    public static void setTempDiabeticDay(DiabeticDay tempDiabeticDay, EditText editText, long date) {
-        tempDiabeticDay.setDate(date);
+    public static void setTempDiabeticDay(DiabeticDay tempDiabeticDay, EditText editText, Context context) {
         int parentId = ((ViewGroup) editText.getParent()).getId();
         int editTextId = editText.getId();
+        String inputText = editText.getText().toString();
         switch (parentId) {
             case R.id.breakfast_detail:
+                Log.d("Utils", "parent is breakfast_detail");
                 switch (editTextId) {
                     case R.id.meal_description_et:
-                        tempDiabeticDay.setBreakfast(editText.getText().toString());
+                        tempDiabeticDay.setBreakfast(inputText);
                         break;
                     case R.id.meal_rapid_injection_et:
-                        tempDiabeticDay.setBreakfastInjectionRapid(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setBreakfastInjectionRapid(valueOfStringWithInputCheck(inputText));
                         break;
                     case R.id.meal_long_injection_et:
-                        tempDiabeticDay.setBreakfastInjectionLong(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setBreakfastInjectionLong(valueOfStringWithInputCheck(inputText));
                         break;
                     case R.id.meal_glycemia_before_et:
-                        tempDiabeticDay.setGlycemiaBeforeBreakfast(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setGlycemiaBeforeBreakfast(valueOfStringWithInputCheck(inputText));
                         break;
                     case R.id.meal_extrarapid_injection_et:
-                        tempDiabeticDay.setBreakfastInjectionRapidExtra(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setBreakfastInjectionRapidExtra(valueOfStringWithInputCheck(inputText));
                         break;
                     case R.id.meal_glycemia_after_et:
-                        tempDiabeticDay.setGlycemiaAfterBreakfast(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setGlycemiaAfterBreakfast(valueOfStringWithInputCheck(inputText));
                         break;
                 }
                 break;
             case R.id.lunch_detail:
+                Log.d("Utils", "parent is lunch_detail");
                 switch (editTextId) {
                     case R.id.meal_description_et:
-                        tempDiabeticDay.setLunch(editText.getText().toString());
+                        tempDiabeticDay.setLunch(inputText);
                         break;
                     case R.id.meal_rapid_injection_et:
-                        tempDiabeticDay.setLunchInjectionRapid(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setLunchInjectionRapid(valueOfStringWithInputCheck(inputText));
                         break;
                     case R.id.meal_long_injection_et:
-                        tempDiabeticDay.setLunchInjectionLong(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setLunchInjectionLong(valueOfStringWithInputCheck(inputText));
                         break;
                     case R.id.meal_glycemia_before_et:
-                        tempDiabeticDay.setGlycemiaBeforeLunch(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setGlycemiaBeforeLunch(valueOfStringWithInputCheck(inputText));
                         break;
                     case R.id.meal_extrarapid_injection_et:
-                        tempDiabeticDay.setLunchInjectionRapidExtra(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setLunchInjectionRapidExtra(valueOfStringWithInputCheck(inputText));
                         break;
                     case R.id.meal_glycemia_after_et:
-                        tempDiabeticDay.setGlycemiaAfterLunch(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setGlycemiaAfterLunch(valueOfStringWithInputCheck(inputText));
                         break;
                 }
                 break;
             case R.id.dinner_detail:
+                Log.d("Utils", "parent is dinner_detail");
                 switch (editTextId) {
                     case R.id.meal_description_et:
-                        tempDiabeticDay.setDinner(editText.getText().toString());
+                        tempDiabeticDay.setDinner(inputText);
                         break;
                     case R.id.meal_rapid_injection_et:
-                        tempDiabeticDay.setDinnerInjectionRapid(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setDinnerInjectionRapid(valueOfStringWithInputCheck(inputText));
                         break;
                     case R.id.meal_long_injection_et:
-                        tempDiabeticDay.setDinnerInjectionLong(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setDinnerInjectionLong(valueOfStringWithInputCheck(inputText));
                         break;
                     case R.id.meal_glycemia_before_et:
-                        tempDiabeticDay.setGlycemiaBeforeDinner(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setGlycemiaBeforeDinner(valueOfStringWithInputCheck(inputText));
                         break;
                     case R.id.meal_extrarapid_injection_et:
-                        tempDiabeticDay.setDinnerInjectionRapidExtra(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setDinnerInjectionRapidExtra(valueOfStringWithInputCheck(inputText));
                         break;
                     case R.id.meal_glycemia_after_et:
-                        tempDiabeticDay.setGlycemiaAfterDinner(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setGlycemiaAfterDinner(valueOfStringWithInputCheck(inputText));
                         break;
                 }
                 break;
             case R.id.bedtime_detail:
+                Log.d("Utils", "parent is bedtime_detail");
                 switch (editTextId) {
                     case R.id.detail_bedtime_extrarapid_injected_et:
-                        tempDiabeticDay.setBedtimeInjectionRapidExtra(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setBedtimeInjectionRapidExtra(valueOfStringWithInputCheck(inputText));
                         break;
                     case R.id.detail_bedtime_glycemia_et:
-                        tempDiabeticDay.setGlycemiaBedtime(Integer.parseInt(editText.getText().toString()));
+                        tempDiabeticDay.setGlycemiaBedtime(valueOfStringWithInputCheck(inputText));
                         break;
                 }
                 break;
 
             case R.id.activity_day_detail_cl:
+                Log.d("Utils", "parent is activity_day_detail_cl");
                 switch (editTextId) {
                     case R.id.detail_workout_et:
-                        tempDiabeticDay.setWorkouts(editText.getText().toString());
+                        tempDiabeticDay.setWorkouts(inputText);
                         break;
                     case R.id.detail_notes_et:
-                        tempDiabeticDay.setNotes(editText.getText().toString());
+                        tempDiabeticDay.setNotes(inputText);
                         break;
                 }
+                break;
             default:
-                Log.d("Utils", "updateTempDiabeticDay: view id to be saved not found");
+                Log.d("Utils", "updateTempDiabeticDay: view id to be saved not found. Parent: " + context.getResources().getResourceEntryName(parentId) + " item: " + context.getResources().getResourceEntryName(editTextId));
                 break;
 
         }
@@ -113,7 +120,28 @@ public class Utils {
 
     }
 
-    public static String valueOfWithoutZero(int i) { //if value is 0 returns an empty string instead
+    public static String valueOfIntWithoutZero(int i) { //if value is 0 returns an empty string instead
         return i == 0 ? "" : String.valueOf(i);
+    }
+
+    public static int valueOfStringWithInputCheck(String s) { //if value is 0 returns an empty string instead
+        int i;
+
+        if (s.equals("")) {
+            Log.d("Utils", "valueOfStringWithInputCheck: handling empty String as 0");
+            i = 0;
+        } else {
+            i = Integer.parseInt(s);
+            if (i > 999) {
+                Log.d("Utils", "valueOfStringWithInputCheck: number too big");
+                throw new NumberFormatException();
+            }
+        }
+
+        return i;
+    }
+
+    public static String getReadableDate(long dateToBeChecked) {
+        return DateFormat.getDateInstance(DateFormat.LONG).format(new Date(dateToBeChecked));
     }
 }

@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
+import uburti.luca.fitnessfordiabetics.utils.Utils;
 
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
     private List<DiabeticDay> diabeticDays;
@@ -24,7 +24,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
     private final DayClickHandler dayClickHandler;
 
     public interface DayClickHandler {
-        void onDayClicked(int dayId, long date);
+        void onDayClicked(long dayId, long date);
     }
 
     DayAdapter(List<DiabeticDay> diabeticDays, Context context, DayClickHandler dayClickHandler) {
@@ -43,10 +43,10 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull DayAdapter.DayViewHolder holder, int position) {
         DiabeticDay diabeticDay = diabeticDays.get(position);
-        String date = MainActivity.getReadableDate(diabeticDay.getDate());
+        String date = Utils.getReadableDate(diabeticDay.getDate());
 
         if (diabeticDay.isBlankDay()) {
-            holder.dateTv.setText(date);    //no data in DB, just populate the mock day with the date
+            holder.dateTv.setText(date);    //no data in DB, just populate the mock day with the dateFromBundle
             holder.dayItemCl.setBackgroundColor(Color.parseColor(context.getString(R.string.blank_day_bg)));
             holder.beforeBreakfastGlycemiaTv.setText("");
             holder.afterBreakfastGlycemiaTv.setText("");
@@ -108,7 +108,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         @Override
         public void onClick(View v) {
             DiabeticDay diabeticDay = diabeticDays.get(getAdapterPosition());
-            int dayId = diabeticDay.getId();
+            long dayId = diabeticDay.getDayId();
             long date = diabeticDay.getDate();
 
             dayClickHandler.onDayClicked(dayId, date);

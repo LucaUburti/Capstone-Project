@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity
 public class DiabeticDay {
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long dayId;
     private long date;
 
     private String breakfast;
@@ -48,8 +48,8 @@ public class DiabeticDay {
     @Ignore
     private boolean blankDay=false;
 
-    public DiabeticDay(int id, long date, String breakfast, int breakfastInjectionRapid, int breakfastInjectionLong, int breakfastInjectionRapidExtra, int glycemiaBeforeBreakfast, int glycemiaAfterBreakfast, String lunch, int lunchInjectionRapid, int lunchInjectionLong, int lunchInjectionRapidExtra, int glycemiaBeforeLunch, int glycemiaAfterLunch, String dinner, int dinnerInjectionRapid, int dinnerInjectionLong, int dinnerInjectionRapidExtra, int glycemiaBeforeDinner, int glycemiaAfterDinner, int bedtimeInjectionRapidExtra, int glycemiaBedtime, String workouts, String notes) {
-        this.id = id;
+    public DiabeticDay(long dayId, long date, String breakfast, int breakfastInjectionRapid, int breakfastInjectionLong, int breakfastInjectionRapidExtra, int glycemiaBeforeBreakfast, int glycemiaAfterBreakfast, String lunch, int lunchInjectionRapid, int lunchInjectionLong, int lunchInjectionRapidExtra, int glycemiaBeforeLunch, int glycemiaAfterLunch, String dinner, int dinnerInjectionRapid, int dinnerInjectionLong, int dinnerInjectionRapidExtra, int glycemiaBeforeDinner, int glycemiaAfterDinner, int bedtimeInjectionRapidExtra, int glycemiaBedtime, String workouts, String notes) {
+        this.dayId = dayId;
         this.date = date;
         this.breakfast = breakfast;
         this.breakfastInjectionRapid = breakfastInjectionRapid;
@@ -87,7 +87,6 @@ public class DiabeticDay {
 
     @Ignore
     public DiabeticDay(long date, String breakfast, int breakfastInjectionRapid, int breakfastInjectionLong, int breakfastInjectionRapidExtra, int glycemiaBeforeBreakfast, int glycemiaAfterBreakfast, String lunch, int lunchInjectionRapid, int lunchInjectionLong, int lunchInjectionRapidExtra, int glycemiaBeforeLunch, int glycemiaAfterLunch, String dinner, int dinnerInjectionRapid, int dinnerInjectionLong, int dinnerInjectionRapidExtra, int glycemiaBeforeDinner, int glycemiaAfterDinner, int bedtimeInjectionRapidExtra, int glycemiaBedtime, String workouts, String notes) {
-//        this.id = id;
         this.date = date;
         this.breakfast = breakfast;
         this.breakfastInjectionRapid = breakfastInjectionRapid;
@@ -113,8 +112,8 @@ public class DiabeticDay {
         this.notes = notes;
     }
 
-    public int getId() {
-        return id;
+    public long getDayId() {
+        return dayId;
     }
 
     public long getDate() {
@@ -209,8 +208,8 @@ public class DiabeticDay {
         return notes;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDayId(long dayId) {
+        this.dayId = dayId;
     }
 
     public void setDate(long date) {

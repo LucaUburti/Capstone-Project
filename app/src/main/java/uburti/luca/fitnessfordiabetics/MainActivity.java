@@ -11,10 +11,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -23,6 +21,9 @@ import uburti.luca.fitnessfordiabetics.ViewModel.MainActivityViewModel;
 import uburti.luca.fitnessfordiabetics.ViewModel.MainActivityViewModelFactory;
 import uburti.luca.fitnessfordiabetics.database.AppDatabase;
 import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
+import uburti.luca.fitnessfordiabetics.utils.Utils;
+
+import static uburti.luca.fitnessfordiabetics.utils.Utils.getReadableDate;
 
 public class MainActivity extends AppCompatActivity implements DayAdapter.DayClickHandler {
     public static final String DAY_ID_EXTRA = "DAY_ID";
@@ -65,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
     }
 
     private void populateUI(List<DiabeticDay> diabeticDays) {
+        for (DiabeticDay dd : diabeticDays) {
+            Log.d("MainActivity", "populateUI: dateFromBundle " + getReadableDate(dd.getDate()) + " id " + dd.getDayId());
+        }
         //diabeticDays.add(new DiabeticDay(cal.getTimeInMillis(), "Meal: 1 slice bread, 100gr red meat, 50gr broccoli", 6, 0, 0, 80, 130, "Meal: 1 slice bread, 100gr red meat, 50gr broccoli", 10, 0, 0, 93, 143, "Meal: 1 slice bread, 100gr red meat, 50gr broccoli", 8, 13, 1, 85, 200, 0, 140, "Cardio: 20 min excercise bike\nWeight: 3 session 12 repetitions squats 10kg", "extra snack before dinner"));
         List<Long> retrievedDates = new ArrayList<>();
         for (int i = 0; i < diabeticDays.size(); i++) {
@@ -80,7 +84,9 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
             long dateToBeChecked = cal.getTimeInMillis();
             if (!retrievedDates.contains(dateToBeChecked)) { //no data for this day in the Db
                 diabeticDays.add(i, new DiabeticDay(dateToBeChecked, true)); //add mock day to the list
-                Log.d("MainActivity", "Adding mock day: no info found for day " + getReadableDate(dateToBeChecked));
+                Log.d("MainActivity", "Adding mock day at position: " + i + ", no info found for day " + getReadableDate(dateToBeChecked));
+            } else {
+                Log.d("MainActivity", "Day at position: " + i + " unchanged. List already has info for day " + getReadableDate(dateToBeChecked));
             }
             cal.add(Calendar.DATE, -1);
         }
@@ -91,8 +97,8 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
 
 
     @Override
-    public void onDayClicked(int dayId, long date) {
-        Log.d("MainActivity", "onDayClicked dayId: " + dayId + " date: " + getReadableDate(date));
+    public void onDayClicked(long dayId, long date) {
+        Log.d("MainActivity", "onDayClicked dayIdFromBundle: " + dayId + " dateFromBundle: " + getReadableDate(date));
         Intent intent = new Intent(MainActivity.this, DayDetail.class);
         intent.putExtra(DAY_ID_EXTRA, dayId);
         intent.putExtra(DATE_EXTRA, date);
@@ -100,8 +106,5 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
 
     }
 
-    public static String getReadableDate(long dateToBeChecked) {
-        return DateFormat.getDateInstance(DateFormat.LONG).format(new Date(dateToBeChecked));
-    }
 }
 

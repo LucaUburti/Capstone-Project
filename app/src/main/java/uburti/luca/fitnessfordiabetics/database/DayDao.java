@@ -17,14 +17,14 @@ public interface DayDao {
     @Query("SELECT * FROM DiabeticDay ORDER BY date")
     LiveData<List<DiabeticDay>> loadAllDays();
 
-    @Query("SELECT * FROM DiabeticDay WHERE date >= :startDate ORDER BY date")
+    @Query("SELECT * FROM DiabeticDay WHERE date >= :startDate ORDER BY date DESC")
     LiveData<List<DiabeticDay>>  loadDaysStartingFrom(long startDate);
 
-    @Query("SELECT * FROM DiabeticDay WHERE id = :dayId")
-    LiveData<DiabeticDay>  loadDay(int dayId);
+    @Query("SELECT * FROM DiabeticDay WHERE dayId = :dayId")
+    LiveData<DiabeticDay>  loadDay(long dayId);
 
     @Insert()
-    void insertDay(DiabeticDay diabeticDay);
+    long insertDay(DiabeticDay diabeticDay);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateDay(DiabeticDay diabeticDay);

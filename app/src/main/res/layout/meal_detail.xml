@@ -31,6 +31,7 @@
         android:saveEnabled="false"
         android:textAlignment="viewStart"
         android:textSize="@dimen/body_size"
+        android:maxLength="100"
         app:layout_constraintBottom_toBottomOf="@+id/meal_extrarapid_injection_et"
         app:layout_constraintEnd_toStartOf="@id/meal_guideline"
         app:layout_constraintStart_toStartOf="parent"
