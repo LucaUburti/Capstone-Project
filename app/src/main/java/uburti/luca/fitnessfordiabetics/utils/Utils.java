@@ -2,6 +2,7 @@ package uburti.luca.fitnessfordiabetics.utils;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
@@ -120,8 +121,11 @@ public class Utils {
 
     }
 
-    public static String valueOfIntWithoutZero(int i) { //if value is 0 returns an empty string instead
+    public static String valueOfIntWithoutZero(int i) { //if value is 0 returns an empty string instead, used in the detail activity
         return i == 0 ? "" : String.valueOf(i);
+    }
+    public static String valueOfIntWithoutZeroSetDash(int i) { //if value is 0 returns a dash sign: "-", used in the main recyclerview
+        return i == 0 ? "-" : String.valueOf(i);
     }
 
     public static int valueOfStringWithInputCheck(String s) { //if value is 0 returns an empty string instead
@@ -144,4 +148,5 @@ public class Utils {
     public static String getReadableDate(long dateToBeChecked) {
         return DateFormat.getDateInstance(DateFormat.LONG).format(new Date(dateToBeChecked));
     }
+
 }

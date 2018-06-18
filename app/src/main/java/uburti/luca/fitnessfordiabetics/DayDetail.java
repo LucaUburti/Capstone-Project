@@ -2,7 +2,9 @@ package uburti.luca.fitnessfordiabetics;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -38,6 +40,10 @@ public class DayDetail extends AppCompatActivity {
     //    public static final String UNSAVED_CHANGES_KEY = "UNSAVED_CHANGES_KEY";
     @BindView(R.id.detail_date_tv)
     TextView dateTv;
+    @BindView(R.id.detail_warning_iv)
+    ImageView warningIv;
+    @BindView(R.id.detail_warning_tv)
+    TextView warningTv;
     @BindView(R.id.breakfast_detail)
     View breakfastLayout;
     @BindView(R.id.lunch_detail)
@@ -46,8 +52,6 @@ public class DayDetail extends AppCompatActivity {
     View dinnerLayout;
     @BindView(R.id.bedtime_detail)
     View bedtimeLayout;
-    @BindView(R.id.detail_warning_iv)
-    ImageView warningIv;
     @BindView(R.id.detail_workout_et)
     EditText detailWorkoutEt;
     @BindView(R.id.detail_notes_et)
@@ -59,6 +63,10 @@ public class DayDetail extends AppCompatActivity {
 
     long dayIdFromBundle;
     long dateFromBundle;
+
+    boolean hypoglycemiaWarning;
+    boolean hyperglycemiaWarning;
+
     AppDatabase appDatabase;
 
     MenuItem saveChangesMenuItem;
@@ -116,14 +124,20 @@ public class DayDetail extends AppCompatActivity {
 
 
     private void populateUI(DiabeticDay diabeticDay) {
+        hypoglycemiaWarning=false;  //reset warnings on refresh
+        hyperglycemiaWarning=false; //will recheck them after redrawing
+
         dateTv.setText(Utils.getReadableDate(diabeticDay.getDate()));
         //breakfast
         breakfastInclude.mealDescriptionEt.setText(diabeticDay.getBreakfast());
         breakfastInclude.mealRapidInjectionEt.setText(Utils.valueOfIntWithoutZero(diabeticDay.getBreakfastInjectionRapid()));
         breakfastInclude.mealLongInjectionEt.setText(Utils.valueOfIntWithoutZero(diabeticDay.getBreakfastInjectionLong()));
         breakfastInclude.mealExtrarapidInjectionEt.setText(Utils.valueOfIntWithoutZero(diabeticDay.getBreakfastInjectionRapidExtra()));
+
         breakfastInclude.mealGlycemiaBeforeEt.setText(Utils.valueOfIntWithoutZero(diabeticDay.getGlycemiaBeforeBreakfast()));
         breakfastInclude.mealGlycemiaAfterEt.setText(Utils.valueOfIntWithoutZero(diabeticDay.getGlycemiaAfterBreakfast()));
+        checkForGlycemicWarnings(breakfastInclude.mealGlycemiaBeforeEt, diabeticDay.getGlycemiaBeforeBreakfast());
+        checkForGlycemicWarnings(breakfastInclude.mealGlycemiaAfterEt, diabeticDay.getGlycemiaAfterBreakfast());
         //lunch
         lunchInclude.mealDescriptionEt.setText(diabeticDay.getLunch());
         lunchInclude.mealRapidInjectionEt.setText(Utils.valueOfIntWithoutZero(diabeticDay.getLunchInjectionRapid()));
@@ -131,6 +145,8 @@ public class DayDetail extends AppCompatActivity {
         lunchInclude.mealExtrarapidInjectionEt.setText(Utils.valueOfIntWithoutZero(diabeticDay.getLunchInjectionRapidExtra()));
         lunchInclude.mealGlycemiaBeforeEt.setText(Utils.valueOfIntWithoutZero(diabeticDay.getGlycemiaBeforeLunch()));
         lunchInclude.mealGlycemiaAfterEt.setText(Utils.valueOfIntWithoutZero(diabeticDay.getGlycemiaAfterLunch()));
+        checkForGlycemicWarnings(lunchInclude.mealGlycemiaBeforeEt, diabeticDay.getGlycemiaBeforeLunch());
+        checkForGlycemicWarnings(lunchInclude.mealGlycemiaAfterEt, diabeticDay.getGlycemiaAfterLunch());
         //dinner
         dinnerInclude.mealDescriptionEt.setText(diabeticDay.getDinner());
         dinnerInclude.mealRapidInjectionEt.setText(Utils.valueOfIntWithoutZero(diabeticDay.getDinnerInjectionRapid()));
@@ -138,12 +154,35 @@ public class DayDetail extends AppCompatActivity {
         dinnerInclude.mealExtrarapidInjectionEt.setText(Utils.valueOfIntWithoutZero(diabeticDay.getDinnerInjectionRapidExtra()));
         dinnerInclude.mealGlycemiaBeforeEt.setText(Utils.valueOfIntWithoutZero(diabeticDay.getGlycemiaBeforeDinner()));
         dinnerInclude.mealGlycemiaAfterEt.setText(Utils.valueOfIntWithoutZero(diabeticDay.getGlycemiaAfterDinner()));
+        checkForGlycemicWarnings(dinnerInclude.mealGlycemiaBeforeEt, diabeticDay.getGlycemiaBeforeDinner());
+        checkForGlycemicWarnings(dinnerInclude.mealGlycemiaAfterEt, diabeticDay.getGlycemiaAfterDinner());
         //bedtime
         bedtimeInclude.detailBedtimeExtrarapidInjectedEt.setText(Utils.valueOfIntWithoutZero(diabeticDay.getBedtimeInjectionRapidExtra()));
         bedtimeInclude.detailBedtimeGlycemiaEt.setText(Utils.valueOfIntWithoutZero(diabeticDay.getGlycemiaBedtime()));
+        checkForGlycemicWarnings(bedtimeInclude.detailBedtimeGlycemiaEt, diabeticDay.getGlycemiaBedtime());
         //bottom edittexts
         detailWorkoutEt.setText(diabeticDay.getWorkouts());
         detailNotesEt.setText(diabeticDay.getNotes());
+
+        if (hypoglycemiaWarning && !hyperglycemiaWarning){
+            warningTv.setText(getResources().getString(R.string.hypoglycemia));
+            warningTv.setVisibility(View.VISIBLE);
+            warningIv.setVisibility(View.VISIBLE);
+
+        } else if (!hypoglycemiaWarning && hyperglycemiaWarning){
+            warningTv.setText(getResources().getString(R.string.hyperglycemia));
+            warningTv.setVisibility(View.VISIBLE);
+            warningIv.setVisibility(View.VISIBLE);
+        } else if (hypoglycemiaWarning && hyperglycemiaWarning){
+            warningTv.setText(getResources().getString(R.string.hypohyperglycemia));
+            warningTv.setVisibility(View.VISIBLE);
+            warningIv.setVisibility(View.VISIBLE);
+        } else {
+            warningTv.setText("");
+            warningTv.setVisibility(View.GONE);
+            warningIv.setVisibility(View.GONE);
+        }
+
     }
 
     private void setupIncludedLayouts() {
@@ -245,7 +284,7 @@ public class DayDetail extends AppCompatActivity {
     public void onBackPressed() {
         if (viewModel.unsavedChanges) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DayDetail.this);
-            alertBuilder.setTitle(R.string.unsaved_changes).setMessage("You have unsaved changes on this page. Do you want to save changes before going back?")
+            alertBuilder.setTitle(R.string.unsaved_changes).setMessage(R.string.alert_dialog_title_unsaved_changes)
                     .setPositiveButton(R.string.save_changes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -281,6 +320,7 @@ public class DayDetail extends AppCompatActivity {
                     Log.d("DayDetail", "saveChangesToDb: updating existing day with dayId: " + viewModel.tempDiabeticDay.getDayId() + " date: " + Utils.getReadableDate(viewModel.tempDiabeticDay.getDate()));
                 }
             });
+            populateUI(viewModel.tempDiabeticDay);//not strictly necessary but useful to refresh Hypo-Hyperglicemic warnings in the UI
             viewModel.unsavedChanges = false;
             saveChangesMenuItem.setVisible(false);
         } else if (viewModel.tempDiabeticDay.getDate() != 0) { //new insert
@@ -292,11 +332,29 @@ public class DayDetail extends AppCompatActivity {
                     Log.d("DayDetail", "saveChangesToDb: inserting new day with id: " + newDayId + " date: " + Utils.getReadableDate(viewModel.tempDiabeticDay.getDate()));
                 }
             });
+            populateUI(viewModel.tempDiabeticDay);//not strictly necessary but useful to refresh Hypo-Hyperglicemic warnings in the UI
             viewModel.unsavedChanges = false;
             saveChangesMenuItem.setVisible(false);
         } else {
             Toast.makeText(this, R.string.error_saving_to_the_db, Toast.LENGTH_SHORT).show();
             Crashlytics.log(Log.ERROR, "DayDetail", "Error saving to the DB: dayId and date are zero!");
+        }
+    }
+
+    public void checkForGlycemicWarnings (EditText editText, int glycemia){
+        if ((glycemia > 0) && (glycemia < getResources().getInteger(R.integer.low_glycemia_threshold))) {
+            editText.setTextColor(getResources().getColor(R.color.hypoglycemia));
+            editText.setTypeface(null, Typeface.BOLD);
+            hypoglycemiaWarning=true;
+
+        } else if (glycemia > getResources().getInteger(R.integer.high_glycemia_threshold)){
+            editText.setTextColor(getResources().getColor(R.color.hyperglycemia));
+            editText.setTypeface(null, Typeface.BOLD);
+            hyperglycemiaWarning=true;
+
+        } else {
+            editText.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+            editText.setTypeface(null, Typeface.NORMAL);
         }
     }
 
@@ -332,17 +390,9 @@ public class DayDetail extends AppCompatActivity {
             }
         }
 
-        public class ViewInfo {
-            int parentId;
-            int editTextId;
-            String editTextContent;
 
-            public ViewInfo(int parentId, int editTextId, String editTextContent) {
-                this.parentId = parentId;
-                this.editTextId = editTextId;
-                this.editTextContent = editTextContent;
-            }
-        }
+
+
     }
 }
 

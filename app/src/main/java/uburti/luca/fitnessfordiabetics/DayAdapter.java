@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -16,6 +17,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
 import uburti.luca.fitnessfordiabetics.utils.Utils;
+
+import static uburti.luca.fitnessfordiabetics.utils.Utils.valueOfIntWithoutZero;
 
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
     private List<DiabeticDay> diabeticDays;
@@ -46,28 +49,31 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         String date = Utils.getReadableDate(diabeticDay.getDate());
 
         if (diabeticDay.isBlankDay()) {
-            holder.dateTv.setText(date);    //no data in DB, just populate the mock day with the dateFromBundle
+            holder.dateTv.setText(date);    //no data in DB, just populate the mock day with the date
             holder.dayItemCl.setBackgroundColor(Color.parseColor(context.getString(R.string.blank_day_bg)));
-            holder.beforeBreakfastGlycemiaTv.setText("");
-            holder.afterBreakfastGlycemiaTv.setText("");
-            holder.beforeLunchGlycemiaTv.setText("");
-            holder.afterLunchGlycemiaTv.setText("");
-            holder.beforeDinnerGlycemiaTv.setText("");
-            holder.afterDinnerGlycemiaTv.setText("");
-            holder.bedtimeGlycemiaTv.setText("");
+            holder.warningIv.setVisibility(View.GONE);
+            holder.warningTv.setVisibility(View.GONE);
+            holder.beforeBreakfastGlycemiaTv.setText("-");
+            holder.afterBreakfastGlycemiaTv.setText("-");
+            holder.beforeLunchGlycemiaTv.setText("-");
+            holder.afterLunchGlycemiaTv.setText("-");
+            holder.beforeDinnerGlycemiaTv.setText("-");
+            holder.afterDinnerGlycemiaTv.setText("-");
+            holder.bedtimeGlycemiaTv.setText("-");
             holder.workoutTv.setText("");
+
 
         } else {
             holder.dayItemCl.setBackgroundColor(Color.parseColor(context.getString(R.string.edited_day_bg)));
             holder.dateTv.setText(date);
-            holder.beforeBreakfastGlycemiaTv.setText(String.valueOf(diabeticDay.getGlycemiaBeforeBreakfast()));
-            holder.afterBreakfastGlycemiaTv.setText(String.valueOf(diabeticDay.getGlycemiaAfterBreakfast()));
-            holder.beforeLunchGlycemiaTv.setText(String.valueOf(diabeticDay.getGlycemiaBeforeLunch()));
-            holder.afterLunchGlycemiaTv.setText(String.valueOf(diabeticDay.getGlycemiaAfterLunch()));
-            holder.beforeDinnerGlycemiaTv.setText(String.valueOf(diabeticDay.getGlycemiaBeforeDinner()));
-            holder.afterDinnerGlycemiaTv.setText(String.valueOf(diabeticDay.getGlycemiaAfterDinner()));
-            holder.bedtimeGlycemiaTv.setText(String.valueOf(diabeticDay.getGlycemiaBedtime()));
-            holder.workoutTv.setText(String.valueOf(diabeticDay.getWorkouts()));
+            holder.beforeBreakfastGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaBeforeBreakfast()));
+            holder.afterBreakfastGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaAfterBreakfast()));
+            holder.beforeLunchGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaBeforeLunch()));
+            holder.afterLunchGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaAfterLunch()));
+            holder.beforeDinnerGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaBeforeDinner()));
+            holder.afterDinnerGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaAfterDinner()));
+            holder.bedtimeGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaBedtime()));
+            holder.workoutTv.setText(diabeticDay.getWorkouts());
         }
     }
 
@@ -80,6 +86,10 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
     public class DayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.day_item_cl)
         ConstraintLayout dayItemCl;
+        @BindView(R.id.rv_item_warning_iv)
+        ImageView warningIv;
+        @BindView(R.id.rv_item_warning_tv)
+        TextView warningTv;
         @BindView(R.id.rv_item_date_tv)
         TextView dateTv;
         @BindView(R.id.rv_item_beforebreakfast_glycemia_tv)

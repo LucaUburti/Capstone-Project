@@ -25,4 +25,11 @@
     <string name="discard_changes">Discard changes</string>
     <string name="error_saving_to_the_db">Error saving to the DB!</string>
     <string name="please_insert_a_valid_number">The number you typed is probably incorrect. Please insert a valid number.</string>
+    <string name="alert_dialog_title_unsaved_changes">You have unsaved changes on this page. Do you want to save changes before going back?</string>
+    <string name="hypoglycemia">Hypoglycemia</string>
+    <string name="hyperglycemia">Hyperglycemia</string>
+    <string name="hypohyperglycemia">Hypo-Hyperglycemia</string>
+
+    <integer name="low_glycemia_threshold">50</integer>
+    <integer name="high_glycemia_threshold">150</integer>
 </resources>
