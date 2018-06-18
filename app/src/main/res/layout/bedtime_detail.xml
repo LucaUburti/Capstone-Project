@@ -13,7 +13,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/bedtime"
         android:textSize="@dimen/title_size"
-        app:layout_constraintEnd_toStartOf="@+id/detail_bedtime_guideline"
+        app:layout_constraintEnd_toStartOf="@id/detail_bedtime_guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,7 +30,7 @@
         android:textAlignment="center"
         android:textSize="@dimen/body_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/detail_bedtime_extrainjection"
+        app:layout_constraintStart_toEndOf="@id/detail_bedtime_extrainjection"
         app:layout_constraintTop_toTopOf="parent"
         android:labelFor="@id/detail_bedtime_glycemia_et"/>
 
@@ -43,9 +43,9 @@
         android:inputType="number"
         android:textAlignment="center"
         android:textSize="@dimen/headline_size"
-        app:layout_constraintEnd_toEndOf="@+id/detail_bedtime_glycemia"
-        app:layout_constraintStart_toStartOf="@+id/detail_bedtime_glycemia"
-        app:layout_constraintTop_toTopOf="@+id/detail_bedtime_extrarapid_injected_et" />
+        app:layout_constraintEnd_toEndOf="@id/detail_bedtime_glycemia"
+        app:layout_constraintStart_toStartOf="@id/detail_bedtime_glycemia"
+        app:layout_constraintTop_toTopOf="@id/detail_bedtime_extrarapid_injected_et" />
 
     <TextView
         android:id="@+id/detail_bedtime_extrainjection"
@@ -56,8 +56,8 @@
         android:layout_marginTop="16dp"
         android:text="@string/extra_injection"
         android:textSize="@dimen/body_size"
-        app:layout_constraintEnd_toStartOf="@+id/detail_bedtime_glycemia"
-        app:layout_constraintStart_toStartOf="@+id/detail_bedtime_guideline"
+        app:layout_constraintEnd_toStartOf="@id/detail_bedtime_glycemia"
+        app:layout_constraintStart_toStartOf="@id/detail_bedtime_guideline"
         app:layout_constraintTop_toTopOf="parent"
         android:labelFor="@id/detail_bedtime_extrarapid_injected_et"/>
 
@@ -69,9 +69,9 @@
         android:layout_marginStart="8dp"
         android:text="@string/rapidinsulin"
         android:textSize="@dimen/body_size"
-        app:layout_constraintEnd_toEndOf="@+id/detail_bedtime_extrainjection"
-        app:layout_constraintStart_toStartOf="@+id/detail_bedtime_extrainjection"
-        app:layout_constraintTop_toBottomOf="@+id/detail_bedtime_extrainjection" />
+        app:layout_constraintEnd_toEndOf="@id/detail_bedtime_extrainjection"
+        app:layout_constraintStart_toStartOf="@id/detail_bedtime_extrainjection"
+        app:layout_constraintTop_toBottomOf="@id/detail_bedtime_extrainjection" />
 
     <EditText
         android:id="@+id/detail_bedtime_extrarapid_injected_et"
@@ -82,9 +82,9 @@
         android:inputType="number"
         android:textAlignment="center"
         android:textSize="@dimen/headline_size"
-        app:layout_constraintEnd_toEndOf="@+id/detail_bedtime_extrainjectionrapid"
-        app:layout_constraintStart_toStartOf="@+id/detail_bedtime_extrainjectionrapid"
-        app:layout_constraintTop_toBottomOf="@+id/detail_bedtime_extrainjectionrapid" />
+        app:layout_constraintEnd_toEndOf="@id/detail_bedtime_extrainjectionrapid"
+        app:layout_constraintStart_toStartOf="@id/detail_bedtime_extrainjectionrapid"
+        app:layout_constraintTop_toBottomOf="@id/detail_bedtime_extrainjectionrapid" />
 
 
     <android.support.constraint.Guideline

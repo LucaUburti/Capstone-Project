@@ -43,9 +43,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull DayAdapter.DayViewHolder holder, int position) {
         DiabeticDay diabeticDay = diabeticDays.get(position);
-        long dateInMillis = diabeticDay.getDate();
-        int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR;
-        String date = DateUtils.formatDateTime(context, dateInMillis, flags);
+        String date = MainActivity.getReadableDate(diabeticDay.getDate());
 
         if (diabeticDay.isBlankDay()) {
             holder.dateTv.setText(date);    //no data in DB, just populate the mock day with the date

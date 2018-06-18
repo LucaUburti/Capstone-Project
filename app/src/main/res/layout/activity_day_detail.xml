@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+        android:id="@+id/activity_day_detail_cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
         <TextView
@@ -30,10 +30,10 @@
             android:layout_marginStart="8dp"
             android:background="@color/colorAccent"
             android:contentDescription="@string/warning"
-            app:layout_constraintBottom_toBottomOf="@+id/detail_date_tv"
+            app:layout_constraintBottom_toBottomOf="@id/detail_date_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/detail_date_tv"
+            app:layout_constraintTop_toTopOf="@id/detail_date_tv"
             app:srcCompat="@android:drawable/stat_sys_warning" />
 
         <TextView
@@ -43,9 +43,9 @@
             android:layout_marginStart="8dp"
             android:textSize="@dimen/headline_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/detail_warning_iv"
-            app:layout_constraintStart_toEndOf="@+id/detail_warning_iv"
-            app:layout_constraintTop_toTopOf="@+id/detail_warning_iv"
+            app:layout_constraintBottom_toBottomOf="@id/detail_warning_iv"
+            app:layout_constraintStart_toEndOf="@id/detail_warning_iv"
+            app:layout_constraintTop_toTopOf="@id/detail_warning_iv"
             tools:text="Warning message" />
 
 
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider1" />
+            app:layout_constraintTop_toBottomOf="@id/divider1" />
 
         <View
             android:id="@+id/divider2"
@@ -80,7 +80,7 @@
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/breakfast_detail" />
+            app:layout_constraintTop_toBottomOf="@id/breakfast_detail" />
 
         <include
             android:id="@+id/lunch_detail"
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider2" />
+            app:layout_constraintTop_toBottomOf="@id/divider2" />
 
         <View
             android:id="@+id/divider3"
@@ -101,7 +101,7 @@
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lunch_detail" />
+            app:layout_constraintTop_toBottomOf="@id/lunch_detail" />
 
         <include
             android:id="@+id/dinner_detail"
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider3" />
+            app:layout_constraintTop_toBottomOf="@id/divider3" />
 
         <View
             android:id="@+id/divider4"
@@ -122,7 +122,7 @@
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dinner_detail" />
+            app:layout_constraintTop_toBottomOf="@id/dinner_detail" />
 
         <include
             android:id="@+id/bedtime_detail"
@@ -131,7 +131,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider4" />
+            app:layout_constraintTop_toBottomOf="@id/divider4" />
+
         <View
             android:id="@+id/divider5"
             android:layout_width="match_parent"
@@ -142,7 +143,7 @@
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bedtime_detail" />
+            app:layout_constraintTop_toBottomOf="@id/bedtime_detail" />
 
         <TextView
             android:id="@+id/detail_workouttitle_tv"
@@ -155,7 +156,7 @@
             android:textSize="@dimen/title_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider5" />
+            app:layout_constraintTop_toBottomOf="@id/divider5" />
 
         <EditText
             android:id="@+id/detail_workout_et"
@@ -168,13 +169,7 @@
             android:textSize="@dimen/body_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_workouttitle_tv" />
-
-
-
-
-
-
+            app:layout_constraintTop_toBottomOf="@id/detail_workouttitle_tv" />
 
 
         <TextView
@@ -188,7 +183,7 @@
             android:textSize="@dimen/title_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_workout_et" />
+            app:layout_constraintTop_toBottomOf="@id/detail_workout_et" />
 
         <EditText
             android:id="@+id/detail_notes_et"
@@ -201,8 +196,8 @@
             android:textSize="@dimen/body_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_notestitle_tv" />
+            app:layout_constraintTop_toBottomOf="@id/detail_notestitle_tv" />
 
 
     </android.support.constraint.ConstraintLayout>
-    </ScrollView>
+</ScrollView>
