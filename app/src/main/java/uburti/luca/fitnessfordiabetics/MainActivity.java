@@ -10,6 +10,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
         MobileAds.initialize(this, ADMOB_ID);
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId(AD_UNIT_ID);
+
+//        Toast.makeText(this, getResources().getConfiguration().locale.toString(), Toast.LENGTH_SHORT).show();
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -130,6 +134,23 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
             if (interstitialAd.isLoaded()) {
                 interstitialAd.show();
             }
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.food_info:
+                Intent intent = new Intent(this, FoodInfoActivity.class);
+                startActivityForResult(intent, 0);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
