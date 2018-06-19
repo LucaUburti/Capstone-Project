@@ -170,7 +170,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         tools:text="101"
-        android:textSize="@dimen/headline_size"
+        android:textSize="@dimen/glycemia_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/rv_item_beforebreakfast_tv"
         app:layout_constraintStart_toStartOf="@id/rv_item_beforebreakfast_tv"
@@ -182,7 +182,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         tools:text="102"
-        android:textSize="@dimen/headline_size"
+        android:textSize="@dimen/glycemia_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/rv_item_afterbreakfast_tv"
         app:layout_constraintStart_toStartOf="@id/rv_item_afterbreakfast_tv"
@@ -195,7 +195,7 @@
         android:layout_marginTop="4dp"
         tools:text="103"
         android:textStyle="bold"
-        android:textSize="@dimen/headline_size"
+        android:textSize="@dimen/glycemia_size"
         app:layout_constraintEnd_toEndOf="@id/rv_item_beforelunch_tv"
         app:layout_constraintStart_toStartOf="@id/rv_item_beforelunch_tv"
         app:layout_constraintTop_toBottomOf="@id/rv_item_beforelunch_tv" />
@@ -207,7 +207,7 @@
         android:layout_marginTop="4dp"
         tools:text="104"
         android:textStyle="bold"
-        android:textSize="@dimen/headline_size"
+        android:textSize="@dimen/glycemia_size"
         app:layout_constraintEnd_toEndOf="@id/rv_item_afterlunch_tv"
         app:layout_constraintStart_toStartOf="@id/rv_item_afterlunch_tv"
         app:layout_constraintTop_toBottomOf="@id/rv_item_afterlunch_tv" />
@@ -219,7 +219,7 @@
         android:layout_marginTop="4dp"
         tools:text="105"
         android:textStyle="bold"
-        android:textSize="@dimen/headline_size"
+        android:textSize="@dimen/glycemia_size"
         app:layout_constraintEnd_toEndOf="@id/rv_item_beforedinner_tv"
         app:layout_constraintStart_toStartOf="@id/rv_item_beforedinner_tv"
         app:layout_constraintTop_toBottomOf="@id/rv_item_beforedinner_tv" />
@@ -231,7 +231,7 @@
         android:layout_marginTop="4dp"
         tools:text="106"
         android:textStyle="bold"
-        android:textSize="@dimen/headline_size"
+        android:textSize="@dimen/glycemia_size"
         app:layout_constraintEnd_toEndOf="@id/rv_item_afterdinner_tv"
         app:layout_constraintStart_toStartOf="@id/rv_item_afterdinner_tv"
         app:layout_constraintTop_toBottomOf="@id/rv_item_afterdinner_tv" />
@@ -242,7 +242,7 @@
         android:layout_height="wrap_content"
         tools:text="107"
         android:textStyle="bold"
-        android:textSize="@dimen/headline_size"
+        android:textSize="@dimen/glycemia_size"
         app:layout_constraintBottom_toBottomOf="@id/rv_item_afterdinner_glycemia_tv"
         app:layout_constraintEnd_toEndOf="@id/rv_item_bedtime_tv"
         app:layout_constraintStart_toStartOf="@id/rv_item_bedtime_tv" />

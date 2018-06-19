@@ -14,10 +14,14 @@ import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
 
 public class Utils {
 
+    public static final int EDITTEXT_MAX_LINES = 6;
 
-    public static void setTempDiabeticDay(DiabeticDay tempDiabeticDay, EditText editText, Context context) {
+    public static void checkInputsAndSetTempDiabeticDay(DiabeticDay tempDiabeticDay, EditText editText, Context context) {
         int parentId = ((ViewGroup) editText.getParent()).getId();
         int editTextId = editText.getId();
+        if (editText.getLayout().getLineCount()> EDITTEXT_MAX_LINES){
+            editText.getText().delete(editText.getText().length() - 1, editText.getText().length());
+        }
         String inputText = editText.getText().toString();
         switch (parentId) {
             case R.id.breakfast_detail:

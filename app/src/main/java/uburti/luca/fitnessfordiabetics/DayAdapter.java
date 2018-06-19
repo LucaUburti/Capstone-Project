@@ -2,6 +2,7 @@ package uburti.luca.fitnessfordiabetics;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -18,11 +19,11 @@ import butterknife.ButterKnife;
 import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
 import uburti.luca.fitnessfordiabetics.utils.Utils;
 
-import static uburti.luca.fitnessfordiabetics.utils.Utils.valueOfIntWithoutZero;
-
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
     private List<DiabeticDay> diabeticDays;
     private Context context;
+    private boolean hypoglycemiaWarning = false;
+    private boolean hyperglycemiaWarning = false;
 
     private final DayClickHandler dayClickHandler;
 
@@ -49,31 +50,96 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         String date = Utils.getReadableDate(diabeticDay.getDate());
 
         if (diabeticDay.isBlankDay()) {
-            holder.dateTv.setText(date);    //no data in DB, just populate the mock day with the date
-            holder.dayItemCl.setBackgroundColor(Color.parseColor(context.getString(R.string.blank_day_bg)));
-            holder.warningIv.setVisibility(View.GONE);
-            holder.warningTv.setVisibility(View.GONE);
-            holder.beforeBreakfastGlycemiaTv.setText("-");
-            holder.afterBreakfastGlycemiaTv.setText("-");
-            holder.beforeLunchGlycemiaTv.setText("-");
-            holder.afterLunchGlycemiaTv.setText("-");
-            holder.beforeDinnerGlycemiaTv.setText("-");
-            holder.afterDinnerGlycemiaTv.setText("-");
-            holder.bedtimeGlycemiaTv.setText("-");
-            holder.workoutTv.setText("");
+            displayBlankDay(holder, date);
+        } else {
+            displayFilledOutDay(holder, diabeticDay, date);
+        }
+    }
 
+    private void displayFilledOutDay(@NonNull DayViewHolder holder, DiabeticDay diabeticDay, String date) {
+        hypoglycemiaWarning = false;
+        hyperglycemiaWarning = false;
+        holder.dayItemCl.setBackgroundColor(Color.parseColor(context.getString(R.string.edited_day_bg)));
+        holder.dateTv.setText(date);
+        holder.beforeBreakfastGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaBeforeBreakfast()));
+        checkForGlycemicWarnings(holder.beforeBreakfastGlycemiaTv, diabeticDay.getGlycemiaBeforeBreakfast());
+        holder.afterBreakfastGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaAfterBreakfast()));
+        checkForGlycemicWarnings(holder.afterBreakfastGlycemiaTv, diabeticDay.getGlycemiaAfterBreakfast());
+        holder.beforeLunchGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaBeforeLunch()));
+        checkForGlycemicWarnings(holder.beforeLunchGlycemiaTv, diabeticDay.getGlycemiaBeforeLunch());
+        holder.afterLunchGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaAfterLunch()));
+        checkForGlycemicWarnings(holder.afterLunchGlycemiaTv, diabeticDay.getGlycemiaAfterLunch());
+        holder.beforeDinnerGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaBeforeDinner()));
+        checkForGlycemicWarnings(holder.beforeDinnerGlycemiaTv, diabeticDay.getGlycemiaBeforeDinner());
+        holder.afterDinnerGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaAfterDinner()));
+        checkForGlycemicWarnings(holder.afterDinnerGlycemiaTv, diabeticDay.getGlycemiaAfterDinner());
+        holder.bedtimeGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaBedtime()));
+        checkForGlycemicWarnings(holder.bedtimeGlycemiaTv, diabeticDay.getGlycemiaBedtime());
+        holder.workoutTv.setText(diabeticDay.getWorkouts());
+        if (hypoglycemiaWarning && !hyperglycemiaWarning) {
+            holder.warningTv.setText(context.getResources().getString(R.string.hypoglycemia));
+            holder.warningTv.setVisibility(View.VISIBLE);
+            holder.warningIv.setVisibility(View.VISIBLE);
+        } else if (!hypoglycemiaWarning && hyperglycemiaWarning) {
+            holder.warningTv.setText(context.getResources().getString(R.string.hyperglycemia));
+            holder.warningTv.setVisibility(View.VISIBLE);
+            holder.warningIv.setVisibility(View.VISIBLE);
+        } else if (hypoglycemiaWarning && hyperglycemiaWarning) {
+            holder.warningTv.setText(context.getResources().getString(R.string.hypohyperglycemia));
+            holder.warningTv.setVisibility(View.VISIBLE);
+            holder.warningIv.setVisibility(View.VISIBLE);
+        } else {
+            holder.warningTv.setText("");
+            holder.warningTv.setVisibility(View.GONE);
+            holder.warningIv.setVisibility(View.GONE);
+        }
+    }
+
+    private void displayBlankDay(@NonNull DayViewHolder holder, String date) {
+        holder.dateTv.setText(date);    //no data in DB, just populate the mock day with the date
+        holder.dayItemCl.setBackgroundColor(Color.parseColor(context.getString(R.string.blank_day_bg)));
+        holder.beforeBreakfastGlycemiaTv.setText("-");
+        holder.beforeBreakfastGlycemiaTv.setTextColor(context.getResources().getColor(android.R.color.primary_text_light));
+        holder.beforeBreakfastGlycemiaTv.setTypeface(null, Typeface.NORMAL);
+        holder.afterBreakfastGlycemiaTv.setText("-");
+        holder.afterBreakfastGlycemiaTv.setTextColor(context.getResources().getColor(android.R.color.primary_text_light));
+        holder.afterBreakfastGlycemiaTv.setTypeface(null, Typeface.NORMAL);
+        holder.beforeLunchGlycemiaTv.setText("-");
+        holder.beforeLunchGlycemiaTv.setTextColor(context.getResources().getColor(android.R.color.primary_text_light));
+        holder.beforeLunchGlycemiaTv.setTypeface(null, Typeface.NORMAL);
+        holder.afterLunchGlycemiaTv.setText("-");
+        holder.afterLunchGlycemiaTv.setTextColor(context.getResources().getColor(android.R.color.primary_text_light));
+        holder.afterLunchGlycemiaTv.setTypeface(null, Typeface.NORMAL);
+        holder.beforeDinnerGlycemiaTv.setText("-");
+        holder.beforeDinnerGlycemiaTv.setTextColor(context.getResources().getColor(android.R.color.primary_text_light));
+        holder.beforeDinnerGlycemiaTv.setTypeface(null, Typeface.NORMAL);
+        holder.afterDinnerGlycemiaTv.setText("-");
+        holder.afterDinnerGlycemiaTv.setTextColor(context.getResources().getColor(android.R.color.primary_text_light));
+        holder.afterDinnerGlycemiaTv.setTypeface(null, Typeface.NORMAL);
+        holder.bedtimeGlycemiaTv.setText("-");
+        holder.bedtimeGlycemiaTv.setTextColor(context.getResources().getColor(android.R.color.primary_text_light));
+        holder.bedtimeGlycemiaTv.setTypeface(null, Typeface.NORMAL);
+        holder.workoutTv.setText("");
+        holder.warningTv.setText("");
+        holder.warningTv.setVisibility(View.GONE);
+        holder.warningIv.setVisibility(View.GONE);
+    }
+
+
+    void checkForGlycemicWarnings(TextView textView, int glycemia) {
+        if ((glycemia > 0) && (glycemia < context.getResources().getInteger(R.integer.low_glycemia_threshold))) {
+            textView.setTextColor(context.getResources().getColor(R.color.hypoglycemia));
+            textView.setTypeface(null, Typeface.BOLD);
+            hypoglycemiaWarning = true;
+
+        } else if (glycemia > context.getResources().getInteger(R.integer.high_glycemia_threshold)) {
+            textView.setTextColor(context.getResources().getColor(R.color.hyperglycemia));
+            textView.setTypeface(null, Typeface.BOLD);
+            hyperglycemiaWarning = true;
 
         } else {
-            holder.dayItemCl.setBackgroundColor(Color.parseColor(context.getString(R.string.edited_day_bg)));
-            holder.dateTv.setText(date);
-            holder.beforeBreakfastGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaBeforeBreakfast()));
-            holder.afterBreakfastGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaAfterBreakfast()));
-            holder.beforeLunchGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaBeforeLunch()));
-            holder.afterLunchGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaAfterLunch()));
-            holder.beforeDinnerGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaBeforeDinner()));
-            holder.afterDinnerGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaAfterDinner()));
-            holder.bedtimeGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaBedtime()));
-            holder.workoutTv.setText(diabeticDay.getWorkouts());
+            textView.setTextColor(context.getResources().getColor(android.R.color.primary_text_light));
+            textView.setTypeface(null, Typeface.NORMAL);
         }
     }
 
@@ -82,6 +148,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         if (diabeticDays == null) return 0;
         return diabeticDays.size();
     }
+
 
     public class DayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.day_item_cl)
@@ -124,4 +191,6 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
             dayClickHandler.onDayClicked(dayId, date);
         }
     }
+
+
 }

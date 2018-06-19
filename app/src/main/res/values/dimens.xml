@@ -2,5 +2,6 @@
 <resources>
     <dimen name="title_size">20sp</dimen>
     <dimen name="headline_size">16sp</dimen>
+    <dimen name="glycemia_size">20sp</dimen>
     <dimen name="body_size">14sp</dimen>
 </resources>

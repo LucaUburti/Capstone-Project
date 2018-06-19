@@ -2,7 +2,6 @@ package uburti.luca.fitnessfordiabetics;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -124,8 +123,8 @@ public class DayDetail extends AppCompatActivity {
 
 
     private void populateUI(DiabeticDay diabeticDay) {
-        hypoglycemiaWarning=false;  //reset warnings on refresh
-        hyperglycemiaWarning=false; //will recheck them after redrawing
+        hypoglycemiaWarning = false;  //reset warnings on refresh
+        hyperglycemiaWarning = false; //will recheck them after redrawing
 
         dateTv.setText(Utils.getReadableDate(diabeticDay.getDate()));
         //breakfast
@@ -164,16 +163,16 @@ public class DayDetail extends AppCompatActivity {
         detailWorkoutEt.setText(diabeticDay.getWorkouts());
         detailNotesEt.setText(diabeticDay.getNotes());
 
-        if (hypoglycemiaWarning && !hyperglycemiaWarning){
+        if (hypoglycemiaWarning && !hyperglycemiaWarning) {
             warningTv.setText(getResources().getString(R.string.hypoglycemia));
             warningTv.setVisibility(View.VISIBLE);
             warningIv.setVisibility(View.VISIBLE);
 
-        } else if (!hypoglycemiaWarning && hyperglycemiaWarning){
+        } else if (!hypoglycemiaWarning && hyperglycemiaWarning) {
             warningTv.setText(getResources().getString(R.string.hyperglycemia));
             warningTv.setVisibility(View.VISIBLE);
             warningIv.setVisibility(View.VISIBLE);
-        } else if (hypoglycemiaWarning && hyperglycemiaWarning){
+        } else if (hypoglycemiaWarning && hyperglycemiaWarning) {
             warningTv.setText(getResources().getString(R.string.hypohyperglycemia));
             warningTv.setVisibility(View.VISIBLE);
             warningIv.setVisibility(View.VISIBLE);
@@ -320,7 +319,7 @@ public class DayDetail extends AppCompatActivity {
                     Log.d("DayDetail", "saveChangesToDb: updating existing day with dayId: " + viewModel.tempDiabeticDay.getDayId() + " date: " + Utils.getReadableDate(viewModel.tempDiabeticDay.getDate()));
                 }
             });
-            populateUI(viewModel.tempDiabeticDay);//not strictly necessary but useful to refresh Hypo-Hyperglicemic warnings in the UI
+            populateUI(viewModel.tempDiabeticDay);//not strictly necessary but useful to refresh Hypo-Hyperglicemic warnings in the detail UI
             viewModel.unsavedChanges = false;
             saveChangesMenuItem.setVisible(false);
         } else if (viewModel.tempDiabeticDay.getDate() != 0) { //new insert
@@ -332,7 +331,7 @@ public class DayDetail extends AppCompatActivity {
                     Log.d("DayDetail", "saveChangesToDb: inserting new day with id: " + newDayId + " date: " + Utils.getReadableDate(viewModel.tempDiabeticDay.getDate()));
                 }
             });
-            populateUI(viewModel.tempDiabeticDay);//not strictly necessary but useful to refresh Hypo-Hyperglicemic warnings in the UI
+            populateUI(viewModel.tempDiabeticDay);//not strictly necessary but useful to refresh Hypo-Hyperglicemic warnings in the detail UI
             viewModel.unsavedChanges = false;
             saveChangesMenuItem.setVisible(false);
         } else {
@@ -341,16 +340,16 @@ public class DayDetail extends AppCompatActivity {
         }
     }
 
-    public void checkForGlycemicWarnings (EditText editText, int glycemia){
+    public void checkForGlycemicWarnings(EditText editText, int glycemia) {
         if ((glycemia > 0) && (glycemia < getResources().getInteger(R.integer.low_glycemia_threshold))) {
             editText.setTextColor(getResources().getColor(R.color.hypoglycemia));
             editText.setTypeface(null, Typeface.BOLD);
-            hypoglycemiaWarning=true;
+            hypoglycemiaWarning = true;
 
-        } else if (glycemia > getResources().getInteger(R.integer.high_glycemia_threshold)){
+        } else if (glycemia > getResources().getInteger(R.integer.high_glycemia_threshold)) {
             editText.setTextColor(getResources().getColor(R.color.hyperglycemia));
             editText.setTypeface(null, Typeface.BOLD);
-            hyperglycemiaWarning=true;
+            hyperglycemiaWarning = true;
 
         } else {
             editText.setTextColor(getResources().getColor(android.R.color.primary_text_light));
@@ -380,7 +379,7 @@ public class DayDetail extends AppCompatActivity {
                 saveChangesMenuItem.setVisible(true);
                 viewModel.unsavedChanges = true;
                 try {
-                    Utils.setTempDiabeticDay(viewModel.tempDiabeticDay, editText, getBaseContext()); //save UI state in viewModel
+                    Utils.checkInputsAndSetTempDiabeticDay(viewModel.tempDiabeticDay, editText, getBaseContext()); //check for input anomalies and then save UI state in viewModel
                 } catch (NumberFormatException nfe) {
                     //we constrained the input types in XML, but a funny user could insert a very huge number or do other unexpected stuff...
                     Toast.makeText(DayDetail.this, getString(R.string.please_insert_a_valid_number), Toast.LENGTH_SHORT).show();
@@ -389,8 +388,6 @@ public class DayDetail extends AppCompatActivity {
                 //if null do nothing: we are in a rotation event: don't set the tickmark visibility. It will be set by onCreateOptionsMenu, also don't touch unsavedChanges
             }
         }
-
-
 
 
     }

@@ -107,7 +107,7 @@
         android:inputType="number"
         android:saveEnabled="false"
         android:textAlignment="center"
-        android:textSize="@dimen/headline_size"
+        android:textSize="@dimen/glycemia_size"
         app:layout_constraintEnd_toEndOf="@id/meal_insulininjection_rapid"
         app:layout_constraintStart_toStartOf="@id/meal_insulininjection_rapid"
         app:layout_constraintTop_toBottomOf="@id/meal_insulininjection_rapid" />
@@ -121,7 +121,7 @@
         android:inputType="number"
         android:saveEnabled="false"
         android:textAlignment="center"
-        android:textSize="@dimen/headline_size"
+        android:textSize="@dimen/glycemia_size"
         app:layout_constraintEnd_toEndOf="@id/meal_insulininjection_long"
         app:layout_constraintStart_toStartOf="@id/meal_insulininjection_long"
         app:layout_constraintTop_toBottomOf="@id/meal_insulininjection_long" />
@@ -135,7 +135,7 @@
         android:inputType="number"
         android:saveEnabled="false"
         android:textAlignment="center"
-        android:textSize="@dimen/headline_size"
+        android:textSize="@dimen/glycemia_size"
         app:layout_constraintEnd_toEndOf="@id/meal_glycemia_before"
         app:layout_constraintStart_toStartOf="@id/meal_glycemia_before"
         app:layout_constraintTop_toBottomOf="@id/meal_glycemia_before_text" />
@@ -173,7 +173,7 @@
         android:inputType="number"
         android:saveEnabled="false"
         android:textAlignment="center"
-        android:textSize="@dimen/headline_size"
+        android:textSize="@dimen/glycemia_size"
         app:layout_constraintEnd_toEndOf="@id/meal_extrainjectionrapid"
         app:layout_constraintStart_toStartOf="@id/meal_extrainjectionrapid"
         app:layout_constraintTop_toBottomOf="@id/meal_extrainjectionrapid" />
@@ -214,7 +214,7 @@
         android:inputType="number"
         android:saveEnabled="false"
         android:textAlignment="center"
-        android:textSize="@dimen/headline_size"
+        android:textSize="@dimen/glycemia_size"
         app:layout_constraintEnd_toEndOf="@id/meal_glycemia_after_text"
         app:layout_constraintStart_toStartOf="@id/meal_glycemia_after_text"
         app:layout_constraintTop_toBottomOf="@id/meal_glycemia_after_text" />
