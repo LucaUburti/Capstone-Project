@@ -24,6 +24,7 @@ import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import uburti.luca.fitnessfordiabetics.FoodInfo.FoodInfoActivity;
 import uburti.luca.fitnessfordiabetics.ViewModel.MainActivityViewModel;
 import uburti.luca.fitnessfordiabetics.ViewModel.MainActivityViewModelFactory;
 import uburti.luca.fitnessfordiabetics.database.AppDatabase;

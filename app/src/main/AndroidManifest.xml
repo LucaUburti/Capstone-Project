@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".DayDetail" />
-        <activity android:name=".FoodInfoActivity"></activity>
+        <activity android:name=".FoodInfo.FoodInfoActivity"></activity>
     </application>
 
 </manifest>

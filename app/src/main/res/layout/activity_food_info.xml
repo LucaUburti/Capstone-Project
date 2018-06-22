@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FoodInfoActivity">
+    tools:context=".FoodInfo.FoodInfoActivity">
 
     <TextView
         android:id="@+id/food_info_title_tv"
@@ -59,13 +59,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/food_info_results_title_tv">
+        app:layout_constraintTop_toBottomOf="@id/food_info_results_title_tv">
 
-        <TextView
-            android:id="@+id/food_info_results_tv"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/food_info_results_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Banana 50\nBaked potatoes 80\n...\n..." />
+             />
     </ScrollView>
 
 
