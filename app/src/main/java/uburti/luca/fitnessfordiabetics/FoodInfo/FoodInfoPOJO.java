@@ -5,12 +5,22 @@ public class FoodInfoPOJO {
     private String minValue;
     private String maxValue;
     private String average;
+    private String photo;
 
-    public FoodInfoPOJO(String name, String minValue, String maxValue, String average) {
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public FoodInfoPOJO(String name, String minValue, String maxValue, String average, String photo) {
         this.name = name;
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.average = average;
+        this.photo= photo;
     }
 
     public String getName() {

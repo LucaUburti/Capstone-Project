@@ -4,7 +4,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -15,11 +19,14 @@ import uburti.luca.fitnessfordiabetics.utils.NetworkUtils;
 
 public class FoodInfoActivity extends AppCompatActivity implements NetworkUtils.FoodInfoAsyncTask.AsyncResponseListener {
     public static final String FITNESSFORDIABETICS_URL = "https://fitnessfordiabetics.firebaseio.com/food_info.json";
-    public static String UNSPLASH_BASE_URL = "https://api.unsplash.com/search/photos?page=1&per_page=1&orientation=landscape&order_by=popular";
+    public static final int MIN_SEARCH_CHARS = 2;
     @BindView(R.id.food_info_results_rv)
     RecyclerView resultsRv;
+    @BindView(R.id.food_info_search_et)
+    EditText foodInfoSearchEt;
 
     FoodInfoAdapter foodInfoAdapter;
+    ArrayList<FoodInfoPOJO> foodList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,29 +36,70 @@ public class FoodInfoActivity extends AppCompatActivity implements NetworkUtils.
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         resultsRv.setLayoutManager(layoutManager);
+        foodInfoAdapter = new FoodInfoAdapter(this);
+        if (!NetworkUtils.isOnline(this)) {
+            Toast.makeText(this, R.string.check_connectivity, Toast.LENGTH_LONG).show();
+        } else {
+            NetworkUtils.FoodInfoAsyncTask foodInfoAsyncTask = new NetworkUtils.FoodInfoAsyncTask();
+            foodInfoAsyncTask.callback = this;
+            foodInfoAsyncTask.execute(FITNESSFORDIABETICS_URL);
+        }
 
-        NetworkUtils.FoodInfoAsyncTask foodInfoAsyncTask = new NetworkUtils.FoodInfoAsyncTask();
-        foodInfoAsyncTask.callback = this;
-        foodInfoAsyncTask.execute(FITNESSFORDIABETICS_URL);
 
+        foodInfoSearchEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-//        String food="pizza";
-//        String unsplashApiKey="dab357e62a5a079e47e7162b950648f9a047d3c184e2af80ade91dc8b7628eff";
-//        Uri unsplashUri = Uri.parse(UNSPLASH_BASE_URL).buildUpon().appendQueryParameter("query", food).appendQueryParameter("client_id", unsplashApiKey).build();
-//        NetworkUtils.FoodInfoAsyncTask networkAsyncTask2 =new NetworkUtils.FoodInfoAsyncTask();
-//        networkAsyncTask2.callback = this;
-//        networkAsyncTask2.execute(unsplashUri.toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (foodList != null) { //ensure AsyncTask returned full food list
+                    ArrayList<FoodInfoPOJO> foodFound = searchFood(foodInfoSearchEt.getText().toString());
+                    UpdateUIResults(foodFound);
+                } //if we don't have the food list do nothing for now: the AsyncTask callback will update the UI if the search EditText isn't empty
+            }
+        });
+
 
     }
 
-    @Override
-    public void processFinish(ArrayList<FoodInfoPOJO> foodList) {
-        Log.d("FoodInfo", "processFinish: " + foodList);
-        if (foodList!=null) {
-//            resultsTv.setText(output);
-            foodInfoAdapter = new FoodInfoAdapter(foodList);
-            resultsRv.setAdapter(foodInfoAdapter);
 
+    private ArrayList<FoodInfoPOJO> searchFood(String searchString) {
+        Log.d("FoodInfo", "Searchstring: " + searchString);
+        if (searchString.length() < MIN_SEARCH_CHARS) {
+            return null; //wait for a few chars before doing a look up
+        }
+
+        ArrayList<FoodInfoPOJO> foodFound = new ArrayList<>();
+        for (int i = 0; i < foodList.size(); i++) {
+            String currentFood = foodList.get(i).getName();
+            if (currentFood.toLowerCase().contains(searchString.toLowerCase())) { //check if the current food matches the search string, ignoring Uppercases
+                foodFound.add(foodList.get(i));
+            }
+        }
+        return foodFound;
+
+    }
+
+    private void UpdateUIResults(ArrayList<FoodInfoPOJO> foodFound) {
+        foodInfoAdapter.setFoodInfoAdapterContent(foodFound);
+        resultsRv.setAdapter(foodInfoAdapter);
+    }
+
+    @Override
+    public void processFinish(ArrayList<FoodInfoPOJO> foodList) {   //Asynctask callback
+        if (foodList != null) {
+            this.foodList = foodList;
+            if (foodInfoSearchEt.getText().toString().length() > 0) { //if the search Edittext isn't empty, do a search now and update the UI
+                ArrayList<FoodInfoPOJO> foodFound = searchFood(foodInfoSearchEt.getText().toString());
+                UpdateUIResults(foodFound);
+            }
         }
     }
 }

@@ -32,6 +32,13 @@
     <string name="food_info_finder">Food Info Finder</string>
     <string name="search_food_hint">Search food by name to know its Glycemic Index</string>
     <string name="results">Results</string>
+    <string name="check_connectivity">Please check your Internet connectivity</string>
+    <string name="glycemic_index">Glycemic index:</string>
+    <string name="min_value_header">Min:</string>
+    <string name="max_value_header">Max:</string>
+    <string name="average_value_header">Average:</string>
+    <string name="glycemic_index_results">Glycemic Index results</string>
+    <string name="food_item">Food Item</string>
 
     <integer name="low_glycemia_threshold">50</integer>
     <integer name="high_glycemia_threshold">150</integer>

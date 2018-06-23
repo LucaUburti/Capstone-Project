@@ -1,5 +1,8 @@
 package uburti.luca.fitnessfordiabetics.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -80,6 +83,9 @@ public class NetworkUtils {
     }
 
     private static ArrayList<FoodInfoPOJO> extractFoodInfoFromJson(String stringResults) throws JSONException {
+        if (stringResults == null) {
+            return null;
+        }
         ArrayList<FoodInfoPOJO> results = new ArrayList<>();
         JSONArray jsonArray = new JSONArray(stringResults);
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -88,12 +94,23 @@ public class NetworkUtils {
             String minValue = currentOjbect.getString("min_value");
             String maxValue = currentOjbect.getString("max_value");
             String average = currentOjbect.getString("average");
-            FoodInfoPOJO foodInfoPOJO = new FoodInfoPOJO(name, minValue, maxValue, average);
+            String photo = currentOjbect.getString("photo");
+            FoodInfoPOJO foodInfoPOJO = new FoodInfoPOJO(name, minValue, maxValue, average, photo);
             results.add(foodInfoPOJO);
         }
         return results;
     }
 
+
+    public static boolean isOnline(Context context) {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = null;
+        if (cm != null) {
+            netInfo = cm.getActiveNetworkInfo();
+        }
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
 
 
 }
