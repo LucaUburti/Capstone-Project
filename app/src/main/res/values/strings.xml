@@ -39,7 +39,8 @@
     <string name="average_value_header">Average:</string>
     <string name="glycemic_index_results">Glycemic Index results</string>
     <string name="food_item">Food Item</string>
+    <string name="glycemic_trends">Glycemic Trends</string>
 
-    <integer name="low_glycemia_threshold">50</integer>
-    <integer name="high_glycemia_threshold">150</integer>
+    <integer name="low_glycemia_threshold">70</integer>
+    <integer name="high_glycemia_threshold">200</integer>
 </resources>

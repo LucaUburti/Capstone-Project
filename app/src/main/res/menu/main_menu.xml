@@ -5,4 +5,8 @@
         android:id="@+id/food_info"
         android:title="@string/food_info_finder"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/glycemic_trends"
+        android:title="@string/glycemic_trends"
+        app:showAsAction="never" />
 </menu>

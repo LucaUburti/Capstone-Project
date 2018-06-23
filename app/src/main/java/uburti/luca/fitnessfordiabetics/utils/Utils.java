@@ -1,20 +1,28 @@
 package uburti.luca.fitnessfordiabetics.utils;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import uburti.luca.fitnessfordiabetics.MainActivity;
 import uburti.luca.fitnessfordiabetics.R;
 import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
 
 public class Utils {
 
-    public static final int EDITTEXT_MAX_LINES = 6;
+    public static int daysToRetrieve=30;//TODO set as user preference
+
+
+    private static final int EDITTEXT_MAX_LINES = 6;
 
     public static void checkInputsAndSetTempDiabeticDay(DiabeticDay tempDiabeticDay, EditText editText, Context context) {
         int parentId = ((ViewGroup) editText.getParent()).getId();
@@ -152,5 +160,42 @@ public class Utils {
     public static String getReadableDate(long dateToBeChecked) {
         return DateFormat.getDateInstance(DateFormat.LONG).format(new Date(dateToBeChecked));
     }
+    public static String getNumericDate(long dateToBeChecked, Context context) {
+        int flags = DateUtils.FORMAT_NUMERIC_DATE| DateUtils.FORMAT_NO_YEAR;
+        return DateUtils.formatDateTime(context, dateToBeChecked, flags);
+    }
 
+    public static List<DiabeticDay> insertMockDays(List<DiabeticDay> diabeticDays) {
+        List<Long> retrievedDates = new ArrayList<>();
+        for (int i = 0; i < diabeticDays.size(); i++) { //build a list of the dates where we have actual data in the DB
+            retrievedDates.add(diabeticDays.get(i).getDate());
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        for (int i = 0; i < daysToRetrieve; i++) {  //check if all possible dates are present in the retrieved list
+            long dateToBeChecked = cal.getTimeInMillis();
+            if (!retrievedDates.contains(dateToBeChecked)) { //no data for this day in the Db
+                diabeticDays.add(i, new DiabeticDay(dateToBeChecked, true)); //add an empty mock day to the list
+                Log.d("MainActivity", "Adding mock day at position: " + i + ", no info found for day " + getReadableDate(dateToBeChecked));
+            } else {
+                Log.d("MainActivity", "Day at position: " + i + " unchanged. List already has info for day " + getReadableDate(dateToBeChecked));
+            }
+            cal.add(Calendar.DATE, -1);
+        }
+        return diabeticDays;
+    }
+
+    public static long getStartDate() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        cal.add(Calendar.DATE, -daysToRetrieve);
+        return cal.getTimeInMillis();
+    }
 }
