@@ -19,8 +19,11 @@ import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
 
 public class Utils {
 
-    public static int daysToRetrieve=30;//TODO set as user preference
+    private static int daysToRetrieve=30;
 
+    public static int getDaysToRetrieve() {//TODO set as user preference
+        return daysToRetrieve;
+    }
 
     private static final int EDITTEXT_MAX_LINES = 6;
 
@@ -195,7 +198,7 @@ public class Utils {
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
-        cal.add(Calendar.DATE, -daysToRetrieve);
+        cal.add(Calendar.DATE, -getDaysToRetrieve());
         return cal.getTimeInMillis();
     }
 }

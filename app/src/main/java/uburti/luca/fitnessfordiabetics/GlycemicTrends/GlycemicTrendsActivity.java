@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import uburti.luca.fitnessfordiabetics.R;
@@ -39,6 +41,7 @@ import static uburti.luca.fitnessfordiabetics.utils.Utils.getNumericDate;
 public class GlycemicTrendsActivity extends AppCompatActivity {
     public static final int MEASURES_PER_DAY = 7;
     LineChart chart;
+    HashMap<Integer, String> xAxisToDateMap=new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +58,7 @@ public class GlycemicTrendsActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<DiabeticDay> diabeticDays) {
                 ArrayList<Entry> entries = extractDataForChart(diabeticDays);
-                int maxPossibleEntries = Utils.daysToRetrieve * MEASURES_PER_DAY;
+                int maxPossibleEntries = Utils.getDaysToRetrieve() * MEASURES_PER_DAY;
                 setupChart(entries, maxPossibleEntries); //TODO prefs
             }
         });
@@ -90,7 +93,8 @@ public class GlycemicTrendsActivity extends AppCompatActivity {
         chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                Toast.makeText(GlycemicTrendsActivity.this, "X: " + e.getX() + " Y: " + e.getY(), Toast.LENGTH_SHORT).show();
+                String msg= xAxisToDateMap.get((int)e.getX())+ "\n"+ getString(R.string.glycemia_header) + e.getY();
+                Snackbar.make(findViewById(R.id.glycemic_trends_cl), msg, Snackbar.LENGTH_LONG).show();
             }
 
             @Override
@@ -100,7 +104,11 @@ public class GlycemicTrendsActivity extends AppCompatActivity {
         });
         Legend legend = chart.getLegend();
         legend.setEnabled(false);
+        chart.setVisibleXRangeMinimum(3);
+//        chart.setVisibleXRangeMaximum(49);
+//        chart.setVisibleYRangeMinimum(150, YAxis.AxisDependency.LEFT);
         chart.getDescription().setEnabled(false);
+
 
     }
 
@@ -169,25 +177,25 @@ public class GlycemicTrendsActivity extends AppCompatActivity {
         for (int i = 0; i < maxPossibleEntries; i++) {
             switch (i % MEASURES_PER_DAY) {
                 case 0:
-                    xLabels.add(getNumericDate(cal.getTimeInMillis(), this) + " B.Bkfst");//TODO convert to resources
+                    xLabels.add(getNumericDate(cal.getTimeInMillis(), this) + " " + getString(R.string.before_breakfast_abbrv));
                     break;
                 case 1:
-                    xLabels.add(getNumericDate(cal.getTimeInMillis(), this) + " A.Bkfst");
+                    xLabels.add(getNumericDate(cal.getTimeInMillis(), this) + " " + getString(R.string.after_breakfast_abbrv));
                     break;
                 case 2:
-                    xLabels.add(getNumericDate(cal.getTimeInMillis(), this) + " B.Lunch");
+                    xLabels.add(getNumericDate(cal.getTimeInMillis(), this) + " " + getString(R.string.before_lunch_abbrv));
                     break;
                 case 3:
-                    xLabels.add(getNumericDate(cal.getTimeInMillis(), this) + " A.Lunch");
+                    xLabels.add(getNumericDate(cal.getTimeInMillis(), this) + " " + getString(R.string.after_lunch_abbrv));
                     break;
                 case 4:
-                    xLabels.add(getNumericDate(cal.getTimeInMillis(), this) + " B.Dinner");
+                    xLabels.add(getNumericDate(cal.getTimeInMillis(), this) + " " + getString(R.string.before_dinner_abbrv));
                     break;
                 case 5:
-                    xLabels.add(getNumericDate(cal.getTimeInMillis(), this) + " A.Dinner");
+                    xLabels.add(getNumericDate(cal.getTimeInMillis(), this) + " " + getString(R.string.after_dinner_abbrv));
                     break;
                 case 6:
-                    xLabels.add(getNumericDate(cal.getTimeInMillis(), this) + " Bedtime");
+                    xLabels.add(getNumericDate(cal.getTimeInMillis(), this) + " " + getString(R.string.bedtime));
                     cal.add(Calendar.DATE, -1);
                     break;
             }
@@ -199,6 +207,7 @@ public class GlycemicTrendsActivity extends AppCompatActivity {
             }
         });
         xAxis.setGranularity(1f);
+
     }
 
     private ArrayList<Entry> extractDataForChart(List<DiabeticDay> diabeticDays) {
@@ -211,36 +220,43 @@ public class GlycemicTrendsActivity extends AppCompatActivity {
             DiabeticDay currentDiabeticDay = diabeticDaysNoGaps.get(i);
             int entryIndex = i * MEASURES_PER_DAY;
             if (currentDiabeticDay.getGlycemiaBeforeBreakfast() == 0) {
-                entryIndex++;
+                entryIndex++;   //no data to display on chart, just increment the x-axis entry index
             } else {
+                xAxisToDateMap.put(entryIndex, Utils.getReadableDate(currentDiabeticDay.getDate()) +" "+ "Before breakfast");
                 entries.add(new Entry(entryIndex++, currentDiabeticDay.getGlycemiaBeforeBreakfast()));
             }
             if (currentDiabeticDay.getGlycemiaAfterBreakfast() == 0) {
                 entryIndex++;
             } else {
+                xAxisToDateMap.put(entryIndex, Utils.getReadableDate(currentDiabeticDay.getDate()) +" "+ "After breakfast");
                 entries.add(new Entry(entryIndex++, currentDiabeticDay.getGlycemiaAfterBreakfast()));
             }
             if (currentDiabeticDay.getGlycemiaBeforeLunch() == 0) {
                 entryIndex++;
             } else {
+                xAxisToDateMap.put(entryIndex, Utils.getReadableDate(currentDiabeticDay.getDate()) +" "+ "Before lunch");
                 entries.add(new Entry(entryIndex++, currentDiabeticDay.getGlycemiaBeforeLunch()));
             }
             if (currentDiabeticDay.getGlycemiaAfterLunch() == 0) {
                 entryIndex++;
             } else {
+                xAxisToDateMap.put(entryIndex, Utils.getReadableDate(currentDiabeticDay.getDate()) +" "+ "After breakfast");
                 entries.add(new Entry(entryIndex++, currentDiabeticDay.getGlycemiaAfterLunch()));
             }
             if (currentDiabeticDay.getGlycemiaBeforeDinner() == 0) {
                 entryIndex++;
             } else {
+                xAxisToDateMap.put(entryIndex, Utils.getReadableDate(currentDiabeticDay.getDate()) +" "+ "Before dinner");
                 entries.add(new Entry(entryIndex++, currentDiabeticDay.getGlycemiaBeforeDinner()));
             }
             if (currentDiabeticDay.getGlycemiaAfterDinner() == 0) {
                 entryIndex++;
             } else {
+                xAxisToDateMap.put(entryIndex, Utils.getReadableDate(currentDiabeticDay.getDate()) +" "+ "After breakfast");
                 entries.add(new Entry(entryIndex++, currentDiabeticDay.getGlycemiaAfterDinner()));
             }
             if (currentDiabeticDay.getGlycemiaBedtime() != 0) {
+                xAxisToDateMap.put(entryIndex, Utils.getReadableDate(currentDiabeticDay.getDate()) +" "+ getResources().getString(R.string.bedtime));
                 entries.add(new Entry(entryIndex, currentDiabeticDay.getGlycemiaBedtime()));
             }
         }
