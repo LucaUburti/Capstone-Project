@@ -143,7 +143,7 @@ public class Utils {
         return i == 0 ? "-" : String.valueOf(i);
     }
 
-    public static int valueOfStringWithInputCheck(String s) { //if value is 0 returns an empty string instead
+    static int valueOfStringWithInputCheck(String s) { //if value is 0 returns an empty string instead
         int i;
 
         if (s.equals("")) {
@@ -162,6 +162,10 @@ public class Utils {
 
     public static String getReadableDate(long dateToBeChecked) {
         return DateFormat.getDateInstance(DateFormat.LONG).format(new Date(dateToBeChecked));
+    }
+    public static String getReadableDateNoYears(long dateToBeChecked, Context context) {
+        int flags = DateUtils.FORMAT_SHOW_DATE| DateUtils.FORMAT_NO_YEAR;
+        return DateUtils.formatDateTime(context, dateToBeChecked, flags);
     }
     public static String getNumericDate(long dateToBeChecked, Context context) {
         int flags = DateUtils.FORMAT_NUMERIC_DATE| DateUtils.FORMAT_NO_YEAR;

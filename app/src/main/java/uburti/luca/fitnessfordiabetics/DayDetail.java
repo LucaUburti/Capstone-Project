@@ -3,8 +3,10 @@ package uburti.luca.fitnessfordiabetics;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import uburti.luca.fitnessfordiabetics.AppWidget.AppWidgetService;
 import uburti.luca.fitnessfordiabetics.ViewModel.DayDetailViewModel;
 import uburti.luca.fitnessfordiabetics.ViewModel.DayDetailViewModelFactory;
 import uburti.luca.fitnessfordiabetics.ViewModel.DayDetailViewModelWithFactory;
@@ -36,6 +39,7 @@ import static uburti.luca.fitnessfordiabetics.MainActivity.DATE_EXTRA;
 import static uburti.luca.fitnessfordiabetics.MainActivity.DAY_ID_EXTRA;
 
 public class DayDetail extends AppCompatActivity {
+    public static final String WIDGET_TEXT = "WIDGET_TEXT";
     //    public static final String UNSAVED_CHANGES_KEY = "UNSAVED_CHANGES_KEY";
     @BindView(R.id.detail_date_tv)
     TextView dateTv;
@@ -350,13 +354,14 @@ public class DayDetail extends AppCompatActivity {
                 DiabeticDay latestDayWithGlycemiaSet = appDatabase.dayDao().loadLatestDayWithGlycemiaSet();
                 DiabeticDay latestDayWithInjectionSet = appDatabase.dayDao().loadLatestDayWithInjectionSet();
 
-                final String textToBeDisplayedInWidget = getTextToBeDisplayedInWidget(latestDayWithGlycemiaSet, latestDayWithInjectionSet);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(DayDetail.this, textToBeDisplayedInWidget, Toast.LENGTH_LONG).show();
-                    }
-                });
+                String textToBeDisplayedInWidget = getTextToBeDisplayedInWidget(latestDayWithGlycemiaSet, latestDayWithInjectionSet);
+
+                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(DayDetail.this);
+                SharedPreferences.Editor editor = sharedPrefs.edit();
+                editor.putString(WIDGET_TEXT, textToBeDisplayedInWidget);
+                editor.apply();         //save widget text in the Shared prefs so that it can be retrieved on reboot
+
+                AppWidgetService.startActionSetMsg(DayDetail.this, textToBeDisplayedInWidget);
 
 
             }
@@ -368,7 +373,7 @@ public class DayDetail extends AppCompatActivity {
 
         //first half of the widget text: get latest glycemia value, its date and the time of day when the measure was taken
         if (latestDayWithGlycemiaSet == null) {
-            textToBeDisplayedInWidget = "No glycemic data found";
+            textToBeDisplayedInWidget = getString(R.string.no_glycemic_data);
         } else {
             String latestGlycemiaValue = "";
             String latestGlycemiaTimeOfDay = "";
@@ -383,30 +388,34 @@ public class DayDetail extends AppCompatActivity {
                 latestGlycemiaTimeOfDay = getString(R.string.after_dinner);
             } else if (latestDayWithGlycemiaSet.getGlycemiaBeforeDinner() > 0) {
                 latestGlycemiaValue = Integer.toString(latestDayWithGlycemiaSet.getGlycemiaBeforeDinner());
-                latestGlycemiaTimeOfDay = "Before dinner";
+                latestGlycemiaTimeOfDay = getString(R.string.before_dinner);
             } else if (latestDayWithGlycemiaSet.getGlycemiaAfterLunch() > 0) {
                 latestGlycemiaValue = Integer.toString(latestDayWithGlycemiaSet.getGlycemiaAfterLunch());
-                latestGlycemiaTimeOfDay = "After lunch";
+                latestGlycemiaTimeOfDay = getString(R.string.after_lunch);
             } else if (latestDayWithGlycemiaSet.getGlycemiaBeforeLunch() > 0) {
                 latestGlycemiaValue = Integer.toString(latestDayWithGlycemiaSet.getGlycemiaBeforeLunch());
-                latestGlycemiaTimeOfDay = "Before lunch";
+                latestGlycemiaTimeOfDay = getString(R.string.before_lunch);
             } else if (latestDayWithGlycemiaSet.getGlycemiaAfterBreakfast() > 0) {
                 latestGlycemiaValue = Integer.toString(latestDayWithGlycemiaSet.getGlycemiaAfterBreakfast());
-                latestGlycemiaTimeOfDay = "After breakfast";
+                latestGlycemiaTimeOfDay = getString(R.string.after_breakfast);
             } else if (latestDayWithGlycemiaSet.getGlycemiaBeforeBreakfast() > 0) {
                 latestGlycemiaValue = Integer.toString(latestDayWithGlycemiaSet.getGlycemiaBeforeBreakfast());
-                latestGlycemiaTimeOfDay = "Before breakfast";
+                latestGlycemiaTimeOfDay = getString(R.string.before_breakfast);
             }
 
 
             //first half done!
-            textToBeDisplayedInWidget = getString(R.string.lastest_glycemia_header) + latestGlycemiaValue + " " + Utils.getReadableDate(latestGlycemiaDate) + " " + latestGlycemiaTimeOfDay;
+            textToBeDisplayedInWidget = getString(R.string.lastest_glycemia_header) +
+                    latestGlycemiaValue + "\n" +
+                    Utils.getNumericDate(latestGlycemiaDate, DayDetail.this) + " - " +
+                    latestGlycemiaTimeOfDay.toLowerCase();
         }
 
         //second half of the widget text: get latest injection units, the insulin type, its date and the time of day when the injection was made
-        textToBeDisplayedInWidget += "\n";
+        textToBeDisplayedInWidget += "\n\n";
+
         if (latestDayWithInjectionSet == null) {
-            textToBeDisplayedInWidget += "No injections data found";
+            textToBeDisplayedInWidget += getString(R.string.no_injections_found);
         } else {
             String latestInjectionValue = "";
             String latestInjectionType = "";
@@ -460,7 +469,12 @@ public class DayDetail extends AppCompatActivity {
             }
 
             //second half done!
-            textToBeDisplayedInWidget += getString(R.string.latest_injection_header) + latestInjectionValue + " " + latestInjectionType + " " + Utils.getReadableDate(latestInjectionDate) + " " + latestInjectionTimeOfDay;
+            textToBeDisplayedInWidget += getString(R.string.latest_injection_header) +
+                    latestInjectionValue + " " +
+                    getString(R.string.units) + "\n" +
+                    latestInjectionType + "\n" +
+                    Utils.getNumericDate(latestInjectionDate, DayDetail.this) + " - " +
+                    latestInjectionTimeOfDay.toLowerCase();
         }
 
         return textToBeDisplayedInWidget;

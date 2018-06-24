@@ -5,8 +5,12 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.RemoteViews;
 
+import uburti.luca.fitnessfordiabetics.DayDetail;
 import uburti.luca.fitnessfordiabetics.MainActivity;
 import uburti.luca.fitnessfordiabetics.R;
 
@@ -18,10 +22,11 @@ public class AppWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, String widgetMsg,
                                 int appWidgetId) {
 
-
+        Log.d("AppWidget", "updateAppWidget FINAL CALL! text: "+widgetMsg);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget);
         views.setTextViewText(R.id.appwidget_text, widgetMsg);
+        views.setInt(R.id.appwidget_iv,"setAlpha",150);//60% transparent
 
         PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0);
         views.setOnClickPendingIntent(R.id.appwidget_rl, pi);
@@ -37,7 +42,10 @@ public class AppWidget extends AppWidgetProvider {
 //            updateAppWidget(context, appWidgetManager, appWidgetId);
 //        }
 
-        AppWidgetService.startActionSetMsg(context);
+        SharedPreferences sharedPrefs= PreferenceManager.getDefaultSharedPreferences(context);
+        String textToBeDisplayedInWidget = sharedPrefs.getString(DayDetail.WIDGET_TEXT, "");
+        AppWidgetService.startActionSetMsg(context, textToBeDisplayedInWidget);
+        Log.d("AppWidget", "onUpdate: periodic widget data update with text from from shared prefs: "+ textToBeDisplayedInWidget);
     }
 
     @Override
@@ -51,6 +59,7 @@ public class AppWidget extends AppWidgetProvider {
     }
 
     public static void updateAppWidgets(Context context, AppWidgetManager appWidgetManager, String widgetMsg, int[] appWidgetIds) {
+        Log.d("AppWidget", "updateAppWidgets, text: "+widgetMsg);
         for (int appWidgetId : appWidgetIds){
             updateAppWidget(context, appWidgetManager, widgetMsg, appWidgetId);
 

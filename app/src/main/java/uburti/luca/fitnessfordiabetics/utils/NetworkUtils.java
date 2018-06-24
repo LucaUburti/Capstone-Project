@@ -100,14 +100,14 @@ public class NetworkUtils {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject currentOjbect = jsonArray.getJSONObject(i);
             String name = currentOjbect.getJSONObject(JSON_NAME).getString(JSON_EN_US);
-            String kcal = currentOjbect.getString(JSON_KCAL);
-            String carbs = currentOjbect.getString(JSON_CARBS);
-            String protein = currentOjbect.getString(JSON_PROTEIN);
-            String fat = currentOjbect.getString(JSON_FAT);
-            String giMinValue = currentOjbect.getString(JSON_GI_MIN_VALUE);
-            String giMaxValue = currentOjbect.getString(JSON_GI_MAX_VALUE);
-            String giAverage = currentOjbect.getString(JSON_GI_AVERAGE);
-            String photo = currentOjbect.getString(JSON_PHOTO);
+            String kcal = currentOjbect.optString(JSON_KCAL);
+            String carbs = currentOjbect.optString(JSON_CARBS);
+            String protein = currentOjbect.optString(JSON_PROTEIN);
+            String fat = currentOjbect.optString(JSON_FAT);
+            String giMinValue = currentOjbect.optString(JSON_GI_MIN_VALUE);
+            String giMaxValue = currentOjbect.optString(JSON_GI_MAX_VALUE);
+            String giAverage = currentOjbect.optString(JSON_GI_AVERAGE);
+            String photo = currentOjbect.optString(JSON_PHOTO);
             FoodInfoPOJO foodInfoPOJO = new FoodInfoPOJO(name, giMinValue, giMaxValue, giAverage, photo, kcal, carbs, protein, fat);
             results.add(foodInfoPOJO);
         }

@@ -5,7 +5,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
-public class DiabeticDay {
+public class DiabeticDay {//TODO split workouts as cardio and weights
     @PrimaryKey(autoGenerate = true)
     private long dayId;
     private long date;
