@@ -80,6 +80,7 @@ public class FoodInfoActivity extends AppCompatActivity implements NetworkUtils.
         for (int i = 0; i < foodList.size(); i++) {
             String currentFood = foodList.get(i).getName();
             if (currentFood.toLowerCase().contains(searchString.toLowerCase())) { //check if the current food matches the search string, ignoring Uppercases
+
                 foodFound.add(foodList.get(i));
             }
         }

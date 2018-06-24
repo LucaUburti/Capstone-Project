@@ -33,10 +33,10 @@
     <string name="search_food_hint">Search for food to find its nutritional values</string>
     <string name="results">Results</string>
     <string name="check_connectivity">Please check your Internet connectivity</string>
-    <string name="glycemic_index_header">Glycemic index: </string>
-    <string name="min_value_header">Min: </string>
-    <string name="max_value_header">Max: </string>
-    <string name="average_value_header">Average: </string>
+    <string name="glycemic_index_header">Glycemic index:\u0020</string>
+    <string name="gi_min_header">G.I. Min:\u0020</string>
+    <string name="gi_max_header">G.I. Max:\u0020</string>
+    <string name="gi_average_header">G.I. Average:\u0020</string>
     <string name="glycemic_index_results">Glycemic Index results</string>
     <string name="food_item">Food Item</string>
     <string name="glycemic_trends">Glycemic Trends</string>
@@ -46,8 +46,24 @@
     <string name="after_lunch_abbrv">A.Lunch</string>
     <string name="before_dinner_abbrv">B.Dinner</string>
     <string name="after_dinner_abbrv">A.Dinner</string>
-    <string name="glycemia_header">Glycemia: </string>
+    <string name="glycemia_header">Glycemia:\u0020</string>
 
     <integer name="low_glycemia_threshold">70</integer>
     <integer name="high_glycemia_threshold">200</integer>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="rapidacting_extrainjection">Rapid-acting, extra injection</string>
+    <string name="long_acting">Long-acting</string>
+    <string name="rapid_acting">Rapid-acting</string>
+    <string name="after_dinner">After dinner</string>
+    <string name="lastest_glycemia_header">Latest glycemia:\u0020</string>
+    <string name="latest_injection_header">Latest Injection:\u0020</string>
+    <string name="kcal_header">Kcal:\u0020</string>
+    <string name="carbs_header">Carbs:\u0020</string>
+    <string name="proteins_header">Proteins:\u0020</string>
+    <string name="fat_header">Fat:\u0020</string>
+    <string name="nutrition_facts_for_100gr">Nutrition facts for 100gr</string>
+    <string name="grams_abbrv">g</string>
+    <string name="g_i_legend">G.I. = Glycemic index</string>
+
 </resources>

@@ -337,7 +337,133 @@ public class DayDetail extends AppCompatActivity {
         } else {
             Toast.makeText(this, R.string.error_saving_to_the_db, Toast.LENGTH_SHORT).show();
             Crashlytics.log(Log.ERROR, "DayDetail", "Error saving to the DB: dayId and date are zero!");
+            return;
         }
+        updateWidget();
+    }
+
+    private void updateWidget() {
+        appDatabase = AppDatabase.getInstance(getApplicationContext());
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                DiabeticDay latestDayWithGlycemiaSet = appDatabase.dayDao().loadLatestDayWithGlycemiaSet();
+                DiabeticDay latestDayWithInjectionSet = appDatabase.dayDao().loadLatestDayWithInjectionSet();
+
+                final String textToBeDisplayedInWidget = getTextToBeDisplayedInWidget(latestDayWithGlycemiaSet, latestDayWithInjectionSet);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(DayDetail.this, textToBeDisplayedInWidget, Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
+            }
+        });
+    }
+
+    private String getTextToBeDisplayedInWidget(DiabeticDay latestDayWithGlycemiaSet, DiabeticDay latestDayWithInjectionSet) {//TODO set string res
+        String textToBeDisplayedInWidget;
+
+        //first half of the widget text: get latest glycemia value, its date and the time of day when the measure was taken
+        if (latestDayWithGlycemiaSet == null) {
+            textToBeDisplayedInWidget = "No glycemic data found";
+        } else {
+            String latestGlycemiaValue = "";
+            String latestGlycemiaTimeOfDay = "";
+            long latestGlycemiaDate = latestDayWithGlycemiaSet.getDate();
+
+            //check which value is the latest, starting from bedtime
+            if (latestDayWithGlycemiaSet.getGlycemiaBedtime() > 0) {
+                latestGlycemiaValue = Integer.toString(latestDayWithGlycemiaSet.getGlycemiaBedtime());
+                latestGlycemiaTimeOfDay = getString(R.string.bedtime);
+            } else if (latestDayWithGlycemiaSet.getGlycemiaAfterDinner() > 0) {
+                latestGlycemiaValue = Integer.toString(latestDayWithGlycemiaSet.getGlycemiaAfterDinner());
+                latestGlycemiaTimeOfDay = getString(R.string.after_dinner);
+            } else if (latestDayWithGlycemiaSet.getGlycemiaBeforeDinner() > 0) {
+                latestGlycemiaValue = Integer.toString(latestDayWithGlycemiaSet.getGlycemiaBeforeDinner());
+                latestGlycemiaTimeOfDay = "Before dinner";
+            } else if (latestDayWithGlycemiaSet.getGlycemiaAfterLunch() > 0) {
+                latestGlycemiaValue = Integer.toString(latestDayWithGlycemiaSet.getGlycemiaAfterLunch());
+                latestGlycemiaTimeOfDay = "After lunch";
+            } else if (latestDayWithGlycemiaSet.getGlycemiaBeforeLunch() > 0) {
+                latestGlycemiaValue = Integer.toString(latestDayWithGlycemiaSet.getGlycemiaBeforeLunch());
+                latestGlycemiaTimeOfDay = "Before lunch";
+            } else if (latestDayWithGlycemiaSet.getGlycemiaAfterBreakfast() > 0) {
+                latestGlycemiaValue = Integer.toString(latestDayWithGlycemiaSet.getGlycemiaAfterBreakfast());
+                latestGlycemiaTimeOfDay = "After breakfast";
+            } else if (latestDayWithGlycemiaSet.getGlycemiaBeforeBreakfast() > 0) {
+                latestGlycemiaValue = Integer.toString(latestDayWithGlycemiaSet.getGlycemiaBeforeBreakfast());
+                latestGlycemiaTimeOfDay = "Before breakfast";
+            }
+
+
+            //first half done!
+            textToBeDisplayedInWidget = getString(R.string.lastest_glycemia_header) + latestGlycemiaValue + " " + Utils.getReadableDate(latestGlycemiaDate) + " " + latestGlycemiaTimeOfDay;
+        }
+
+        //second half of the widget text: get latest injection units, the insulin type, its date and the time of day when the injection was made
+        textToBeDisplayedInWidget += "\n";
+        if (latestDayWithInjectionSet == null) {
+            textToBeDisplayedInWidget += "No injections data found";
+        } else {
+            String latestInjectionValue = "";
+            String latestInjectionType = "";
+            String latestInjectionTimeOfDay = "";
+            long latestInjectionDate = latestDayWithInjectionSet.getDate();
+
+            //check which value is the latest, starting from bedtime
+            if (latestDayWithInjectionSet.getBedtimeInjectionRapidExtra() > 0) {        //bedtime
+                latestInjectionValue = Integer.toString(latestDayWithInjectionSet.getBedtimeInjectionRapidExtra());
+                latestInjectionType = getString(R.string.rapidacting_extrainjection);
+                latestInjectionTimeOfDay = getString(R.string.bedtime);
+
+            } else if (latestDayWithInjectionSet.getDinnerInjectionRapidExtra() > 0) {  //dinner
+                latestInjectionValue = Integer.toString(latestDayWithInjectionSet.getDinnerInjectionRapidExtra());
+                latestInjectionType = getString(R.string.rapidacting_extrainjection);
+                latestInjectionTimeOfDay = getString(R.string.dinner);
+            } else if (latestDayWithInjectionSet.getDinnerInjectionLong() > 0) {
+                latestInjectionValue = Integer.toString(latestDayWithInjectionSet.getDinnerInjectionLong());
+                latestInjectionType = getString(R.string.long_acting);
+                latestInjectionTimeOfDay = getString(R.string.dinner);
+            } else if (latestDayWithInjectionSet.getDinnerInjectionRapid() > 0) {
+                latestInjectionValue = Integer.toString(latestDayWithInjectionSet.getDinnerInjectionRapid());
+                latestInjectionType = getString(R.string.rapid_acting);
+                latestInjectionTimeOfDay = getString(R.string.dinner);
+
+            } else if (latestDayWithInjectionSet.getLunchInjectionRapidExtra() > 0) {   //lunch
+                latestInjectionValue = Integer.toString(latestDayWithInjectionSet.getLunchInjectionRapidExtra());
+                latestInjectionType = getString(R.string.rapidacting_extrainjection);
+                latestInjectionTimeOfDay = getString(R.string.lunch);
+            } else if (latestDayWithInjectionSet.getLunchInjectionLong() > 0) {
+                latestInjectionValue = Integer.toString(latestDayWithInjectionSet.getLunchInjectionLong());
+                latestInjectionType = getString(R.string.long_acting);
+                latestInjectionTimeOfDay = getString(R.string.lunch);
+            } else if (latestDayWithInjectionSet.getLunchInjectionRapid() > 0) {
+                latestInjectionValue = Integer.toString(latestDayWithInjectionSet.getLunchInjectionRapid());
+                latestInjectionType = getString(R.string.rapid_acting);
+                latestInjectionTimeOfDay = getString(R.string.lunch);
+
+            } else if (latestDayWithInjectionSet.getBreakfastInjectionRapidExtra() > 0) {   //breakfast
+                latestInjectionValue = Integer.toString(latestDayWithInjectionSet.getBreakfastInjectionRapidExtra());
+                latestInjectionType = getString(R.string.rapidacting_extrainjection);
+                latestInjectionTimeOfDay = getString(R.string.breakfast);
+            } else if (latestDayWithInjectionSet.getBreakfastInjectionLong() > 0) {
+                latestInjectionValue = Integer.toString(latestDayWithInjectionSet.getBreakfastInjectionLong());
+                latestInjectionType = getString(R.string.long_acting);
+                latestInjectionTimeOfDay = getString(R.string.breakfast);
+            } else if (latestDayWithInjectionSet.getBreakfastInjectionRapid() > 0) {
+                latestInjectionValue = Integer.toString(latestDayWithInjectionSet.getBreakfastInjectionRapid());
+                latestInjectionType = getString(R.string.rapid_acting);
+                latestInjectionTimeOfDay = getString(R.string.breakfast);
+            }
+
+            //second half done!
+            textToBeDisplayedInWidget += getString(R.string.latest_injection_header) + latestInjectionValue + " " + latestInjectionType + " " + Utils.getReadableDate(latestInjectionDate) + " " + latestInjectionTimeOfDay;
+        }
+
+        return textToBeDisplayedInWidget;
     }
 
     public void checkForGlycemicWarnings(EditText editText, int glycemia) {
@@ -384,9 +510,9 @@ public class DayDetail extends AppCompatActivity {
                     //we constrained the input types in XML, but a funny user could insert a very huge number or do other unexpected stuff...
                     Toast.makeText(DayDetail.this, getString(R.string.please_insert_a_valid_number), Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                //if null do nothing: we are in a rotation event: don't set the tickmark visibility. It will be set by onCreateOptionsMenu, also don't touch unsavedChanges
             }
+//          else {} //if null do nothing: we are in a rotation event: don't set the tickmark visibility. It will be set by onCreateOptionsMenu, also don't touch unsavedChanges
+
         }
 
 

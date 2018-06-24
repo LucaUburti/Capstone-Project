@@ -18,10 +18,35 @@ public interface DayDao {
     LiveData<List<DiabeticDay>> loadAllDays();
 
     @Query("SELECT * FROM DiabeticDay WHERE date >= :startDate ORDER BY date DESC")
-    LiveData<List<DiabeticDay>>  loadDaysStartingFrom(long startDate);
+    LiveData<List<DiabeticDay>> loadDaysStartingFrom(long startDate);
+
+    @Query("SELECT * FROM DiabeticDay WHERE" +
+            " (glycemiaBeforeBreakfast > 0) OR\n" +
+            " (glycemiaAfterBreakfast > 0) OR\n" +
+            " (glycemiaBeforeLunch > 0) OR\n" +
+            " (glycemiaAfterLunch > 0) OR\n" +
+            " (glycemiaBeforeDinner > 0) OR\n" +
+            " (glycemiaAfterDinner > 0) OR\n" +
+            " (glycemiaBedtime > 0)" +
+            " ORDER BY date DESC LIMIT 1")
+    DiabeticDay loadLatestDayWithGlycemiaSet();
+
+    @Query("SELECT * FROM DiabeticDay WHERE" +
+            " (breakfastInjectionRapid > 0) OR\n" +
+            " (breakfastInjectionLong > 0) OR\n" +
+            " (breakfastInjectionRapidExtra > 0) OR\n" +
+            " (lunchInjectionRapid > 0) OR\n" +
+            " (lunchInjectionLong > 0) OR\n" +
+            " (lunchInjectionRapidExtra > 0) OR\n" +
+            " (dinnerInjectionRapid > 0) OR\n" +
+            " (dinnerInjectionLong > 0) OR\n" +
+            " (dinnerInjectionRapidExtra > 0) OR\n" +
+            " (bedtimeInjectionRapidExtra > 0)" +
+            " ORDER BY date DESC LIMIT 1")
+    DiabeticDay loadLatestDayWithInjectionSet();
 
     @Query("SELECT * FROM DiabeticDay WHERE dayId = :dayId")
-    LiveData<DiabeticDay>  loadDay(long dayId);
+    LiveData<DiabeticDay> loadDay(long dayId);
 
     @Insert()
     long insertDay(DiabeticDay diabeticDay);

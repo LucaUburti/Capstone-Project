@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
         return true;
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) { //TODO replicate menu to other activities
         Intent intent;
         switch (item.getItemId()) {
             case R.id.food_info:

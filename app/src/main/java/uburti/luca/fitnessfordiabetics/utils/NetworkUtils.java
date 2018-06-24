@@ -6,8 +6,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.Gson;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +21,17 @@ import java.util.Scanner;
 import uburti.luca.fitnessfordiabetics.FoodInfo.FoodInfoPOJO;
 
 public class NetworkUtils {
+
+    private static final String JSON_NAME = "name";
+    private static final String JSON_EN_US = "en_us";
+    private static final String JSON_KCAL = "kcal";
+    private static final String JSON_CARBS = "carbs";
+    private static final String JSON_PROTEIN = "protein";
+    private static final String JSON_FAT = "fat";
+    private static final String JSON_GI_MIN_VALUE = "gi_min_value";
+    private static final String JSON_GI_MAX_VALUE = "gi_max_value";
+    private static final String JSON_GI_AVERAGE = "gi_average";
+    private static final String JSON_PHOTO = "photo";
 
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -90,12 +99,16 @@ public class NetworkUtils {
         JSONArray jsonArray = new JSONArray(stringResults);
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject currentOjbect = jsonArray.getJSONObject(i);
-            String name = currentOjbect.getJSONObject("name").getString("en_us");
-            String minValue = currentOjbect.getString("min_value");
-            String maxValue = currentOjbect.getString("max_value");
-            String average = currentOjbect.getString("average");
-            String photo = currentOjbect.getString("photo");
-            FoodInfoPOJO foodInfoPOJO = new FoodInfoPOJO(name, minValue, maxValue, average, photo);
+            String name = currentOjbect.getJSONObject(JSON_NAME).getString(JSON_EN_US);
+            String kcal = currentOjbect.getString(JSON_KCAL);
+            String carbs = currentOjbect.getString(JSON_CARBS);
+            String protein = currentOjbect.getString(JSON_PROTEIN);
+            String fat = currentOjbect.getString(JSON_FAT);
+            String giMinValue = currentOjbect.getString(JSON_GI_MIN_VALUE);
+            String giMaxValue = currentOjbect.getString(JSON_GI_MAX_VALUE);
+            String giAverage = currentOjbect.getString(JSON_GI_AVERAGE);
+            String photo = currentOjbect.getString(JSON_PHOTO);
+            FoodInfoPOJO foodInfoPOJO = new FoodInfoPOJO(name, giMinValue, giMaxValue, giAverage, photo, kcal, carbs, protein, fat);
             results.add(foodInfoPOJO);
         }
         return results;

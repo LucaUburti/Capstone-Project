@@ -44,15 +44,28 @@ public class FoodInfoAdapter extends RecyclerView.Adapter<FoodInfoAdapter.FoodIn
         holder.food_item_name_tv.setText(currentFood.getName());
 
         String glycemicInfo = "";
-//                context.getString(R.string.glycemic_index);
-        if (currentFood.getMinValue().length() > 0) {
-            glycemicInfo += context.getString(R.string.min_value_header) + currentFood.getMinValue() +"\n";
+        if (currentFood.getKcal().length() > 0) {
+            glycemicInfo += context.getString(R.string.kcal_header) + currentFood.getKcal() +"\n";
         }
-        if (currentFood.getMaxValue().length() > 0) {
-            glycemicInfo += context.getString(R.string.max_value_header) + currentFood.getMaxValue() +"\n";
+        if (currentFood.getCarbs().length() > 0) {
+            glycemicInfo += context.getString(R.string.carbs_header) + currentFood.getCarbs() +context.getString(R.string.grams_abbrv)+"\n";
         }
-        if (currentFood.getAverage().length() > 0) {
-            glycemicInfo += context.getString(R.string.average_value_header) + currentFood.getAverage();
+        if (currentFood.getProtein().length() > 0) {
+            glycemicInfo += context.getString(R.string.proteins_header) + currentFood.getProtein() +context.getString(R.string.grams_abbrv)+"\n";
+        }
+        if (currentFood.getFat().length() > 0) {
+            glycemicInfo += context.getString(R.string.fat_header) + currentFood.getFat() +context.getString(R.string.grams_abbrv)+"\n";
+        }
+
+
+        if (currentFood.getGiMinValue().length() > 0) { //TODO polish glycemic index value in the UI
+            glycemicInfo += context.getString(R.string.gi_min_header) + currentFood.getGiMinValue() +"\n";
+        }
+        if (currentFood.getGiMaxValue().length() > 0) {
+            glycemicInfo += context.getString(R.string.gi_max_header) + currentFood.getGiMaxValue() +"\n";
+        }
+        if (currentFood.getGiAverage().length() > 0) {
+            glycemicInfo += context.getString(R.string.gi_average_header) + currentFood.getGiAverage();
         }
         holder.food_item_glycemic_info_tv.setText(glycemicInfo);
 

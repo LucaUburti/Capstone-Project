@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp">
 
+
         <ImageView
             android:contentDescription="@string/food_item"
             android:id="@+id/food_item_iv"
@@ -49,5 +50,17 @@
                 tools:text="Glycemic info" />
         </LinearLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|bottom"
+            android:text="@string/g_i_legend"
+            android:textSize="@dimen/body_size" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:text="@string/nutrition_facts_for_100gr"
+            android:textSize="@dimen/body_size" />
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

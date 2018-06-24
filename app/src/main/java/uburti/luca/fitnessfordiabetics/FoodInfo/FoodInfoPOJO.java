@@ -2,25 +2,25 @@ package uburti.luca.fitnessfordiabetics.FoodInfo;
 
 public class FoodInfoPOJO {
     private String name;
-    private String minValue;
-    private String maxValue;
-    private String average;
+    private String giMinValue;
+    private String giMaxValue;
+    private String giAverage;
     private String photo;
+    private String kcal;
+    private String carbs;
+    private String protein;
+    private String fat;
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public FoodInfoPOJO(String name, String minValue, String maxValue, String average, String photo) {
+    public FoodInfoPOJO(String name, String giMinValue, String giMaxValue, String giAverage, String photo, String kcal, String carbs, String protein, String fat) {
         this.name = name;
-        this.minValue = minValue;
-        this.maxValue = maxValue;
-        this.average = average;
-        this.photo= photo;
+        this.giMinValue = giMinValue;
+        this.giMaxValue = giMaxValue;
+        this.giAverage = giAverage;
+        this.photo = photo;
+        this.kcal = kcal;
+        this.carbs = carbs;
+        this.protein = protein;
+        this.fat = fat;
     }
 
     public String getName() {
@@ -31,27 +31,67 @@ public class FoodInfoPOJO {
         this.name = name;
     }
 
-    public String getMinValue() {
-        return minValue;
+    public String getGiMinValue() {
+        return giMinValue;
     }
 
-    public void setMinValue(String minValue) {
-        this.minValue = minValue;
+    public void setGiMinValue(String giMinValue) {
+        this.giMinValue = giMinValue;
     }
 
-    public String getMaxValue() {
-        return maxValue;
+    public String getGiMaxValue() {
+        return giMaxValue;
     }
 
-    public void setMaxValue(String maxValue) {
-        this.maxValue = maxValue;
+    public void setGiMaxValue(String giMaxValue) {
+        this.giMaxValue = giMaxValue;
     }
 
-    public String getAverage() {
-        return average;
+    public String getGiAverage() {
+        return giAverage;
     }
 
-    public void setAverage(String average) {
-        this.average = average;
+    public void setGiAverage(String giAverage) {
+        this.giAverage = giAverage;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getKcal() {
+        return kcal;
+    }
+
+    public void setKcal(String kcal) {
+        this.kcal = kcal;
+    }
+
+    public String getCarbs() {
+        return carbs;
+    }
+
+    public void setCarbs(String carbs) {
+        this.carbs = carbs;
+    }
+
+    public String getProtein() {
+        return protein;
+    }
+
+    public void setProtein(String protein) {
+        this.protein = protein;
+    }
+
+    public String getFat() {
+        return fat;
+    }
+
+    public void setFat(String fat) {
+        this.fat = fat;
     }
 }
