@@ -27,13 +27,13 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uburti.luca.fitnessfordiabetics.AppWidget.AppWidgetService;
-import uburti.luca.fitnessfordiabetics.ViewModel.DayDetailViewModel;
-import uburti.luca.fitnessfordiabetics.ViewModel.DayDetailViewModelFactory;
-import uburti.luca.fitnessfordiabetics.ViewModel.DayDetailViewModelWithFactory;
+import uburti.luca.fitnessfordiabetics.appwidget.AppWidgetService;
 import uburti.luca.fitnessfordiabetics.database.AppDatabase;
 import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
 import uburti.luca.fitnessfordiabetics.utils.Utils;
+import uburti.luca.fitnessfordiabetics.viewmodel.DayDetailViewModel;
+import uburti.luca.fitnessfordiabetics.viewmodel.DayDetailViewModelFactory;
+import uburti.luca.fitnessfordiabetics.viewmodel.DayDetailViewModelWithFactory;
 
 import static uburti.luca.fitnessfordiabetics.MainActivity.DATE_EXTRA;
 import static uburti.luca.fitnessfordiabetics.MainActivity.DAY_ID_EXTRA;
@@ -368,7 +368,7 @@ public class DayDetail extends AppCompatActivity {
         });
     }
 
-    private String getTextToBeDisplayedInWidget(DiabeticDay latestDayWithGlycemiaSet, DiabeticDay latestDayWithInjectionSet) {//TODO set string res
+    private String getTextToBeDisplayedInWidget(DiabeticDay latestDayWithGlycemiaSet, DiabeticDay latestDayWithInjectionSet) {
         String textToBeDisplayedInWidget;
 
         //first half of the widget text: get latest glycemia value, its date and the time of day when the measure was taken
@@ -501,7 +501,7 @@ public class DayDetail extends AppCompatActivity {
     class CustomTextWatcher implements TextWatcher { //custom TextWatcher: stores the calling EditText so that we later know which EditText changed
         private EditText editText;
 
-        public CustomTextWatcher(EditText editText) {
+        CustomTextWatcher(EditText editText) {
             this.editText = editText;
         }
 

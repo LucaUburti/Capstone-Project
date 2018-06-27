@@ -3,7 +3,6 @@ package uburti.luca.fitnessfordiabetics.utils;
 import android.content.Context;
 import android.text.format.DateUtils;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
@@ -13,15 +12,18 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import uburti.luca.fitnessfordiabetics.MainActivity;
 import uburti.luca.fitnessfordiabetics.R;
 import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
 
 public class Utils {
 
-    private static int daysToRetrieve=30;
+    private static int daysToRetrieve = 30;
 
     public static int getDaysToRetrieve() {//TODO set as user preference
+
+//        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        boolean TOSAccepted = sharedPrefs.getBoolean(TOS_ACCEPTED, false);
+
         return daysToRetrieve;
     }
 
@@ -30,7 +32,7 @@ public class Utils {
     public static void checkInputsAndSetTempDiabeticDay(DiabeticDay tempDiabeticDay, EditText editText, Context context) {
         int parentId = ((ViewGroup) editText.getParent()).getId();
         int editTextId = editText.getId();
-        if (editText.getLayout().getLineCount()> EDITTEXT_MAX_LINES){
+        if (editText.getLayout().getLineCount() > EDITTEXT_MAX_LINES) {
             editText.getText().delete(editText.getText().length() - 1, editText.getText().length());
         }
         String inputText = editText.getText().toString();
@@ -139,11 +141,12 @@ public class Utils {
     public static String valueOfIntWithoutZero(int i) { //if value is 0 returns an empty string instead, used in the detail activity
         return i == 0 ? "" : String.valueOf(i);
     }
+
     public static String valueOfIntWithoutZeroSetDash(int i) { //if value is 0 returns a dash sign: "-", used in the main recyclerview
         return i == 0 ? "-" : String.valueOf(i);
     }
 
-    static int valueOfStringWithInputCheck(String s) { //if value is 0 returns an empty string instead
+    private static int valueOfStringWithInputCheck(String s) { //if value is 0 returns an empty string instead
         int i;
 
         if (s.equals("")) {
@@ -163,12 +166,14 @@ public class Utils {
     public static String getReadableDate(long dateToBeChecked) {
         return DateFormat.getDateInstance(DateFormat.LONG).format(new Date(dateToBeChecked));
     }
+
     public static String getReadableDateNoYears(long dateToBeChecked, Context context) {
-        int flags = DateUtils.FORMAT_SHOW_DATE| DateUtils.FORMAT_NO_YEAR;
+        int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_YEAR;
         return DateUtils.formatDateTime(context, dateToBeChecked, flags);
     }
+
     public static String getNumericDate(long dateToBeChecked, Context context) {
-        int flags = DateUtils.FORMAT_NUMERIC_DATE| DateUtils.FORMAT_NO_YEAR;
+        int flags = DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_NO_YEAR;
         return DateUtils.formatDateTime(context, dateToBeChecked, flags);
     }
 

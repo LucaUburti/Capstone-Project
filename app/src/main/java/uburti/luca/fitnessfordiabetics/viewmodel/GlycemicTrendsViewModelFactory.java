@@ -1,4 +1,4 @@
-package uburti.luca.fitnessfordiabetics.ViewModel;
+package uburti.luca.fitnessfordiabetics.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;

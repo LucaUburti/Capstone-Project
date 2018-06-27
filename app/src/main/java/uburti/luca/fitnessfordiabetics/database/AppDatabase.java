@@ -6,9 +6,9 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 @Database(entities = {DiabeticDay.class}, version = 1, exportSchema = false)
-public abstract class AppDatabase extends RoomDatabase{
-    public static final String DATABASE_NAME = "daylist";
-    public static final Object LOCK = new Object();
+public abstract class AppDatabase extends RoomDatabase {
+    private static final String DATABASE_NAME = "daylist";
+    private static final Object LOCK = new Object();
     private static AppDatabase sInstance;
 
     public static AppDatabase getInstance(Context context) {
@@ -19,6 +19,7 @@ public abstract class AppDatabase extends RoomDatabase{
         }
         return sInstance;
     }
+
     public abstract DayDao dayDao();
 
 }

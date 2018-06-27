@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,10 +21,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".DayDetail" />
-        <activity android:name=".FoodInfo.FoodInfoActivity" />
-        <activity android:name=".GlycemicTrends.GlycemicTrendsActivity" />
+        <activity android:name=".foodinfo.FoodInfoActivity" />
+        <activity android:name=".glycemictrends.GlycemicTrendsActivity" />
 
-        <receiver android:name=".AppWidget.AppWidget">
+        <receiver android:name=".appwidget.AppWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -32,8 +33,13 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/app_widget_info" />
         </receiver>
-        <service android:name=".AppWidget.AppWidgetService"
-            android:exported="false"/>
+
+        <service
+            android:name=".appwidget.AppWidgetService"
+            android:exported="false" />
+
+        <activity android:name=".TOSActivity" />
+        <activity android:name=".MyTherapyActivity" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package uburti.luca.fitnessfordiabetics.ViewModel;
+package uburti.luca.fitnessfordiabetics.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
@@ -11,7 +11,7 @@ public class DayDetailViewModelWithFactory extends ViewModel {
     private LiveData<DiabeticDay> diabeticDay;
 
 
-    public DayDetailViewModelWithFactory(AppDatabase appDatabase, long dayId) {
+    DayDetailViewModelWithFactory(AppDatabase appDatabase, long dayId) {
         diabeticDay = appDatabase.dayDao().loadDay(dayId);
         Log.d("DayDetailViewModel", "querying DB for dayId: " + dayId);
     }

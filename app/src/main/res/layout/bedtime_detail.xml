@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/detail_bedtime_extrainjection"
         app:layout_constraintTop_toTopOf="parent"
-        android:labelFor="@id/detail_bedtime_glycemia_et"/>
+        android:labelFor="@id/detail_bedtime_glycemia_et" />
 
 
     <EditText
@@ -59,7 +59,7 @@
         app:layout_constraintEnd_toStartOf="@id/detail_bedtime_glycemia"
         app:layout_constraintStart_toStartOf="@id/detail_bedtime_guideline"
         app:layout_constraintTop_toTopOf="parent"
-        android:labelFor="@id/detail_bedtime_extrarapid_injected_et"/>
+        android:labelFor="@id/detail_bedtime_extrarapid_injected_et" />
 
     <TextView
         android:id="@+id/detail_bedtime_extrainjectionrapid"

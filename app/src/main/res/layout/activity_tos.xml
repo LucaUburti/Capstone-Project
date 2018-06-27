@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TOSActivity">
+
+    <ImageView
+        android:contentDescription="@string/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/jogging" />
+
+    <ScrollView
+        android:id="@+id/tos_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#aaffffff">
+
+
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/tos_disclaimer_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/disclaimer_title"
+                android:textColor="#000000"
+                android:textSize="@dimen/title_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tos_disclaimer_body"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/disclaimer_body"
+                android:textColor="#000000"
+                android:textSize="@dimen/headline_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tos_disclaimer_title" />
+
+            <TextView
+                android:id="@+id/tos_privacy_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/privacy_policy_title"
+                android:textColor="#000000"
+                android:textSize="@dimen/title_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tos_disclaimer_body" />
+
+            <TextView
+                android:id="@+id/tos_privacy_policy_body"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/privacy_policy_body"
+                android:textColor="#000000"
+                android:textSize="@dimen/headline_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tos_privacy_title" />
+
+            <Button
+                android:id="@+id/tos_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:background="#bb000000"
+                android:text="@string/accept"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/headline_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tos_privacy_policy_body"
+                android:layout_margin="16dp" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </ScrollView>
+
+
+</FrameLayout>

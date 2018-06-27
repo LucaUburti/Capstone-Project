@@ -46,7 +46,7 @@ public class DiabeticDay {//TODO split workouts as cardio and weights
     }
 
     @Ignore
-    private boolean blankDay=false;
+    private boolean blankDay = false;
 
     public DiabeticDay(long dayId, long date, String breakfast, int breakfastInjectionRapid, int breakfastInjectionLong, int breakfastInjectionRapidExtra, int glycemiaBeforeBreakfast, int glycemiaAfterBreakfast, String lunch, int lunchInjectionRapid, int lunchInjectionLong, int lunchInjectionRapidExtra, int glycemiaBeforeLunch, int glycemiaAfterLunch, String dinner, int dinnerInjectionRapid, int dinnerInjectionLong, int dinnerInjectionRapidExtra, int glycemiaBeforeDinner, int glycemiaAfterDinner, int bedtimeInjectionRapidExtra, int glycemiaBedtime, String workouts, String notes) {
         this.dayId = dayId;

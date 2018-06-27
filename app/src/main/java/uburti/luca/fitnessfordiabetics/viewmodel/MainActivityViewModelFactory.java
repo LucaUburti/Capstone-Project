@@ -1,4 +1,4 @@
-package uburti.luca.fitnessfordiabetics.ViewModel;
+package uburti.luca.fitnessfordiabetics.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
@@ -10,7 +10,7 @@ public class MainActivityViewModelFactory extends ViewModelProvider.NewInstanceF
     private final AppDatabase appDatabase;
     private final long startDate;
 
-    public MainActivityViewModelFactory (AppDatabase appDatabase, long startDate) { // constructor-setter
+    public MainActivityViewModelFactory(AppDatabase appDatabase, long startDate) { // constructor-setter
         this.appDatabase = appDatabase;
         this.startDate = startDate;
     }
@@ -18,7 +18,7 @@ public class MainActivityViewModelFactory extends ViewModelProvider.NewInstanceF
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T)new MainActivityViewModel(appDatabase, startDate);
+        return (T) new MainActivityViewModel(appDatabase, startDate);
     }
 
 }

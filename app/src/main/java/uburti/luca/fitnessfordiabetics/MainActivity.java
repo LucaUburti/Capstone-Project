@@ -3,7 +3,9 @@ package uburti.luca.fitnessfordiabetics;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -13,24 +15,25 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.stetho.Stetho;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uburti.luca.fitnessfordiabetics.FoodInfo.FoodInfoActivity;
-import uburti.luca.fitnessfordiabetics.GlycemicTrends.GlycemicTrendsActivity;
-import uburti.luca.fitnessfordiabetics.ViewModel.MainActivityViewModel;
-import uburti.luca.fitnessfordiabetics.ViewModel.MainActivityViewModelFactory;
 import uburti.luca.fitnessfordiabetics.database.AppDatabase;
 import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
+import uburti.luca.fitnessfordiabetics.foodinfo.FoodInfoActivity;
+import uburti.luca.fitnessfordiabetics.glycemictrends.GlycemicTrendsActivity;
 import uburti.luca.fitnessfordiabetics.utils.Utils;
+import uburti.luca.fitnessfordiabetics.viewmodel.MainActivityViewModel;
+import uburti.luca.fitnessfordiabetics.viewmodel.MainActivityViewModelFactory;
 
+import static uburti.luca.fitnessfordiabetics.TOSActivity.TOS_ACCEPTED;
 import static uburti.luca.fitnessfordiabetics.utils.Utils.getReadableDate;
 
 public class MainActivity extends AppCompatActivity implements DayAdapter.DayClickHandler {
@@ -48,6 +51,17 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        Stetho.initializeWithDefaults(this);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean TOSAccepted = sharedPrefs.getBoolean(TOS_ACCEPTED, false);
+        if (!TOSAccepted) { //TOS not yet accepted: go straight to TOS Activity
+            Intent intent = new Intent(this, TOSActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            //clear backstack: we don't want the users to be able to use the app by pressing the back button until they accept the TOS
+            startActivity(intent);
+        }
+
 
         MobileAds.initialize(this, ADMOB_ID);
         interstitialAd = new InterstitialAd(this);
@@ -97,8 +111,7 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (new Random().nextBoolean()) {
-            //on return from other Activities will display an Interstitial Ad 50% of the time
+        if (new Random().nextInt(100) > 0) {  //on return from other Activities will display an Interstitial Ad 50% of the time
             if (interstitialAd.isLoaded()) {
                 interstitialAd.show();
             }
@@ -120,6 +133,16 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
                 return true;
             case R.id.glycemic_trends:
                 intent = new Intent(this, GlycemicTrendsActivity.class);
+                startActivityForResult(intent, 0);
+                return true;
+            case R.id.my_therapy:
+                intent = new Intent(this, MyTherapyActivity.class);
+                startActivityForResult(intent, 0);
+                return true;
+            case R.id.terms_of_service:
+                intent = new Intent(this, TOSActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("foo", true); //in TOSActivity we check the presence of a Bundle, its content is irrelevant
                 startActivityForResult(intent, 0);
                 return true;
             default:

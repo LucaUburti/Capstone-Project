@@ -9,4 +9,13 @@
         android:id="@+id/glycemic_trends"
         android:title="@string/glycemic_trends"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/my_therapy"
+        android:title="@string/my_therapy"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/terms_of_service"
+        android:title="@string/terms_of_service"
+        app:showAsAction="never" />
+
 </menu>

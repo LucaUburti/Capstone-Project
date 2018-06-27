@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/my_therapy_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".MyTherapyActivity">
+
+        <TextView
+            android:id="@+id/my_therapy_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/my_therapy"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/my_therapy_rapid_acting_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/rapid_acting"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/headline_size"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_therapy_tv" />
+
+        <EditText
+            android:id="@+id/my_therapy_rapid_acting_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:hint="@string/rapid_insulin_hint"
+            android:inputType="text"
+            android:textSize="@dimen/headline_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/my_therapy_rapid_acting_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/my_therapy_rapid_acting_tv" />
+
+        <TextView
+            android:id="@+id/my_therapy_long_acting_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/long_acting"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/headline_size"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_therapy_rapid_acting_tv" />
+
+        <EditText
+            android:id="@+id/my_therapy_long_acting_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:hint="@string/long_acting_insulin_hint"
+            android:inputType="text"
+            android:textSize="@dimen/headline_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/my_therapy_long_acting_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/my_therapy_long_acting_tv" />
+
+        <TextView
+            android:id="@+id/my_therapy_rapid_insulin_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/rapid_insulin_dosage"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_therapy_long_acting_tv" />
+
+        <TextView
+            android:labelFor="@id/my_therapy_breakfast_rapid_et"
+            android:id="@+id/my_therapy_breakfast_rapid_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/breakfast"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/headline_size"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_therapy_rapid_insulin_title_tv" />
+
+        <EditText
+            android:id="@+id/my_therapy_breakfast_rapid_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ems="3"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textSize="@dimen/headline_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/my_therapy_breakfast_rapid_tv"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/my_therapy_rapid_insulin_title_tv" />
+
+        <TextView
+            android:labelFor="@id/my_therapy_lunch_rapid_et"
+            android:id="@+id/my_therapy_lunch_rapid_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/lunch"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/headline_size"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_therapy_breakfast_rapid_tv" />
+
+        <EditText
+            android:id="@+id/my_therapy_lunch_rapid_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ems="3"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textSize="@dimen/headline_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/my_therapy_lunch_rapid_tv"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/my_therapy_lunch_rapid_tv" />
+
+        <TextView
+            android:labelFor="@id/my_therapy_dinner_rapid_et"
+            android:id="@+id/my_therapy_dinner_rapid_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/dinner"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/headline_size"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_therapy_lunch_rapid_tv" />
+
+        <EditText
+            android:id="@+id/my_therapy_dinner_rapid_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ems="3"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textSize="@dimen/headline_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/my_therapy_dinner_rapid_tv"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/my_therapy_dinner_rapid_tv" />
+
+        <TextView
+            android:id="@+id/my_therapy_long_insulin_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/long_insulin_dosage"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_therapy_dinner_rapid_tv" />
+
+        <TextView
+            android:labelFor="@id/my_therapy_breakfast_long_et"
+            android:id="@+id/my_therapy_breakfast_long_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/breakfast"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/headline_size"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_therapy_long_insulin_title_tv" />
+
+        <EditText
+            android:id="@+id/my_therapy_breakfast_long_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ems="3"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textSize="@dimen/headline_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/my_therapy_breakfast_long_tv"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/my_therapy_breakfast_long_tv" />
+
+        <TextView
+            android:labelFor="@id/my_therapy_lunch_long_et"
+            android:id="@+id/my_therapy_lunch_long_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/lunch"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/headline_size"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_therapy_breakfast_long_tv" />
+
+        <EditText
+            android:id="@+id/my_therapy_lunch_long_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ems="3"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textSize="@dimen/headline_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/my_therapy_lunch_long_tv"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/my_therapy_lunch_long_tv" />
+
+        <TextView
+            android:labelFor="@id/my_therapy_dinner_long_et"
+            android:id="@+id/my_therapy_dinner_long_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/dinner"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/headline_size"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_therapy_lunch_long_tv" />
+
+        <EditText
+            android:id="@+id/my_therapy_dinner_long_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ems="3"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textSize="@dimen/headline_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/my_therapy_dinner_long_tv"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/my_therapy_dinner_long_tv" />
+
+        <TextView
+            android:labelFor="@id/my_therapy_notes_title_et"
+            android:id="@+id/my_therapy_notes_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/notes"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_therapy_dinner_long_tv" />
+
+        <EditText
+            android:id="@+id/my_therapy_notes_title_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:inputType="textMultiLine"
+            android:textSize="@dimen/headline_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_therapy_notes_title_tv" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="192dp" />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

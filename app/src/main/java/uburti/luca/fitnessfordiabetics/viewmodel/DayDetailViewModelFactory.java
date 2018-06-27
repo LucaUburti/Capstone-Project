@@ -1,4 +1,4 @@
-package uburti.luca.fitnessfordiabetics.ViewModel;
+package uburti.luca.fitnessfordiabetics.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
@@ -16,6 +16,7 @@ public class DayDetailViewModelFactory extends ViewModelProvider.NewInstanceFact
     }
 
 
+    @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         return (T) new DayDetailViewModelWithFactory(appDatabase, dayId);

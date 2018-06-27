@@ -1,4 +1,4 @@
-package uburti.luca.fitnessfordiabetics.AppWidget;
+package uburti.luca.fitnessfordiabetics.appwidget;
 
 import android.app.IntentService;
 import android.appwidget.AppWidgetManager;
@@ -11,7 +11,7 @@ import android.util.Log;
 
 import uburti.luca.fitnessfordiabetics.DayDetail;
 
-public class AppWidgetService extends IntentService { //TODO remove some logging
+public class AppWidgetService extends IntentService {
     private String textToBeDisplayedInWidget;
     private static final String ACTION_SET_MSG = "ACTION_SET_MSG";
 
@@ -22,19 +22,14 @@ public class AppWidgetService extends IntentService { //TODO remove some logging
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         if (intent == null) {
-            Log.d("AppWidgetService", "onHandleIntent: intent is null");
             return;
-
         }
         String action = intent.getAction();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            Log.d("AppWidgetService", "onHandleIntent: bundle is not null");
             textToBeDisplayedInWidget = bundle.getString(DayDetail.WIDGET_TEXT);
-            Log.d("AppWidgetService", "onHandleIntent: bundle contains: " + textToBeDisplayedInWidget);
         }
         if (action != null && action.equals(ACTION_SET_MSG)) {
-            Log.d("AppWidgetService", "action isn't null: "+ACTION_SET_MSG );
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
             int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, AppWidget.class));
             AppWidget.updateAppWidgets(this, appWidgetManager, textToBeDisplayedInWidget, appWidgetIds);

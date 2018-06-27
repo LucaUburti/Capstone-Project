@@ -1,4 +1,4 @@
-package uburti.luca.fitnessfordiabetics.FoodInfo;
+package uburti.luca.fitnessfordiabetics.foodinfo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

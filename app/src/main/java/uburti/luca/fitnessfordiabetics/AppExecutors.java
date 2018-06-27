@@ -19,6 +19,7 @@ public class AppExecutors {
         this.networkIO = networkIO;
         this.mainThread = mainThread;
     }
+
     public static AppExecutors getInstance() {
         if (sInstance == null) {
             synchronized (LOCK) {
@@ -27,12 +28,22 @@ public class AppExecutors {
         }
         return sInstance;
     }
-    public Executor diskIO() {        return diskIO;    }
-    public Executor mainThread() {        return mainThread;    }
-    public Executor networkIO() {        return networkIO;    }
+
+    public Executor diskIO() {
+        return diskIO;
+    }
+
+    public Executor mainThread() {
+        return mainThread;
+    }
+
+    public Executor networkIO() {
+        return networkIO;
+    }
 
     private static class MainThreadExecutor implements Executor {
         private Handler mainThreadHandler = new Handler(Looper.getMainLooper());
+
         @Override
         public void execute(@NonNull Runnable command) {
             mainThreadHandler.post(command);

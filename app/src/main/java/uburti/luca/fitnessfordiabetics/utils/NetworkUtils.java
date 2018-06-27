@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import uburti.luca.fitnessfordiabetics.FoodInfo.FoodInfoPOJO;
+import uburti.luca.fitnessfordiabetics.foodinfo.FoodInfoPOJO;
 
 public class NetworkUtils {
 

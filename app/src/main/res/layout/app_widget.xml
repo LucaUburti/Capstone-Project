@@ -7,17 +7,16 @@
     android:padding="@dimen/widget_margin">
 
 
-        <ImageView
-            android:id="@+id/appwidget_iv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:background="@color/transparent"
-            android:contentDescription=""
-            android:scaleType="centerCrop"
-            android:src="@drawable/jogging"
-            tools:ignore="ContentDescription"
-            />
+    <ImageView
+        android:id="@+id/appwidget_iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:background="@color/transparent"
+        android:contentDescription=""
+        android:scaleType="centerCrop"
+        android:src="@drawable/jogging"
+        tools:ignore="ContentDescription" />
 
 
     <TextView

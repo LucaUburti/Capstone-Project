@@ -50,7 +50,6 @@
 
     <integer name="low_glycemia_threshold">70</integer>
     <integer name="high_glycemia_threshold">200</integer>
-    <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="rapidacting_extrainjection">Rapid-acting Insulin (extra injection)</string>
     <string name="long_acting">Long-acting Insulin</string>
@@ -73,9 +72,22 @@
     <string name="before_breakfast">Before breakfast</string>
     <string name="no_injections_found">No injections data found</string>
     <string name="units">IU</string>
-    <string name="on__for_dates">on</string> //for example "on" 1 July 2018
+    <string name="on__for_dates">on</string>
+    //for example "on" 1 July 2018
     <string name="at__for_time_of_day">at</string>
     <string name="glycemic_data">Glycemic data</string>
     <string name="loading">loading…</string>
+    <string name="disclaimer_title">Disclaimer and Terms of Service</string>
+    <string name="disclaimer_body">This app and its content are for informational purposes only. The content is not intended to be a substitute for professional medical advice, diagnosis or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. Never disregard professional medical advice or delay in seeking it because of something you have read in this app.\n\nIf you think you may have a medical emergency, call your doctor, go to the emergency department, or call 911 immediately.</string>
+    <string name="privacy_policy_title">Privacy Policy</string>
+    <string name="privacy_policy_body">No personal identifiable data is collected or transferred outside of the user device.\nAll glycemic data as well as data related to insulin injections is stored only locally on the user device.</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="my_therapy">My Therapy</string>
+    <string name="rapid_insulin_dosage">Rapid Insuling Dosage</string>
+    <string name="long_insulin_dosage">Long Insulin Dosage</string>
+    <string name="long_acting_insulin_hint">e.g. Lantus</string>
+    <string name="rapid_insulin_hint">e.g. NovoRapid</string>
+    <string name="accept">Accept</string>
+    <string name="background">background</string>
     //for example "at" breakfast, "at" bedtime, etc.
-    </resources>
+</resources>

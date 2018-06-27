@@ -1,4 +1,4 @@
-package uburti.luca.fitnessfordiabetics.FoodInfo;
+package uburti.luca.fitnessfordiabetics.foodinfo;
 
 public class FoodInfoPOJO {
     private String name;
