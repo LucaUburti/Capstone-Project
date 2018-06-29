@@ -8,6 +8,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -81,6 +83,11 @@ public class DayDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_detail);
         ButterKnife.bind(this);
+
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
 
 
         setupIncludedLayouts();
@@ -277,6 +284,13 @@ public class DayDetail extends AppCompatActivity {
             case R.id.save_changes:
                 saveChangesToDb();
                 return true;
+            case android.R.id.home:
+                if (viewModel.unsavedChanges) { //pressing up should first warn the user if there are unsaved changes
+                    displayUnsavedChangesAlertDialog();
+                } else {
+                    NavUtils.navigateUpFromSameTask(this);
+                }
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -285,32 +299,36 @@ public class DayDetail extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (viewModel.unsavedChanges) {
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DayDetail.this);
-            alertBuilder.setTitle(R.string.unsaved_changes).setMessage(R.string.alert_dialog_title_unsaved_changes)
-                    .setPositiveButton(R.string.save_changes, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            saveChangesToDb();
-                            finish();
-                        }
-                    })
-                    .setNeutralButton(R.string.stay_on_this_page, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    })
-                    .setNegativeButton(R.string.discard_changes, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    })
-                    .show();
+        if (viewModel.unsavedChanges) {//pressing back should first warn the user if there are unsaved changes
+            displayUnsavedChangesAlertDialog();
         } else {
             super.onBackPressed();
         }
+    }
+
+    private void displayUnsavedChangesAlertDialog() {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DayDetail.this);
+        alertBuilder.setTitle(R.string.unsaved_changes).setMessage(R.string.alert_dialog_title_unsaved_changes)
+                .setPositiveButton(R.string.save_changes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        saveChangesToDb();
+                        finish();
+                    }
+                })
+                .setNeutralButton(R.string.stay_on_this_page, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton(R.string.discard_changes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .show();
     }
 
 

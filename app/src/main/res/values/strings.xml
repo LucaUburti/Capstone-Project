@@ -72,8 +72,7 @@
     <string name="before_breakfast">Before breakfast</string>
     <string name="no_injections_found">No injections data found</string>
     <string name="units">IU</string>
-    <string name="on__for_dates">on</string>
-    //for example "on" 1 July 2018
+    <string name="on__for_dates">on</string>  <!--for example "on" 1 July 2018-->
     <string name="at__for_time_of_day">at</string>
     <string name="glycemic_data">Glycemic data</string>
     <string name="loading">loading…</string>
@@ -89,5 +88,5 @@
     <string name="rapid_insulin_hint">e.g. NovoRapid</string>
     <string name="accept">Accept</string>
     <string name="background">background</string>
-    //for example "at" breakfast, "at" bedtime, etc.
+    <string name="changes_saved">Changes saved successfully</string>
 </resources>

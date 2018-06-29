@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -56,6 +57,11 @@ public class MyTherapyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_therapy);
         ButterKnife.bind(this);
 
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
+
         if (savedInstanceState == null) {  //don't bother repopulating the EditTexts on rotations
             populateUIFromSharedPrefs();   //(EditTexts would be restored by the Android Framework anyway...)
         }
@@ -80,7 +86,7 @@ public class MyTherapyActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {   //warn the user if there are unsaved changes
+    public void onBackPressed() {   // pressing back should first warn the user if there are unsaved changes
         if (unsavedChanges()) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MyTherapyActivity.this);
             alertBuilder.setTitle(R.string.unsaved_changes).setMessage(R.string.alert_dialog_title_unsaved_changes)
@@ -109,7 +115,9 @@ public class MyTherapyActivity extends AppCompatActivity {
         }
     }
 
-    private void saveChangesToSharedPrefs() { //store the content of each EditTexts in a shared preference
+    private void saveChangesToSharedPrefs() {
+        //store the content of each EditTexts in a shared preference
+
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPrefs.edit();
         editor.putString(THERAPY_RAPID_INSULIN, rapidActingEt.getText().toString());
@@ -122,10 +130,12 @@ public class MyTherapyActivity extends AppCompatActivity {
         editor.putString(THERAPY_DINNER_LONG, dinnerLongEt.getText().toString());
         editor.putString(THERAPY_NOTES, notesEt.getText().toString());
         editor.apply();
-        Toast.makeText(this, "Changes saved successfully", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.changes_saved, Toast.LENGTH_LONG).show();
     }
 
-    private void populateUIFromSharedPrefs() { //read SharedPrefs and populate all EditTexts
+    private void populateUIFromSharedPrefs() {
+        //read SharedPrefs and populate all EditTexts
+
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         rapidActingEt.setText(sharedPrefs.getString(THERAPY_RAPID_INSULIN, ""));
         longActingEt.setText(sharedPrefs.getString(THERAPY_LONG_INSULIN, ""));
@@ -138,7 +148,9 @@ public class MyTherapyActivity extends AppCompatActivity {
         notesEt.setText(sharedPrefs.getString(THERAPY_NOTES, ""));
     }
 
-    private boolean unsavedChanges() { //check each SharedPref String against the content of its matching EditText
+    private boolean unsavedChanges() {
+        //check each SharedPref String against the content of its matching EditText
+
         boolean unsavedChanges = false;
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 

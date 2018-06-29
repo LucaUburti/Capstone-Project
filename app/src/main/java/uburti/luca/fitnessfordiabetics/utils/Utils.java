@@ -19,11 +19,7 @@ public class Utils {
 
     private static int daysToRetrieve = 30;
 
-    public static int getDaysToRetrieve() {//TODO set as user preference
-
-//        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-//        boolean TOSAccepted = sharedPrefs.getBoolean(TOS_ACCEPTED, false);
-
+    public static int getDaysToRetrieve() {
         return daysToRetrieve;
     }
 
@@ -33,12 +29,11 @@ public class Utils {
         int parentId = ((ViewGroup) editText.getParent()).getId();
         int editTextId = editText.getId();
         if (editText.getLayout().getLineCount() > EDITTEXT_MAX_LINES) {
-            editText.getText().delete(editText.getText().length() - 1, editText.getText().length());
+            editText.getText().delete(editText.getText().length() - 1, editText.getText().length()); //disallow typing too many lines
         }
         String inputText = editText.getText().toString();
         switch (parentId) {
-            case R.id.breakfast_detail:
-                Log.d("Utils", "parent is breakfast_detail");
+            case R.id.breakfast_detail:    //parent layout is breakfast_detail include
                 switch (editTextId) {
                     case R.id.meal_description_et:
                         tempDiabeticDay.setBreakfast(inputText);
@@ -60,8 +55,7 @@ public class Utils {
                         break;
                 }
                 break;
-            case R.id.lunch_detail:
-                Log.d("Utils", "parent is lunch_detail");
+            case R.id.lunch_detail: //parent layout is lunch_detail include
                 switch (editTextId) {
                     case R.id.meal_description_et:
                         tempDiabeticDay.setLunch(inputText);
@@ -83,8 +77,7 @@ public class Utils {
                         break;
                 }
                 break;
-            case R.id.dinner_detail:
-                Log.d("Utils", "parent is dinner_detail");
+            case R.id.dinner_detail:    //parent layout is dinner_detail include
                 switch (editTextId) {
                     case R.id.meal_description_et:
                         tempDiabeticDay.setDinner(inputText);
@@ -106,8 +99,7 @@ public class Utils {
                         break;
                 }
                 break;
-            case R.id.bedtime_detail:
-                Log.d("Utils", "parent is bedtime_detail");
+            case R.id.bedtime_detail:   //parent layout is bedtime_detail include
                 switch (editTextId) {
                     case R.id.detail_bedtime_extrarapid_injected_et:
                         tempDiabeticDay.setBedtimeInjectionRapidExtra(valueOfStringWithInputCheck(inputText));
@@ -118,8 +110,7 @@ public class Utils {
                 }
                 break;
 
-            case R.id.activity_day_detail_cl:
-                Log.d("Utils", "parent is activity_day_detail_cl");
+            case R.id.activity_day_detail_cl:   //parent layout is activity_day_detail_cl
                 switch (editTextId) {
                     case R.id.detail_workout_et:
                         tempDiabeticDay.setWorkouts(inputText);
@@ -178,9 +169,11 @@ public class Utils {
     }
 
     public static List<DiabeticDay> insertMockDays(List<DiabeticDay> diabeticDays) {
+        List<DiabeticDay> diabeticDaysNoGaps = new ArrayList<>(diabeticDays);  //work on a copy, we don't want to make changes to the original List
+
         List<Long> retrievedDates = new ArrayList<>();
-        for (int i = 0; i < diabeticDays.size(); i++) { //build a list of the dates where we have actual data in the DB
-            retrievedDates.add(diabeticDays.get(i).getDate());
+        for (int i = 0; i < diabeticDaysNoGaps.size(); i++) { //build a list of the dates where we have actual data in the DB
+            retrievedDates.add(diabeticDaysNoGaps.get(i).getDate());
         }
 
         Calendar cal = Calendar.getInstance();
@@ -188,17 +181,17 @@ public class Utils {
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
-        for (int i = 0; i < daysToRetrieve; i++) {  //check if all possible dates are present in the retrieved list
+        for (int i = 0; i < getDaysToRetrieve(); i++) {  //check if all possible dates are present in the retrieved list
             long dateToBeChecked = cal.getTimeInMillis();
             if (!retrievedDates.contains(dateToBeChecked)) { //no data for this day in the Db
-                diabeticDays.add(i, new DiabeticDay(dateToBeChecked, true)); //add an empty mock day to the list
+                diabeticDaysNoGaps.add(i, new DiabeticDay(dateToBeChecked, true)); //add an empty mock day to the list
                 Log.d("MainActivity", "Adding mock day at position: " + i + ", no info found for day " + getReadableDate(dateToBeChecked));
             } else {
                 Log.d("MainActivity", "Day at position: " + i + " unchanged. List already has info for day " + getReadableDate(dateToBeChecked));
             }
             cal.add(Calendar.DATE, -1);
         }
-        return diabeticDays;
+        return diabeticDaysNoGaps;
     }
 
     public static long getStartDate() {

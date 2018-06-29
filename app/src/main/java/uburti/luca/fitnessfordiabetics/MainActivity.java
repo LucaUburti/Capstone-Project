@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (new Random().nextInt(100) > 0) {  //on return from other Activities will display an Interstitial Ad 50% of the time
+        if (new Random().nextInt(100) > 50) {  //on return from other Activities will display an Interstitial Ad 50% of the time
             if (interstitialAd.isLoaded()) {
                 interstitialAd.show();
             }
@@ -124,7 +124,8 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
         return true;
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) { //TODO replicate menu to other activities
+    public boolean onOptionsItemSelected(MenuItem item) {
+        interstitialAd.loadAd(new AdRequest.Builder().build());
         Intent intent;
         switch (item.getItemId()) {
             case R.id.food_info:
@@ -141,8 +142,6 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
                 return true;
             case R.id.terms_of_service:
                 intent = new Intent(this, TOSActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("foo", true); //in TOSActivity we check the presence of a Bundle, its content is irrelevant
                 startActivityForResult(intent, 0);
                 return true;
             default:

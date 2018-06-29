@@ -1,6 +1,7 @@
 package uburti.luca.fitnessfordiabetics.foodinfo;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +34,11 @@ public class FoodInfoActivity extends AppCompatActivity implements NetworkUtils.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_info);
         ButterKnife.bind(this);
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
+
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         resultsRv.setLayoutManager(layoutManager);

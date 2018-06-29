@@ -20,9 +20,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DayDetail" />
-        <activity android:name=".foodinfo.FoodInfoActivity" />
-        <activity android:name=".glycemictrends.GlycemicTrendsActivity" />
+        <activity
+            android:name=".DayDetail"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".foodinfo.FoodInfoActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".glycemictrends.GlycemicTrendsActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
 
         <receiver android:name=".appwidget.AppWidget">
             <intent-filter>
@@ -38,8 +56,21 @@
             android:name=".appwidget.AppWidgetService"
             android:exported="false" />
 
-        <activity android:name=".TOSActivity" />
-        <activity android:name=".MyTherapyActivity" />
+        <activity
+            android:name=".TOSActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".MyTherapyActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
     </application>
 
 </manifest>

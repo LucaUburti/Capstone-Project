@@ -35,6 +35,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         this.diabeticDays = diabeticDays;
         this.context = context;
         this.dayClickHandler = dayClickHandler;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -126,7 +127,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
     }
 
 
-    void checkForGlycemicWarnings(TextView textView, int glycemia) {
+    private void checkForGlycemicWarnings(TextView textView, int glycemia) {
         if ((glycemia > 0) && (glycemia < context.getResources().getInteger(R.integer.low_glycemia_threshold))) {
             textView.setTextColor(context.getResources().getColor(R.color.hypoglycemia));
             textView.setTypeface(null, Typeface.BOLD);
