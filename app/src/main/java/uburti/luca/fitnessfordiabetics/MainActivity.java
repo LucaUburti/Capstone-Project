@@ -29,6 +29,7 @@ import uburti.luca.fitnessfordiabetics.database.AppDatabase;
 import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
 import uburti.luca.fitnessfordiabetics.foodinfo.FoodInfoActivity;
 import uburti.luca.fitnessfordiabetics.glycemictrends.GlycemicTrendsActivity;
+import uburti.luca.fitnessfordiabetics.utils.RandomDBDataGenerator;
 import uburti.luca.fitnessfordiabetics.utils.Utils;
 import uburti.luca.fitnessfordiabetics.viewmodel.MainActivityViewModel;
 import uburti.luca.fitnessfordiabetics.viewmodel.MainActivityViewModelFactory;
@@ -143,6 +144,10 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
             case R.id.terms_of_service:
                 intent = new Intent(this, TOSActivity.class);
                 startActivityForResult(intent, 0);
+                return true;
+            case R.id.populate_db_with_random_data:
+                RandomDBDataGenerator randomDBDataGenerator= new RandomDBDataGenerator(this);
+                randomDBDataGenerator.startDBReset();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

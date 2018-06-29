@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Fitness For Diabetics</string>
-    <string name="warning">warning</string>
+    <string name="warning">Warning</string>
     <string name="breakfast">Breakfast</string>
     <string name="lunch">Lunch</string>
     <string name="dinner">Dinner</string>
@@ -51,7 +51,7 @@
     <integer name="low_glycemia_threshold">70</integer>
     <integer name="high_glycemia_threshold">200</integer>
     <string name="add_widget">Add widget</string>
-    <string name="rapidacting_extrainjection">Rapid-acting Insulin (extra injection)</string>
+    <string name="rapidacting_extrainjection">Rapid-acting Insulin\n(extra injection)</string>
     <string name="long_acting">Long-acting Insulin</string>
     <string name="rapid_acting">Rapid-acting Insulin</string>
     <string name="after_dinner">After dinner</string>
@@ -89,4 +89,10 @@
     <string name="accept">Accept</string>
     <string name="background">background</string>
     <string name="changes_saved">Changes saved successfully</string>
+    <string name="cardio">Cardio</string>
+    <string name="weights">Weights</string>
+    <string name="set_random_data">☢Set random data☢</string>
+    <string name="loss_of_data_warning">WARNING! This option will OVERWRITE the database with random data. Only for testing purposes. Are you sure?</string>
+    <string name="overwrite_text">OVERWRITE database with random data</string>
+    <string name="cancel">Cancel</string>
 </resources>

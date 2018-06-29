@@ -76,7 +76,8 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         checkForGlycemicWarnings(holder.afterDinnerGlycemiaTv, diabeticDay.getGlycemiaAfterDinner());
         holder.bedtimeGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaBedtime()));
         checkForGlycemicWarnings(holder.bedtimeGlycemiaTv, diabeticDay.getGlycemiaBedtime());
-        holder.workoutTv.setText(diabeticDay.getWorkouts());
+        holder.cardioWorkoutTv.setText(diabeticDay.getWorkoutsCardio());
+        holder.weightsWorkoutTv.setText(diabeticDay.getWorkoutsWeights());
         if (hypoglycemiaWarning && !hyperglycemiaWarning) {
             holder.warningTv.setText(context.getResources().getString(R.string.hypoglycemia));
             holder.warningTv.setVisibility(View.VISIBLE);
@@ -120,7 +121,8 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         holder.bedtimeGlycemiaTv.setText("-");
         holder.bedtimeGlycemiaTv.setTextColor(context.getResources().getColor(android.R.color.primary_text_light));
         holder.bedtimeGlycemiaTv.setTypeface(null, Typeface.NORMAL);
-        holder.workoutTv.setText("");
+        holder.cardioWorkoutTv.setText("");
+        holder.weightsWorkoutTv.setText("");
         holder.warningTv.setText("");
         holder.warningTv.setVisibility(View.GONE);
         holder.warningIv.setVisibility(View.GONE);
@@ -174,8 +176,10 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         TextView afterDinnerGlycemiaTv;
         @BindView(R.id.rv_item_bedtime_glycemia_tv)
         TextView bedtimeGlycemiaTv;
-        @BindView(R.id.rv_item_workout)
-        TextView workoutTv;
+        @BindView(R.id.rv_item_cardio_workout_tv)
+        TextView cardioWorkoutTv;
+        @BindView(R.id.rv_item_weights_workout_tv)
+        TextView weightsWorkoutTv;
 
         DayViewHolder(View itemView) {
             super(itemView);

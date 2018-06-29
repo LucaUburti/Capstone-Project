@@ -5,7 +5,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
-public class DiabeticDay {//TODO split workouts as cardio and weights
+public class DiabeticDay {
     @PrimaryKey(autoGenerate = true)
     private long dayId;
     private long date;
@@ -34,7 +34,8 @@ public class DiabeticDay {//TODO split workouts as cardio and weights
     private int bedtimeInjectionRapidExtra;
     private int glycemiaBedtime;
 
-    private String workouts;
+    private String workoutsCardio;
+    private String workoutsWeights;
     private String notes;
 
     public boolean isBlankDay() {
@@ -48,7 +49,7 @@ public class DiabeticDay {//TODO split workouts as cardio and weights
     @Ignore
     private boolean blankDay = false;
 
-    public DiabeticDay(long dayId, long date, String breakfast, int breakfastInjectionRapid, int breakfastInjectionLong, int breakfastInjectionRapidExtra, int glycemiaBeforeBreakfast, int glycemiaAfterBreakfast, String lunch, int lunchInjectionRapid, int lunchInjectionLong, int lunchInjectionRapidExtra, int glycemiaBeforeLunch, int glycemiaAfterLunch, String dinner, int dinnerInjectionRapid, int dinnerInjectionLong, int dinnerInjectionRapidExtra, int glycemiaBeforeDinner, int glycemiaAfterDinner, int bedtimeInjectionRapidExtra, int glycemiaBedtime, String workouts, String notes) {
+    public DiabeticDay(long dayId, long date, String breakfast, int breakfastInjectionRapid, int breakfastInjectionLong, int breakfastInjectionRapidExtra, int glycemiaBeforeBreakfast, int glycemiaAfterBreakfast, String lunch, int lunchInjectionRapid, int lunchInjectionLong, int lunchInjectionRapidExtra, int glycemiaBeforeLunch, int glycemiaAfterLunch, String dinner, int dinnerInjectionRapid, int dinnerInjectionLong, int dinnerInjectionRapidExtra, int glycemiaBeforeDinner, int glycemiaAfterDinner, int bedtimeInjectionRapidExtra, int glycemiaBedtime, String workoutsCardio, String workoutsWeights, String notes) {
         this.dayId = dayId;
         this.date = date;
         this.breakfast = breakfast;
@@ -71,7 +72,8 @@ public class DiabeticDay {//TODO split workouts as cardio and weights
         this.glycemiaAfterDinner = glycemiaAfterDinner;
         this.bedtimeInjectionRapidExtra = bedtimeInjectionRapidExtra;
         this.glycemiaBedtime = glycemiaBedtime;
-        this.workouts = workouts;
+        this.workoutsCardio = workoutsCardio;
+        this.workoutsWeights = workoutsWeights;
         this.notes = notes;
     }
 
@@ -86,7 +88,7 @@ public class DiabeticDay {//TODO split workouts as cardio and weights
     }
 
     @Ignore
-    public DiabeticDay(long date, String breakfast, int breakfastInjectionRapid, int breakfastInjectionLong, int breakfastInjectionRapidExtra, int glycemiaBeforeBreakfast, int glycemiaAfterBreakfast, String lunch, int lunchInjectionRapid, int lunchInjectionLong, int lunchInjectionRapidExtra, int glycemiaBeforeLunch, int glycemiaAfterLunch, String dinner, int dinnerInjectionRapid, int dinnerInjectionLong, int dinnerInjectionRapidExtra, int glycemiaBeforeDinner, int glycemiaAfterDinner, int bedtimeInjectionRapidExtra, int glycemiaBedtime, String workouts, String notes) {
+    public DiabeticDay(long date, String breakfast, int breakfastInjectionRapid, int breakfastInjectionLong, int breakfastInjectionRapidExtra, int glycemiaBeforeBreakfast, int glycemiaAfterBreakfast, String lunch, int lunchInjectionRapid, int lunchInjectionLong, int lunchInjectionRapidExtra, int glycemiaBeforeLunch, int glycemiaAfterLunch, String dinner, int dinnerInjectionRapid, int dinnerInjectionLong, int dinnerInjectionRapidExtra, int glycemiaBeforeDinner, int glycemiaAfterDinner, int bedtimeInjectionRapidExtra, int glycemiaBedtime, String workoutsCardio, String workoutsWeights, String notes) {
         this.date = date;
         this.breakfast = breakfast;
         this.breakfastInjectionRapid = breakfastInjectionRapid;
@@ -108,7 +110,8 @@ public class DiabeticDay {//TODO split workouts as cardio and weights
         this.glycemiaAfterDinner = glycemiaAfterDinner;
         this.bedtimeInjectionRapidExtra = bedtimeInjectionRapidExtra;
         this.glycemiaBedtime = glycemiaBedtime;
-        this.workouts = workouts;
+        this.workoutsCardio = workoutsCardio;
+        this.workoutsWeights = workoutsWeights;
         this.notes = notes;
     }
 
@@ -200,8 +203,13 @@ public class DiabeticDay {//TODO split workouts as cardio and weights
         return glycemiaBedtime;
     }
 
-    public String getWorkouts() {
-        return workouts;
+
+    public String getWorkoutsCardio() {
+        return workoutsCardio;
+    }
+
+    public String getWorkoutsWeights() {
+        return workoutsWeights;
     }
 
     public String getNotes() {
@@ -296,8 +304,11 @@ public class DiabeticDay {//TODO split workouts as cardio and weights
         this.glycemiaBedtime = glycemiaBedtime;
     }
 
-    public void setWorkouts(String workouts) {
-        this.workouts = workouts;
+    public void setWorkoutsCardio(String workoutsCardio) {
+        this.workoutsCardio = workoutsCardio;
+    }
+    public void setWorkoutsWeights(String workoutsWeights) {
+        this.workoutsWeights = workoutsWeights;
     }
 
     public void setNotes(String notes) {

@@ -38,7 +38,7 @@ import uburti.luca.fitnessfordiabetics.viewmodel.GlycemicTrendsViewModelFactory;
 
 import static uburti.luca.fitnessfordiabetics.utils.Utils.getNumericDate;
 
-public class GlycemicTrendsActivity extends AppCompatActivity {
+public class GlycemicTrendsActivity extends AppCompatActivity { //TODO check crash when no data present
     public static final int MEASURES_PER_DAY = 7;
     LineChart chart;
     HashMap<Integer, String> xAxisToDateMap = new HashMap<>();
@@ -92,9 +92,11 @@ public class GlycemicTrendsActivity extends AppCompatActivity {
         chart.setScaleXEnabled(true);
         chart.setDoubleTapToZoomEnabled(false);
         chart.setData(lineData);
-        chart.animateX(500);
+        chart.animateX(2000);
         chart.setDragEnabled(true);
         chart.setScaleEnabled(true);
+        chart.setVisibleXRangeMaximum(3 * MEASURES_PER_DAY);
+        chart.moveViewToX(0);
 
         chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override

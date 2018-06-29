@@ -112,8 +112,11 @@ public class Utils {
 
             case R.id.activity_day_detail_cl:   //parent layout is activity_day_detail_cl
                 switch (editTextId) {
-                    case R.id.detail_workout_et:
-                        tempDiabeticDay.setWorkouts(inputText);
+                    case R.id.detail_workout_cardio_et:
+                        tempDiabeticDay.setWorkoutsCardio(inputText);
+                        break;
+                    case R.id.detail_workout_weights_et:
+                        tempDiabeticDay.setWorkoutsWeights(inputText);
                         break;
                     case R.id.detail_notes_et:
                         tempDiabeticDay.setNotes(inputText);

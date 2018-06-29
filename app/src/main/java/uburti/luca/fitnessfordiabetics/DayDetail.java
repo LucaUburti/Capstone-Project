@@ -57,8 +57,10 @@ public class DayDetail extends AppCompatActivity {
     View dinnerLayout;
     @BindView(R.id.bedtime_detail)
     View bedtimeLayout;
-    @BindView(R.id.detail_workout_et)
-    EditText detailWorkoutEt;
+    @BindView(R.id.detail_workout_cardio_et)
+    EditText detailWorkoutCardioEt;
+    @BindView(R.id.detail_workout_weights_et)
+    EditText detailWorkoutWeightsEt;
     @BindView(R.id.detail_notes_et)
     EditText detailNotesEt;
     IncludedMealLayout breakfastInclude;
@@ -171,7 +173,8 @@ public class DayDetail extends AppCompatActivity {
         bedtimeInclude.detailBedtimeGlycemiaEt.setText(Utils.valueOfIntWithoutZero(diabeticDay.getGlycemiaBedtime()));
         checkForGlycemicWarnings(bedtimeInclude.detailBedtimeGlycemiaEt, diabeticDay.getGlycemiaBedtime());
         //bottom edittexts
-        detailWorkoutEt.setText(diabeticDay.getWorkouts());
+        detailWorkoutCardioEt.setText(diabeticDay.getWorkoutsCardio());
+        detailWorkoutWeightsEt.setText(diabeticDay.getWorkoutsWeights());
         detailNotesEt.setText(diabeticDay.getNotes());
 
         if (hypoglycemiaWarning && !hyperglycemiaWarning) {
@@ -216,7 +219,8 @@ public class DayDetail extends AppCompatActivity {
         editTextList.addAll(lunchInclude.getEditTextList());
         editTextList.addAll(dinnerInclude.getEditTextList());
         editTextList.addAll(bedtimeInclude.getEditTextList());
-        editTextList.add(detailWorkoutEt);
+        editTextList.add(detailWorkoutCardioEt);
+        editTextList.add(detailWorkoutWeightsEt);
         editTextList.add(detailNotesEt);
 
         //here editTextList contains all the EditText fields we have in this activity
@@ -270,6 +274,7 @@ public class DayDetail extends AppCompatActivity {
         }
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.detail_menu, menu);
         saveChangesMenuItem = menu.findItem(R.id.save_changes);
@@ -279,6 +284,7 @@ public class DayDetail extends AppCompatActivity {
         return true;
     }
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_changes:

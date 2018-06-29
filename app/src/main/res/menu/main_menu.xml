@@ -17,5 +17,9 @@
         android:id="@+id/terms_of_service"
         android:title="@string/terms_of_service"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/populate_db_with_random_data"
+        android:title="@string/set_random_data"
+        app:showAsAction="never" />
 
 </menu>

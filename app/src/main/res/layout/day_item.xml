@@ -2,9 +2,9 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/day_item_cl"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/day_item_cl">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/rv_item_date_tv"
@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:textSize="@dimen/title_size"
+        android:textSize="@dimen/glycemia_size"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="6 June 2018" />
@@ -169,98 +170,140 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        tools:text="101"
         android:textSize="@dimen/glycemia_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/rv_item_beforebreakfast_tv"
         app:layout_constraintStart_toStartOf="@id/rv_item_beforebreakfast_tv"
-        app:layout_constraintTop_toBottomOf="@id/rv_item_beforebreakfast_tv" />
+        app:layout_constraintTop_toBottomOf="@id/rv_item_beforebreakfast_tv"
+        tools:text="101" />
 
     <TextView
         android:id="@+id/rv_item_afterbreakfast_glycemia_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        tools:text="102"
         android:textSize="@dimen/glycemia_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/rv_item_afterbreakfast_tv"
         app:layout_constraintStart_toStartOf="@id/rv_item_afterbreakfast_tv"
-        app:layout_constraintTop_toBottomOf="@id/rv_item_afterbreakfast_tv" />
+        app:layout_constraintTop_toBottomOf="@id/rv_item_afterbreakfast_tv"
+        tools:text="102" />
 
     <TextView
         android:id="@+id/rv_item_beforelunch_glycemia_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        tools:text="103"
-        android:textStyle="bold"
         android:textSize="@dimen/glycemia_size"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/rv_item_beforelunch_tv"
         app:layout_constraintStart_toStartOf="@id/rv_item_beforelunch_tv"
-        app:layout_constraintTop_toBottomOf="@id/rv_item_beforelunch_tv" />
+        app:layout_constraintTop_toBottomOf="@id/rv_item_beforelunch_tv"
+        tools:text="103" />
 
     <TextView
         android:id="@+id/rv_item_afterlunch_glycemia_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        tools:text="104"
-        android:textStyle="bold"
         android:textSize="@dimen/glycemia_size"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/rv_item_afterlunch_tv"
         app:layout_constraintStart_toStartOf="@id/rv_item_afterlunch_tv"
-        app:layout_constraintTop_toBottomOf="@id/rv_item_afterlunch_tv" />
+        app:layout_constraintTop_toBottomOf="@id/rv_item_afterlunch_tv"
+        tools:text="104" />
 
     <TextView
         android:id="@+id/rv_item_beforedinner_glycemia_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        tools:text="105"
-        android:textStyle="bold"
         android:textSize="@dimen/glycemia_size"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/rv_item_beforedinner_tv"
         app:layout_constraintStart_toStartOf="@id/rv_item_beforedinner_tv"
-        app:layout_constraintTop_toBottomOf="@id/rv_item_beforedinner_tv" />
+        app:layout_constraintTop_toBottomOf="@id/rv_item_beforedinner_tv"
+        tools:text="105" />
 
     <TextView
         android:id="@+id/rv_item_afterdinner_glycemia_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        tools:text="106"
-        android:textStyle="bold"
         android:textSize="@dimen/glycemia_size"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/rv_item_afterdinner_tv"
         app:layout_constraintStart_toStartOf="@id/rv_item_afterdinner_tv"
-        app:layout_constraintTop_toBottomOf="@id/rv_item_afterdinner_tv" />
+        app:layout_constraintTop_toBottomOf="@id/rv_item_afterdinner_tv"
+        tools:text="106" />
 
     <TextView
         android:id="@+id/rv_item_bedtime_glycemia_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="107"
-        android:textStyle="bold"
         android:textSize="@dimen/glycemia_size"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/rv_item_afterdinner_glycemia_tv"
         app:layout_constraintEnd_toEndOf="@id/rv_item_bedtime_tv"
-        app:layout_constraintStart_toStartOf="@id/rv_item_bedtime_tv" />
+        app:layout_constraintStart_toStartOf="@id/rv_item_bedtime_tv"
+        tools:text="107" />
 
     <TextView
-        android:id="@+id/rv_item_workout"
+        android:id="@+id/rv_item_cardio_header_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/cardio"
+        android:textSize="@dimen/body_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/rv_item_cardio_workout_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_cardio_workout_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
+
         android:layout_marginTop="8dp"
+        android:textAlignment="viewStart"
+        android:textSize="@dimen/body_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_beforebreakfast_glycemia_tv"
+        tools:text="20 min exercise bike" />
+
+    <TextView
+        android:id="@+id/rv_item_weights_header_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/weights"
+        android:textSize="@dimen/body_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/rv_item_weights_workout_tv" />
+
+    <TextView
+        android:id="@+id/rv_item_weights_workout_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
         android:textAlignment="viewStart"
         android:textSize="@dimen/body_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_item_beforebreakfast_glycemia_tv"
-        tools:text="Cardio: 20 min exercise bike\n Weight: 3 sessions 12 repetitions squats 10kg" />
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_cardio_workout_tv"
+        tools:text="3 sessions 12 repetitions squats 10kg" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
 
 </android.support.constraint.ConstraintLayout>

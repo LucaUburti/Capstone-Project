@@ -56,4 +56,7 @@ public interface DayDao {
     @Delete
     void deleteDay(DiabeticDay diabeticDay);
 
+    @Query("DELETE from DiabeticDay")
+    void deleteAll();
+
 }
