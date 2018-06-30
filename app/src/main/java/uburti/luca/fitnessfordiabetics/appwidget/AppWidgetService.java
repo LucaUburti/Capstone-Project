@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import uburti.luca.fitnessfordiabetics.DayDetail;
+import uburti.luca.fitnessfordiabetics.utils.Utils;
 
 public class AppWidgetService extends IntentService {
     private String textToBeDisplayedInWidget;
@@ -27,7 +27,7 @@ public class AppWidgetService extends IntentService {
         String action = intent.getAction();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            textToBeDisplayedInWidget = bundle.getString(DayDetail.WIDGET_TEXT);
+            textToBeDisplayedInWidget = bundle.getString(Utils.WIDGET_TEXT);
         }
         if (action != null && action.equals(ACTION_SET_MSG)) {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
@@ -42,7 +42,7 @@ public class AppWidgetService extends IntentService {
         Intent intent = new Intent(context, AppWidgetService.class);
         intent.setAction(ACTION_SET_MSG);
         Bundle bundle = new Bundle();
-        bundle.putString(DayDetail.WIDGET_TEXT, textToBeDisplayedInWidget);
+        bundle.putString(Utils.WIDGET_TEXT, textToBeDisplayedInWidget);
         intent.putExtras(bundle);
         context.startService(intent);
     }

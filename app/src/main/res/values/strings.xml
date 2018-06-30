@@ -92,7 +92,11 @@
     <string name="cardio">Cardio</string>
     <string name="weights">Weights</string>
     <string name="set_random_data">☢Set random data☢</string>
-    <string name="loss_of_data_warning">WARNING! This option will OVERWRITE the database with random data. Only for testing purposes. Are you sure?</string>
+    <string name="loss_of_data_warning">WARNING! This option will OVERWRITE the local database with random data. Only for testing purposes. Are you sure?</string>
     <string name="overwrite_text">OVERWRITE database with random data</string>
     <string name="cancel">Cancel</string>
+    <string name="empty_widget_text">No glycemic data found\n\nNo injections data found</string>
+    <string name="not_enough_chart_data">Not enough data to display on chart</string>
+
+
 </resources>

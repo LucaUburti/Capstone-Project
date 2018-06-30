@@ -36,6 +36,8 @@ import uburti.luca.fitnessfordiabetics.viewmodel.MainActivityViewModelFactory;
 
 import static uburti.luca.fitnessfordiabetics.TOSActivity.TOS_ACCEPTED;
 import static uburti.luca.fitnessfordiabetics.utils.Utils.getReadableDate;
+//TODO remove excessive logging
+//TODO improve comments
 
 public class MainActivity extends AppCompatActivity implements DayAdapter.DayClickHandler {
     public static final String DAY_ID_EXTRA = "DAY_ID";
@@ -116,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
             if (interstitialAd.isLoaded()) {
                 interstitialAd.show();
             }
+
         }
     }
 
@@ -125,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
         return true;
     }
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         interstitialAd.loadAd(new AdRequest.Builder().build());
         Intent intent;

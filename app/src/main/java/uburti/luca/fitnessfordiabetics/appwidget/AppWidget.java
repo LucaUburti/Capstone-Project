@@ -10,9 +10,9 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import uburti.luca.fitnessfordiabetics.DayDetail;
 import uburti.luca.fitnessfordiabetics.MainActivity;
 import uburti.luca.fitnessfordiabetics.R;
+import uburti.luca.fitnessfordiabetics.utils.Utils;
 
 /**
  * Implementation of App Widget functionality.
@@ -21,8 +21,6 @@ public class AppWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, String widgetMsg,
                                 int appWidgetId) {
-
-        Log.d("AppWidget", "updateAppWidget FINAL CALL! text: " + widgetMsg);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget);
         views.setTextViewText(R.id.appwidget_text, widgetMsg);
@@ -43,7 +41,7 @@ public class AppWidget extends AppWidgetProvider {
 //        }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        String textToBeDisplayedInWidget = sharedPrefs.getString(DayDetail.WIDGET_TEXT, "");
+        String textToBeDisplayedInWidget = sharedPrefs.getString(Utils.WIDGET_TEXT, context.getString(R.string.empty_widget_text));
         AppWidgetService.startActionSetMsg(context, textToBeDisplayedInWidget);
         Log.d("AppWidget", "onUpdate: periodic widget data update with text from from shared prefs: " + textToBeDisplayedInWidget);
     }

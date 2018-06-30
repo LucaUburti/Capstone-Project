@@ -11,8 +11,6 @@ import java.util.Calendar;
 import java.util.Random;
 
 import uburti.luca.fitnessfordiabetics.AppExecutors;
-import uburti.luca.fitnessfordiabetics.DayDetail;
-import uburti.luca.fitnessfordiabetics.MainActivity;
 import uburti.luca.fitnessfordiabetics.R;
 import uburti.luca.fitnessfordiabetics.database.AppDatabase;
 import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
@@ -21,7 +19,7 @@ public class RandomDBDataGenerator {
     // class for demo/testing/debug purposes only
     // OVERWRITES the current Database with semi-plausible gibberish
     private Context context;
-    private static final int daysToPopulate = 15;
+    private static final int daysToPopulate = 20;
     private static final int rapidInjectionMin = 2;
     private static final int rapidInjectionMax = 15;
     private static final int longInjectionMin = 18;
@@ -41,10 +39,10 @@ public class RandomDBDataGenerator {
     private String[] notes = {};
 
     public RandomDBDataGenerator(Context context) {
-        this.context=context;
+        this.context = context;
     }
 
-    public void startDBReset(){
+    public void startDBReset() {
 
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
         alertBuilder.setTitle(R.string.warning).setMessage(R.string.loss_of_data_warning)
@@ -53,8 +51,9 @@ public class RandomDBDataGenerator {
                     public void onClick(DialogInterface dialog, int which) {
                         deleteDB();
                         populateDBWithRandomData(context);
-                        Intent i = ((Activity)context).getIntent();
-                        ((Activity)context).finish();
+                        Utils.updateWidget(context);
+                        Intent i = ((Activity) context).getIntent();
+                        ((Activity) context).finish();
                         context.startActivity(i);
                     }
                 })
@@ -66,7 +65,6 @@ public class RandomDBDataGenerator {
                 })
                 .show();
     }
-
 
 
     private void deleteDB() {
@@ -114,13 +112,23 @@ public class RandomDBDataGenerator {
             int glycemiaAfterDinner = rand.nextInt(glycemiaMax - glycemiaMin) + glycemiaMin;
             int bedtimeInjectionRapidExtra = rand.nextInt(100) < extraInjectionProbability ? rand.nextInt(rapidExtraInjectionMax - rapidExtraInjectionMin) + rapidExtraInjectionMin : 0;
             int glycemiaBedtime = rand.nextInt(glycemiaMax - glycemiaMin) + glycemiaMin;
-            String workoutsCardio = cardio[rand.nextInt(cardio.length)] + "\n" + cardio[rand.nextInt(cardio.length)];
-            String workoutsWeights = weights[rand.nextInt(weights.length)] + "\n" + weights[rand.nextInt(weights.length)];
+            int cardioEntries = rand.nextInt(3);
+            StringBuilder workoutsCardio = new StringBuilder();
+            for (int j = 0; j < cardioEntries; j++) {
+                workoutsCardio.append(cardio[rand.nextInt(cardio.length)]);
+                if (j!=cardioEntries-1) workoutsCardio.append("\n");
+            }
+            int weightsEntries = rand.nextInt(3);
+            StringBuilder workoutsWeights = new StringBuilder();
+            for (int j = 0; j < weightsEntries; j++) {
+                workoutsWeights.append(weights[rand.nextInt(weights.length)]);
+                if (j!=weightsEntries-1) workoutsWeights.append("\n");
+            }
             String notes = "";
 
-            final DiabeticDay diabeticDay = new DiabeticDay(date, breakfast, breakfastInjectionRapid, breakfastInjectionLong, breakfastInjectionRapidExtra, glycemiaBeforeBreakfast, glycemiaAfterBreakfast, lunch, lunchInjectionRapid, lunchInjectionLong, lunchInjectionRapidExtra, glycemiaBeforeLunch, glycemiaAfterLunch, dinner, dinnerInjectionRapid, dinnerInjectionLong, dinnerInjectionRapidExtra, glycemiaBeforeDinner, glycemiaAfterDinner, bedtimeInjectionRapidExtra, glycemiaBedtime, workoutsCardio, workoutsWeights, notes);
+            final DiabeticDay diabeticDay = new DiabeticDay(date, breakfast, breakfastInjectionRapid, breakfastInjectionLong, breakfastInjectionRapidExtra, glycemiaBeforeBreakfast, glycemiaAfterBreakfast, lunch, lunchInjectionRapid, lunchInjectionLong, lunchInjectionRapidExtra, glycemiaBeforeLunch, glycemiaAfterLunch, dinner, dinnerInjectionRapid, dinnerInjectionLong, dinnerInjectionRapidExtra, glycemiaBeforeDinner, glycemiaAfterDinner, bedtimeInjectionRapidExtra, glycemiaBedtime, workoutsCardio.toString(), workoutsWeights.toString(), notes);
 
-            Log.d("RandomDBDataGenerator", "inserting fake data for day: "+ Utils.getReadableDate(cal.getTimeInMillis()));
+            Log.d("RandomDBDataGenerator", "inserting fake data for day: " + Utils.getReadableDate(cal.getTimeInMillis()));
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {

@@ -8,5 +8,10 @@
     <color name="hyperglycemia">#ff0000</color>
     <color name="transparent">#00000000</color>
 
+    <color name="breakfast_bg_color">#bbdefb</color>
+    <color name="lunch_bg_color">#ffecb3</color>
+    <color name="dinner_bg_color">#c5cae9</color>
+    <color name="bedtime_bg_color">#8c9eff</color>
+    <color name="workouts_bg_color">#ff9e80</color>
 
 </resources>

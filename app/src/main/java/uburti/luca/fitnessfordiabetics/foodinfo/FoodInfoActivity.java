@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class FoodInfoActivity extends AppCompatActivity implements NetworkUtils.
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
         }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN); //https://stackoverflow.com/questions/9732761/prevent-the-keyboard-from-displaying-on-activity-start
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

@@ -3,6 +3,7 @@ package uburti.luca.fitnessfordiabetics.glycemictrends;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
@@ -36,6 +38,7 @@ import uburti.luca.fitnessfordiabetics.utils.Utils;
 import uburti.luca.fitnessfordiabetics.viewmodel.GlycemicTrendsViewModel;
 import uburti.luca.fitnessfordiabetics.viewmodel.GlycemicTrendsViewModelFactory;
 
+import static android.graphics.Color.BLACK;
 import static uburti.luca.fitnessfordiabetics.utils.Utils.getNumericDate;
 
 public class GlycemicTrendsActivity extends AppCompatActivity { //TODO check crash when no data present
@@ -62,12 +65,26 @@ public class GlycemicTrendsActivity extends AppCompatActivity { //TODO check cra
             @Override
             public void onChanged(@Nullable List<DiabeticDay> diabeticDays) {
                 ArrayList<Entry> entries = extractDataForChart(diabeticDays);
-                int maxPossibleEntries = Utils.getDaysToRetrieve() * MEASURES_PER_DAY;
-                setupChart(entries, maxPossibleEntries);
+                if (entries.size() > 0) {
+                    int maxPossibleEntries = Utils.getDaysToRetrieve() * MEASURES_PER_DAY;
+                    setupChart(entries, maxPossibleEntries);
+                } else {
+                    showEmptyChartErrorMsg();
+                }
             }
         });
 
 
+    }
+
+    private void showEmptyChartErrorMsg() {
+
+        chart.setNoDataText(getString(R.string.not_enough_chart_data));
+        Paint p = chart.getPaint(Chart.PAINT_INFO);
+        p.setTextSize(48f);
+        p.setColor(BLACK);
+//        p.setTypeface(...);
+        chart.invalidate();
     }
 
     private void setupChart(ArrayList<Entry> entries, int maxPossibleEntries) {
@@ -126,7 +143,7 @@ public class GlycemicTrendsActivity extends AppCompatActivity { //TODO check cra
         LineDataSet lineDataSet = new LineDataSet(entries, "");
         lineDataSet.enableDashedLine(10f, 5f, 0f);
         lineDataSet.setColor(Color.GRAY);
-        lineDataSet.setCircleColor(Color.BLACK);
+        lineDataSet.setCircleColor(BLACK);
         lineDataSet.setLineWidth(1f);
         lineDataSet.setCircleRadius(3f);
         lineDataSet.setDrawCircleHole(false);

@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -61,6 +62,7 @@ public class MyTherapyActivity extends AppCompatActivity {
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
         }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN); //https://stackoverflow.com/questions/9732761/prevent-the-keyboard-from-displaying-on-activity-start
 
         if (savedInstanceState == null) {  //don't bother repopulating the EditTexts on rotations
             populateUIFromSharedPrefs();   //(EditTexts would be restored by the Android Framework anyway...)

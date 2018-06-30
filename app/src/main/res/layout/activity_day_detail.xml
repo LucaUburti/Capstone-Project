@@ -18,6 +18,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:textSize="@dimen/title_size"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="6 June 2018" />
@@ -145,71 +146,94 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bedtime_detail" />
 
-        <TextView
-            android:id="@+id/detail_workouttitle_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/workouts"
-            android:textSize="@dimen/title_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider5" />
-
-        <TextView
-            android:id="@+id/detail_cardio_header_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/cardio"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_workouttitle_tv" />
-
-        <EditText
-            android:id="@+id/detail_workout_cardio_et"
+        <FrameLayout
+            android:id="@+id/workouts_fl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:hint="@string/enter_your_workout_here"
-            android:inputType="textMultiLine"
-            android:maxLength="200"
-            android:textSize="@dimen/body_size"
+            android:background="@color/workouts_bg_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_cardio_header_tv" />
+            app:layout_constraintTop_toBottomOf="@id/divider5">
 
-        <TextView
-            android:id="@+id/detail_weights_header_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/weights"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_workout_cardio_et" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient" />
 
-        <EditText
-            android:id="@+id/detail_workout_weights_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:hint="@string/enter_your_workout_here"
-            android:inputType="textMultiLine"
-            android:maxLength="200"
-            android:textSize="@dimen/body_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_weights_header_tv" />
+            <android.support.constraint.ConstraintLayout
 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider5">
+
+                <TextView
+                    android:id="@+id/detail_workouttitle_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/workouts"
+                    android:textSize="@dimen/title_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/detail_cardio_header_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/cardio"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detail_workouttitle_tv" />
+
+                <EditText
+                    android:id="@+id/detail_workout_cardio_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/enter_your_workout_here"
+                    android:inputType="textMultiLine"
+                    android:maxLength="200"
+                    android:textSize="@dimen/body_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detail_cardio_header_tv" />
+
+                <TextView
+                    android:id="@+id/detail_weights_header_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/weights"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detail_workout_cardio_et" />
+
+                <EditText
+                    android:id="@+id/detail_workout_weights_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/enter_your_workout_here"
+                    android:inputType="textMultiLine"
+                    android:maxLength="200"
+                    android:textSize="@dimen/body_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detail_weights_header_tv" />
+            </android.support.constraint.ConstraintLayout>
+        </FrameLayout>
 
         <TextView
             android:id="@+id/detail_notestitle_tv"
@@ -222,7 +246,7 @@
             android:textSize="@dimen/title_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_workout_weights_et" />
+            app:layout_constraintTop_toBottomOf="@id/workouts_fl" />
 
         <EditText
             android:id="@+id/detail_notes_et"
