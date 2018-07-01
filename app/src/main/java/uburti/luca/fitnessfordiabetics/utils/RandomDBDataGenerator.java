@@ -52,9 +52,9 @@ public class RandomDBDataGenerator {
                         deleteDB();
                         populateDBWithRandomData(context);
                         Utils.updateWidget(context);
-                        Intent i = ((Activity) context).getIntent();
-                        ((Activity) context).finish();
-                        context.startActivity(i);
+//                        Intent i = ((Activity) context).getIntent();
+//                        ((Activity) context).finish();
+//                        context.startActivity(i);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

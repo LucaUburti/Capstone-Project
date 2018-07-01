@@ -7,6 +7,7 @@ import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -34,13 +35,16 @@ public class Utils {
 
     public static void checkInputsAndSetTempDiabeticDay(DiabeticDay tempDiabeticDay, EditText editText, Context context) {
         int parentId = ((ViewGroup) editText.getParent()).getId();
+        if (parentId == R.id.meal_detail_cl || parentId == R.id.bedtime_detail_cl) {   //EditTexts inside the meal/bedtime includes are 2 views deep
+            parentId = ((ViewGroup) editText.getParent().getParent()).getId();
+        }
         int editTextId = editText.getId();
         if (editText.getLayout().getLineCount() > EDITTEXT_MAX_LINES) {
             editText.getText().delete(editText.getText().length() - 1, editText.getText().length()); //disallow typing too many lines
         }
         String inputText = editText.getText().toString();
         switch (parentId) {
-            case R.id.breakfast_detail:    //parent layout is breakfast_detail include
+            case R.id.breakfast_detail:    //grandparent layout is breakfast_detail include
                 switch (editTextId) {
                     case R.id.meal_description_et:
                         tempDiabeticDay.setBreakfast(inputText);
@@ -62,7 +66,7 @@ public class Utils {
                         break;
                 }
                 break;
-            case R.id.lunch_detail: //parent layout is lunch_detail include
+            case R.id.lunch_detail: //grandparent layout is lunch_detail include
                 switch (editTextId) {
                     case R.id.meal_description_et:
                         tempDiabeticDay.setLunch(inputText);
@@ -84,7 +88,7 @@ public class Utils {
                         break;
                 }
                 break;
-            case R.id.dinner_detail:    //parent layout is dinner_detail include
+            case R.id.dinner_detail:    //grandparent layout is dinner_detail include
                 switch (editTextId) {
                     case R.id.meal_description_et:
                         tempDiabeticDay.setDinner(inputText);
@@ -106,7 +110,7 @@ public class Utils {
                         break;
                 }
                 break;
-            case R.id.bedtime_detail:   //parent layout is bedtime_detail include
+            case R.id.bedtime_detail:   //grandparent layout is bedtime_detail include
                 switch (editTextId) {
                     case R.id.detail_bedtime_extrarapid_injected_et:
                         tempDiabeticDay.setBedtimeInjectionRapidExtra(valueOfStringWithInputCheck(inputText));
@@ -117,7 +121,7 @@ public class Utils {
                 }
                 break;
 
-            case R.id.activity_day_detail_cl:   //parent layout is activity_day_detail_cl
+            case R.id.workouts_cl:   //parent layout is workout_cl
                 switch (editTextId) {
                     case R.id.detail_workout_cardio_et:
                         tempDiabeticDay.setWorkoutsCardio(inputText);
@@ -125,6 +129,10 @@ public class Utils {
                     case R.id.detail_workout_weights_et:
                         tempDiabeticDay.setWorkoutsWeights(inputText);
                         break;
+                }
+                break;
+            case R.id.notes_cl: //parent layout is notes_cl
+                switch (editTextId) {
                     case R.id.detail_notes_et:
                         tempDiabeticDay.setNotes(inputText);
                         break;

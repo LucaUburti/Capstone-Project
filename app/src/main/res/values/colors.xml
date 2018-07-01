@@ -11,7 +11,8 @@
     <color name="breakfast_bg_color">#bbdefb</color>
     <color name="lunch_bg_color">#ffecb3</color>
     <color name="dinner_bg_color">#c5cae9</color>
-    <color name="bedtime_bg_color">#8c9eff</color>
+    <color name="bedtime_bg_color">#9fa8da</color>
     <color name="workouts_bg_color">#ff9e80</color>
+    <color name="notes_bg_color">#fff9c4</color>
 
 </resources>

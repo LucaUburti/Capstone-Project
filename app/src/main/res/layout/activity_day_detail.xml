@@ -161,7 +161,7 @@
                 android:background="@drawable/gradient" />
 
             <android.support.constraint.ConstraintLayout
-
+                android:id="@+id/workouts_cl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -235,32 +235,68 @@
             </android.support.constraint.ConstraintLayout>
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/detail_notestitle_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <View
+            android:id="@+id/divider6"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/notes"
-            android:textSize="@dimen/title_size"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/workouts_fl" />
 
-        <EditText
-            android:id="@+id/detail_notes_et"
+        <FrameLayout
+            android:id="@+id/notes_fl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:hint="@string/enter_your_notes_here"
-            android:inputType="textMultiLine"
-            android:maxLength="200"
-            android:textSize="@dimen/body_size"
+            android:background="@color/notes_bg_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_notestitle_tv" />
+            app:layout_constraintTop_toBottomOf="@id/divider6">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/notes_cl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider6">
+
+                <TextView
+                    android:id="@+id/detail_notestitle_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/notes"
+                    android:textSize="@dimen/title_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"  />
+
+                <EditText
+                    android:id="@+id/detail_notes_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:hint="@string/enter_your_notes_here"
+                    android:inputType="textMultiLine"
+                    android:maxLength="200"
+                    android:textSize="@dimen/body_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detail_notestitle_tv" />
+            </android.support.constraint.ConstraintLayout>
+        </FrameLayout>
 
 
     </android.support.constraint.ConstraintLayout>
