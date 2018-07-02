@@ -8,6 +8,8 @@ import uburti.luca.fitnessfordiabetics.database.AppDatabase;
 import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
 
 public class DayDetailViewModelWithFactory extends ViewModel {
+    //ViewModel for DayDetail. This is used with its factory class: DayDetailViewModelWithFactory so that we can pass the dayId to the constructor
+
     private LiveData<DiabeticDay> diabeticDay;
 
 

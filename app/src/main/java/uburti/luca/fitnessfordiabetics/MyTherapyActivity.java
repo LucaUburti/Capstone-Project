@@ -18,15 +18,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MyTherapyActivity extends AppCompatActivity {
-    public static final String THERAPY_RAPID_INSULIN = "THERAPY_RAPID_INSULIN";
-    public static final String THERAPY_LONG_INSULIN = "THERAPY_LONG_INSULIN";
-    public static final String THERAPY_BREAKFAST_RAPID = "THERAPY_BREAKFAST_RAPID";
-    public static final String THERAPY_LUNCH_RAPID = "THERAPY_LUNCH_RAPID";
-    public static final String THERAPY_DINNER_RAPID = "THERAPY_DINNER_RAPID";
-    public static final String THERAPY_BREAKFAST_LONG = "THERAPY_BREAKFAST_LONG";
-    public static final String THERAPY_LUNCH_LONG = "THERAPY_LUNCH_LONG";
-    public static final String THERAPY_DINNER_LONG = "THERAPY_DINNER_LONG";
-    public static final String THERAPY_NOTES = "THERAPY_NOTES";
+    //a simple Activity class with various EditTexts where users can save their therapy details
+
+    private static final String THERAPY_RAPID_INSULIN = "THERAPY_RAPID_INSULIN";
+    private static final String THERAPY_LONG_INSULIN = "THERAPY_LONG_INSULIN";
+    private static final String THERAPY_BREAKFAST_RAPID = "THERAPY_BREAKFAST_RAPID";
+    private static final String THERAPY_LUNCH_RAPID = "THERAPY_LUNCH_RAPID";
+    private static final String THERAPY_DINNER_RAPID = "THERAPY_DINNER_RAPID";
+    private static final String THERAPY_BREAKFAST_LONG = "THERAPY_BREAKFAST_LONG";
+    private static final String THERAPY_LUNCH_LONG = "THERAPY_LUNCH_LONG";
+    private static final String THERAPY_DINNER_LONG = "THERAPY_DINNER_LONG";
+    private static final String THERAPY_NOTES = "THERAPY_NOTES";
     @BindView(R.id.my_therapy_layout)
     ScrollView myTherapyLayout;
     @BindView(R.id.my_therapy_rapid_acting_et)

@@ -3,11 +3,8 @@ package uburti.luca.fitnessfordiabetics;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
@@ -31,7 +28,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uburti.luca.fitnessfordiabetics.appwidget.AppWidgetService;
 import uburti.luca.fitnessfordiabetics.database.AppDatabase;
 import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
 import uburti.luca.fitnessfordiabetics.utils.Utils;
@@ -43,7 +39,8 @@ import static uburti.luca.fitnessfordiabetics.MainActivity.DATE_EXTRA;
 import static uburti.luca.fitnessfordiabetics.MainActivity.DAY_ID_EXTRA;
 
 public class DayDetail extends AppCompatActivity {
-    //    public static final String UNSAVED_CHANGES_KEY = "UNSAVED_CHANGES_KEY";
+    //Activity where the users can write down their blood sugars, injections, meals and workouts, for a specific day
+
     @BindView(R.id.detail_date_tv)
     TextView dateTv;
     @BindView(R.id.detail_warning_iv)
@@ -64,22 +61,20 @@ public class DayDetail extends AppCompatActivity {
     EditText detailWorkoutWeightsEt;
     @BindView(R.id.detail_notes_et)
     EditText detailNotesEt;
-    IncludedMealLayout breakfastInclude;
-    IncludedMealLayout lunchInclude;
-    IncludedMealLayout dinnerInclude;
-    IncludedBedtimeLayout bedtimeInclude;
+    private IncludedMealLayout breakfastInclude;    //for breakfast, lunch and dinner we use a single layout include
+    private IncludedMealLayout lunchInclude;
+    private IncludedMealLayout dinnerInclude;
+    private IncludedBedtimeLayout bedtimeInclude;   //and another simpler include specific for bedtime
 
-    long dayIdFromBundle;
-    long dateFromBundle;
+    private long dayIdFromBundle;
+    private long dateFromBundle;
 
-    boolean hypoglycemiaWarning;
-    boolean hyperglycemiaWarning;
+    private boolean hypoglycemiaWarning;
+    private boolean hyperglycemiaWarning;
 
-    AppDatabase appDatabase;
-
-    MenuItem saveChangesMenuItem;
-    //    boolean unsavedChanges = false;
-    DayDetailViewModel viewModel;
+    private AppDatabase appDatabase;
+    private MenuItem saveChangesMenuItem;
+    private DayDetailViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,26 +95,26 @@ public class DayDetail extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (viewModel.unsavedChanges) {
-            populateUI(viewModel.tempDiabeticDay);
+            populateUI(viewModel.tempDiabeticDay);  //redraw the UI with the working DiabeticDay
         } else if (extras != null) {
-            dayIdFromBundle = extras.getLong(DAY_ID_EXTRA);
+
+            dayIdFromBundle = extras.getLong(DAY_ID_EXTRA); // on mock days this will be 0
             dateFromBundle = extras.getLong(DATE_EXTRA);
+
             if (dayIdFromBundle != 0) {   //we retrieved the dayIdFromBundle, this means we are working with an exiting row: update the UI with data retrieved from the DB
                 Log.d("DayDetail", "onCreate: dayIdFromBundle retrieved: " + dayIdFromBundle);
                 DayDetailViewModelFactory factory = new DayDetailViewModelFactory(appDatabase, dayIdFromBundle);
-                Log.d("DayDetail", "onCreate: factory is: " + factory.toString());
                 final DayDetailViewModelWithFactory viewModelWithFactory = ViewModelProviders.of(this, factory).get(DayDetailViewModelWithFactory.class);
-                Log.d("DayDetail", "onCreate: viewModelWithFactory is: " + viewModelWithFactory.toString());
                 viewModelWithFactory.getDiabeticDay().observe(this, new Observer<DiabeticDay>() {
                     @Override
                     public void onChanged(@Nullable DiabeticDay diabeticDayFromDb) {
                         viewModelWithFactory.getDiabeticDay().removeObserver(this);
-                        viewModel.tempDiabeticDay = diabeticDayFromDb; //update the working copy of the object: used for UI editing
+                        viewModel.tempDiabeticDay = diabeticDayFromDb; //update the working copy of the object: used later for UI editing and saving
                         populateUI(diabeticDayFromDb);
                     }
                 });
 
-            } else if (dateFromBundle != 0) { //we have the dateFromBundle but not an id, this means we are working with a new row: update the UI with a blank day with just the dateFromBundle set
+            } else if (dateFromBundle != 0) { //we have the dateFromBundle but not an id, this means we are working with a new row: update the UI with a blank day with just the date set
                 Log.d("DayDetail", "onCreate: dayIdFromBundle not set, dateFromBundle: " + Utils.getReadableDate(dateFromBundle));
                 viewModel.tempDiabeticDay = new DiabeticDay(dateFromBundle, true);
                 warningIv.setVisibility(View.GONE);
@@ -178,7 +173,7 @@ public class DayDetail extends AppCompatActivity {
         detailWorkoutWeightsEt.setText(diabeticDay.getWorkoutsWeights());
         detailNotesEt.setText(diabeticDay.getNotes());
 
-        if (hypoglycemiaWarning && !hyperglycemiaWarning) {
+        if (hypoglycemiaWarning && !hyperglycemiaWarning) { //display warning message and warning icon if necessary
             warningTv.setText(getResources().getString(R.string.hypoglycemia));
             warningTv.setVisibility(View.VISIBLE);
             warningIv.setVisibility(View.VISIBLE);
@@ -200,6 +195,8 @@ public class DayDetail extends AppCompatActivity {
     }
 
     private void setupIncludedLayouts() {
+        //each layout include is a subclass we will need to instantiate
+
         breakfastInclude = new IncludedMealLayout();
         lunchInclude = new IncludedMealLayout();
         dinnerInclude = new IncludedMealLayout();
@@ -209,9 +206,9 @@ public class DayDetail extends AppCompatActivity {
         ButterKnife.bind(dinnerInclude, dinnerLayout);
         ButterKnife.bind(bedtimeInclude, bedtimeLayout);
 
-
+        //setup background colors for the meals and bedtime
         breakfastLayout.setBackgroundColor(getResources().getColor(R.color.breakfast_bg_color));
-        breakfastInclude.mealName.setText(getString(R.string.breakfast));   //these titles never change
+        breakfastInclude.mealName.setText(getString(R.string.breakfast));
         lunchLayout.setBackgroundColor(getResources().getColor(R.color.lunch_bg_color));
         lunchInclude.mealName.setText(getString(R.string.lunch));
         dinnerLayout.setBackgroundColor(getResources().getColor(R.color.dinner_bg_color));
@@ -219,9 +216,7 @@ public class DayDetail extends AppCompatActivity {
 
         bedtimeLayout.setBackgroundColor(getResources().getColor(R.color.bedtime_bg_color));
 
-
-
-
+        //create a single big List containing all EditTexts fields
         ArrayList<EditText> editTextList = new ArrayList<>();
         editTextList.addAll(breakfastInclude.getEditTextList());
         editTextList.addAll(lunchInclude.getEditTextList());
@@ -231,9 +226,8 @@ public class DayDetail extends AppCompatActivity {
         editTextList.add(detailWorkoutWeightsEt);
         editTextList.add(detailNotesEt);
 
-        //here editTextList contains all the EditText fields we have in this activity
-        for (EditText editText : editTextList) {
-            editText.addTextChangedListener(new CustomTextWatcher(editText)); //set a common TextWatcher
+        for (EditText editText : editTextList) { //for each EditText set a common custom TextWatcher
+            editText.addTextChangedListener(new CustomTextWatcher(editText));
         }
 
 
@@ -257,7 +251,7 @@ public class DayDetail extends AppCompatActivity {
         EditText mealGlycemiaAfterEt;
 
 
-        ArrayList<EditText> getEditTextList() {
+        ArrayList<EditText> getEditTextList() { //utility method to return a list of the EditTexts in this included layout
             ArrayList<EditText> editTextList = new ArrayList<>();
             editTextList.add(mealDescriptionEt);
             editTextList.add(mealRapidInjectionEt);
@@ -275,7 +269,7 @@ public class DayDetail extends AppCompatActivity {
         @BindView(R.id.detail_bedtime_extrarapid_injected_et)
         EditText detailBedtimeExtrarapidInjectedEt;
 
-        ArrayList<EditText> getEditTextList() {
+        ArrayList<EditText> getEditTextList() { //utility method to return a list of the EditTexts in this included layout
             ArrayList<EditText> editTextList = new ArrayList<>();
             editTextList.add(detailBedtimeGlycemiaEt);
             editTextList.add(detailBedtimeExtrarapidInjectedEt);
@@ -287,7 +281,7 @@ public class DayDetail extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.detail_menu, menu);
         saveChangesMenuItem = menu.findItem(R.id.save_changes);
-        if (viewModel.unsavedChanges) { //on rotation
+        if (viewModel.unsavedChanges) { //used after a screen rotation: shows the Save tickmark if there are unsaved changes
             saveChangesMenuItem.setVisible(true);
         }
         return true;
@@ -296,7 +290,7 @@ public class DayDetail extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.save_changes:
+            case R.id.save_changes: //the Save tickmark
                 saveChangesToDb();
                 return true;
             case android.R.id.home:
@@ -348,7 +342,7 @@ public class DayDetail extends AppCompatActivity {
 
 
     private void saveChangesToDb() {
-        if (viewModel.tempDiabeticDay.getDayId() != 0) { //updating an existing row
+        if (viewModel.tempDiabeticDay.getDayId() != 0) { //we got an ID from the database: we are updating an existing row
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
@@ -359,7 +353,7 @@ public class DayDetail extends AppCompatActivity {
             populateUI(viewModel.tempDiabeticDay);//not strictly necessary but useful to refresh Hypo-Hyperglicemic warnings in the detail UI
             viewModel.unsavedChanges = false;
             saveChangesMenuItem.setVisible(false);
-        } else if (viewModel.tempDiabeticDay.getDate() != 0) { //new insert
+        } else if (viewModel.tempDiabeticDay.getDate() != 0) { //no ID, just the date: this is a new insert
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
@@ -376,10 +370,11 @@ public class DayDetail extends AppCompatActivity {
             Crashlytics.log(Log.ERROR, "DayDetail", "Error saving to the DB: dayId and date are zero!");
             return;
         }
+        Toast.makeText(this, R.string.changes_saved, Toast.LENGTH_LONG).show();
         Utils.updateWidget(this);
     }
 
-    public void checkForGlycemicWarnings(EditText editText, int glycemia) {
+    private void checkForGlycemicWarnings(EditText editText, int glycemia) {
         if ((glycemia > 0) && (glycemia < getResources().getInteger(R.integer.low_glycemia_threshold))) {
             editText.setTextColor(getResources().getColor(R.color.hypoglycemia));
             editText.setTypeface(null, Typeface.BOLD);
@@ -390,14 +385,16 @@ public class DayDetail extends AppCompatActivity {
             editText.setTypeface(null, Typeface.BOLD);
             hyperglycemiaWarning = true;
 
-        } else {
+        } else { //no warnings triggered, display the EditText normally
             editText.setTextColor(getResources().getColor(android.R.color.primary_text_light));
             editText.setTypeface(null, Typeface.NORMAL);
         }
     }
 
 
-    class CustomTextWatcher implements TextWatcher { //custom TextWatcher: stores the calling EditText so that we later know which EditText changed
+    class CustomTextWatcher implements TextWatcher {
+        //custom TextWatcher: stores the calling EditText so that we know later which EditText changed
+
         private EditText editText;
 
         CustomTextWatcher(EditText editText) {
@@ -415,7 +412,7 @@ public class DayDetail extends AppCompatActivity {
         @Override
         public void afterTextChanged(Editable s) {
             if (saveChangesMenuItem != null) {
-                saveChangesMenuItem.setVisible(true);
+                saveChangesMenuItem.setVisible(true); //when making changes in an EditText show the Save tickmark
                 viewModel.unsavedChanges = true;
                 try {
                     Utils.checkInputsAndSetTempDiabeticDay(viewModel.tempDiabeticDay, editText, getBaseContext()); //check for input anomalies and then save UI state in viewModel
@@ -424,7 +421,8 @@ public class DayDetail extends AppCompatActivity {
                     Toast.makeText(DayDetail.this, getString(R.string.please_insert_a_valid_number), Toast.LENGTH_SHORT).show();
                 }
             }
-//          else {} //if null do nothing: we are in a rotation event: don't set the tickmark visibility. It will be set by onCreateOptionsMenu, also don't touch unsavedChanges
+//          else {} //if saveChangesMenuItem is null do nothing: this means we are still initializing during a rotation event
+//                  // don't set the tickmark visibility. It will be set by onCreateOptionsMenu, also don't touch unsavedChanges
 
         }
 

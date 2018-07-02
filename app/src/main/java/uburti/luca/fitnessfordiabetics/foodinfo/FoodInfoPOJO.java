@@ -1,6 +1,6 @@
 package uburti.luca.fitnessfordiabetics.foodinfo;
 
-public class FoodInfoPOJO {
+public class FoodInfoPOJO { //just a POJO containing all possible fields in the JSON retrieved online by the AsyncTask
     private String name;
     private String giMinValue;
     private String giMaxValue;

@@ -41,10 +41,10 @@ import uburti.luca.fitnessfordiabetics.viewmodel.GlycemicTrendsViewModelFactory;
 import static android.graphics.Color.BLACK;
 import static uburti.luca.fitnessfordiabetics.utils.Utils.getNumericDate;
 
-public class GlycemicTrendsActivity extends AppCompatActivity { //TODO check crash when no data present
-    public static final int MEASURES_PER_DAY = 7;
-    LineChart chart;
-    HashMap<Integer, String> xAxisToDateMap = new HashMap<>();
+public class GlycemicTrendsActivity extends AppCompatActivity {
+    private static final int MEASURES_PER_DAY = 7;
+    private LineChart chart;
+    private HashMap<Integer, String> xAxisToDateMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -33,7 +33,7 @@ public class NetworkUtils {
     private static final String JSON_GI_AVERAGE = "gi_average";
     private static final String JSON_PHOTO = "photo";
 
-    public static String getResponseFromHttpUrl(URL url) throws IOException {
+    private static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
             InputStream in = urlConnection.getInputStream();
@@ -53,6 +53,8 @@ public class NetworkUtils {
     }
 
     public static class FoodInfoAsyncTask extends AsyncTask<String, Void, ArrayList<FoodInfoPOJO>> {
+        //AsyncTask which calls an external URL, decodes the JSON and returns a List of food
+
         public interface AsyncResponseListener {
             void processFinish(ArrayList<FoodInfoPOJO> output);
         }
@@ -86,12 +88,14 @@ public class NetworkUtils {
 
         @Override
         protected void onPostExecute(ArrayList<FoodInfoPOJO> result) {
-            callback.processFinish(result);
+            callback.processFinish(result); //callback implemented in FoodInfoActivity
         }
 
     }
 
     private static ArrayList<FoodInfoPOJO> extractFoodInfoFromJson(String stringResults) throws JSONException {
+        //decode a JSON input string into a list of FoodInfo objects
+
         if (stringResults == null) {
             return null;
         }
@@ -115,7 +119,7 @@ public class NetworkUtils {
     }
 
 
-    public static boolean isOnline(Context context) {
+    public static boolean isOnline(Context context) { //check if we have connectivity
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = null;

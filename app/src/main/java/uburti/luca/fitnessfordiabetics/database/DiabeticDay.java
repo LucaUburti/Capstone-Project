@@ -49,6 +49,7 @@ public class DiabeticDay {
     @Ignore
     private boolean blankDay = false;
 
+    //constructor used by Room
     public DiabeticDay(long dayId, long date, String breakfast, int breakfastInjectionRapid, int breakfastInjectionLong, int breakfastInjectionRapidExtra, int glycemiaBeforeBreakfast, int glycemiaAfterBreakfast, String lunch, int lunchInjectionRapid, int lunchInjectionLong, int lunchInjectionRapidExtra, int glycemiaBeforeLunch, int glycemiaAfterLunch, String dinner, int dinnerInjectionRapid, int dinnerInjectionLong, int dinnerInjectionRapidExtra, int glycemiaBeforeDinner, int glycemiaAfterDinner, int bedtimeInjectionRapidExtra, int glycemiaBedtime, String workoutsCardio, String workoutsWeights, String notes) {
         this.dayId = dayId;
         this.date = date;
@@ -78,7 +79,7 @@ public class DiabeticDay {
     }
 
     @Ignore
-    public DiabeticDay(long date, boolean blankDay) {
+    public DiabeticDay(long date, boolean blankDay) { //constructor used for blank days
         this.date = date;
         this.blankDay = blankDay;
     }
@@ -307,6 +308,7 @@ public class DiabeticDay {
     public void setWorkoutsCardio(String workoutsCardio) {
         this.workoutsCardio = workoutsCardio;
     }
+
     public void setWorkoutsWeights(String workoutsWeights) {
         this.workoutsWeights = workoutsWeights;
     }

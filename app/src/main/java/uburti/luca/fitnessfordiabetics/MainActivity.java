@@ -19,6 +19,7 @@ import com.facebook.stetho.Stetho;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.List;
 import java.util.Random;
@@ -36,15 +37,14 @@ import uburti.luca.fitnessfordiabetics.viewmodel.MainActivityViewModelFactory;
 
 import static uburti.luca.fitnessfordiabetics.TOSActivity.TOS_ACCEPTED;
 import static uburti.luca.fitnessfordiabetics.utils.Utils.getReadableDate;
-//TODO remove excessive logging
-//TODO improve comments
 
 public class MainActivity extends AppCompatActivity implements DayAdapter.DayClickHandler {
     public static final String DAY_ID_EXTRA = "DAY_ID";
     public static final String DATE_EXTRA = "DATE";
-    public static final String ADMOB_ID = "ca-app-pub-3940256099942544~3347511713"; //test AdMob ID
-    public static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712"; //test Ad Unit ID
+    private static final String ADMOB_ID = "ca-app-pub-3940256099942544~3347511713"; //test AdMob ID
+    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712"; //test Ad Unit ID
     private InterstitialAd interstitialAd;
+    private FirebaseAnalytics firebaseAnalytics;
     @BindView(R.id.main_rv)
     RecyclerView mainRv;
 
@@ -55,29 +55,19 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         Stetho.initializeWithDefaults(this);
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean TOSAccepted = sharedPrefs.getBoolean(TOS_ACCEPTED, false);
-        if (!TOSAccepted) { //TOS not yet accepted: go straight to TOS Activity
-            Intent intent = new Intent(this, TOSActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            //clear backstack: we don't want the users to be able to use the app by pressing the back button until they accept the TOS
-            startActivity(intent);
-        }
+        checkTOSAccepted();
 
-
-        MobileAds.initialize(this, ADMOB_ID);
+        MobileAds.initialize(this, ADMOB_ID);   //setting up AdMob...
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId(AD_UNIT_ID);
-
-//        Toast.makeText(this, getResources().getConfiguration().locale.toString(), Toast.LENGTH_SHORT).show();
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mainRv.setLayoutManager(layoutManager);
 
         long startDate = Utils.getStartDate();
-
         AppDatabase appDatabase = AppDatabase.getInstance(this);
         MainActivityViewModelFactory factory = new MainActivityViewModelFactory(appDatabase, startDate);    //retrieving all DiabeticDays starting from startDate
         MainActivityViewModel viewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel.class);
@@ -91,6 +81,19 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
         });
     }
 
+    private void checkTOSAccepted() {
+        //if Terms of service not yet accepted go to the TOS Activity
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean TOSAccepted = sharedPrefs.getBoolean(TOS_ACCEPTED, false);
+        if (!TOSAccepted) { //TOS not yet accepted: go straight to TOS Activity
+            Intent intent = new Intent(this, TOSActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            //clear backstack: we don't want the users to be able to use the app by pressing the back button until they accept the TOS
+            startActivity(intent);
+        }
+    }
+
 
     private void populateUI(List<DiabeticDay> diabeticDays) {
         DayAdapter dayAdapter = new DayAdapter(diabeticDays, this, this);
@@ -100,10 +103,11 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
 
 
     @Override
-    public void onDayClicked(long dayId, long date) {
+    public void onDayClicked(long dayId, long date) {   //callback method when clicking a RecyclerView item
+
         Log.d("MainActivity", "onDayClicked dayIdFromBundle: " + dayId + " dateFromBundle: " + getReadableDate(date));
 
-        interstitialAd.loadAd(new AdRequest.Builder().build());
+        interstitialAd.loadAd(new AdRequest.Builder().build()); //prepare an Ad to display when we return here
 
         Intent intent = new Intent(MainActivity.this, DayDetail.class);
         intent.putExtra(DAY_ID_EXTRA, dayId);
@@ -114,11 +118,11 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (new Random().nextInt(100) > 50) {  //on return from other Activities will display an Interstitial Ad 50% of the time
+        //on return from any other Activities will display an Interstitial Ad 50% of the time
+        if (new Random().nextInt(100) > 50) {
             if (interstitialAd.isLoaded()) {
                 interstitialAd.show();
             }
-
         }
     }
 
@@ -130,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        interstitialAd.loadAd(new AdRequest.Builder().build());
+        interstitialAd.loadAd(new AdRequest.Builder().build()); //prepares an Ad to display for when we return
         Intent intent;
         switch (item.getItemId()) {
             case R.id.food_info:
@@ -150,8 +154,11 @@ public class MainActivity extends AppCompatActivity implements DayAdapter.DayCli
                 startActivityForResult(intent, 0);
                 return true;
             case R.id.populate_db_with_random_data:
-                RandomDBDataGenerator randomDBDataGenerator= new RandomDBDataGenerator(this);
+                RandomDBDataGenerator randomDBDataGenerator = new RandomDBDataGenerator(this);
                 randomDBDataGenerator.startDBReset();
+                return true;
+            case R.id.delete_everything:
+                (new RandomDBDataGenerator(this)).startDBDelete();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

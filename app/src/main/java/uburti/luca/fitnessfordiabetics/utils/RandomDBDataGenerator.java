@@ -19,7 +19,6 @@ public class RandomDBDataGenerator {
     // class for demo/testing/debug purposes only
     // OVERWRITES the current Database with semi-plausible gibberish
     private Context context;
-    private static final int daysToPopulate = 20;
     private static final int rapidInjectionMin = 2;
     private static final int rapidInjectionMax = 15;
     private static final int longInjectionMin = 18;
@@ -45,16 +44,37 @@ public class RandomDBDataGenerator {
     public void startDBReset() {
 
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
-        alertBuilder.setTitle(R.string.warning).setMessage(R.string.loss_of_data_warning)
+        alertBuilder.setTitle(R.string.only_for_testing_purposes).setMessage(R.string.loss_of_data_overwrite)
                 .setPositiveButton(R.string.overwrite_text, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteDB();
                         populateDBWithRandomData(context);
                         Utils.updateWidget(context);
-//                        Intent i = ((Activity) context).getIntent();
-//                        ((Activity) context).finish();
-//                        context.startActivity(i);
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .show();
+    }
+
+    public void startDBDelete() {
+
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+        alertBuilder.setTitle(R.string.only_for_testing_purposes).setMessage(R.string.loss_of_data_delete)
+                .setPositiveButton(R.string.delete_text, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteDB();
+//                        populateDBWithRandomData(context);
+                        Utils.updateWidget(context);
+                        Intent i = ((Activity)context).getIntent();
+                        ((Activity)context).finish();
+                        context.startActivity(i);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -79,7 +99,7 @@ public class RandomDBDataGenerator {
     }
 
 
-    private void populateDBWithRandomData(Context context) {
+    private void populateDBWithRandomData(Context context) { //generate semi-plausible random texts, and values
         Random rand = new Random();
         final AppDatabase appDatabase = AppDatabase.getInstance(context);
         Calendar cal = Calendar.getInstance();
@@ -88,7 +108,7 @@ public class RandomDBDataGenerator {
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
 
-        for (int i = 0; i < daysToPopulate; i++) {
+        for (int i = 0; i < Utils.getDaysToRetrieve(); i++) {
             long date = cal.getTimeInMillis();
             cal.add(Calendar.DATE, -1);
 
@@ -116,13 +136,13 @@ public class RandomDBDataGenerator {
             StringBuilder workoutsCardio = new StringBuilder();
             for (int j = 0; j < cardioEntries; j++) {
                 workoutsCardio.append(cardio[rand.nextInt(cardio.length)]);
-                if (j!=cardioEntries-1) workoutsCardio.append("\n");
+                if (j != cardioEntries - 1) workoutsCardio.append("\n");
             }
             int weightsEntries = rand.nextInt(3);
             StringBuilder workoutsWeights = new StringBuilder();
             for (int j = 0; j < weightsEntries; j++) {
                 workoutsWeights.append(weights[rand.nextInt(weights.length)]);
-                if (j!=weightsEntries-1) workoutsWeights.append("\n");
+                if (j != weightsEntries - 1) workoutsWeights.append("\n");
             }
             String notes = "";
 

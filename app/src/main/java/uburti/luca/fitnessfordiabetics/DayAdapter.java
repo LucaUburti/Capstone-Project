@@ -20,6 +20,8 @@ import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
 import uburti.luca.fitnessfordiabetics.utils.Utils;
 
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
+    //Adapter for the RecyclerView in MainActivity
+
     private List<DiabeticDay> diabeticDays;
     private Context context;
     private boolean hypoglycemiaWarning = false;
@@ -57,12 +59,22 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         }
     }
 
+    @Override
+    public int getItemCount() {
+        if (diabeticDays == null) return 0;
+        return diabeticDays.size();
+    }
+
     private void displayFilledOutDay(@NonNull DayViewHolder holder, DiabeticDay diabeticDay, String date) {
+        //we have actual data from the DB for this item, set the background as white and fill all the fields with data
+
         hypoglycemiaWarning = false;
         hyperglycemiaWarning = false;
         holder.dayItemCl.setBackgroundColor(Color.parseColor(context.getString(R.string.edited_day_bg)));
+
         holder.dateTv.setText(date);
         holder.beforeBreakfastGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaBeforeBreakfast()));
+        //for any TextViews with Glycemic data, also check if their values trigger a warning
         checkForGlycemicWarnings(holder.beforeBreakfastGlycemiaTv, diabeticDay.getGlycemiaBeforeBreakfast());
         holder.afterBreakfastGlycemiaTv.setText(Utils.valueOfIntWithoutZeroSetDash(diabeticDay.getGlycemiaAfterBreakfast()));
         checkForGlycemicWarnings(holder.afterBreakfastGlycemiaTv, diabeticDay.getGlycemiaAfterBreakfast());
@@ -78,7 +90,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         checkForGlycemicWarnings(holder.bedtimeGlycemiaTv, diabeticDay.getGlycemiaBedtime());
         holder.cardioWorkoutTv.setText(diabeticDay.getWorkoutsCardio());
         holder.weightsWorkoutTv.setText(diabeticDay.getWorkoutsWeights());
-        if (hypoglycemiaWarning && !hyperglycemiaWarning) {
+        if (hypoglycemiaWarning && !hyperglycemiaWarning) { //if warnings have been triggered, show the warning message and Image
             holder.warningTv.setText(context.getResources().getString(R.string.hypoglycemia));
             holder.warningTv.setVisibility(View.VISIBLE);
             holder.warningIv.setVisibility(View.VISIBLE);
@@ -98,7 +110,9 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
     }
 
     private void displayBlankDay(@NonNull DayViewHolder holder, String date) {
-        holder.dateTv.setText(date);    //no data in DB, just populate the mock day with the date
+        //no data in the DB, just populate the mock day with the date, the rest is blank
+
+        holder.dateTv.setText(date);
         holder.dayItemCl.setBackgroundColor(Color.parseColor(context.getString(R.string.blank_day_bg)));
         holder.beforeBreakfastGlycemiaTv.setText("-");
         holder.beforeBreakfastGlycemiaTv.setTextColor(context.getResources().getColor(android.R.color.primary_text_light));
@@ -140,16 +154,10 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
             textView.setTypeface(null, Typeface.BOLD);
             hyperglycemiaWarning = true;
 
-        } else {
+        } else { //no warnings triggered, display data normally
             textView.setTextColor(context.getResources().getColor(android.R.color.primary_text_light));
             textView.setTypeface(null, Typeface.NORMAL);
         }
-    }
-
-    @Override
-    public int getItemCount() {
-        if (diabeticDays == null) return 0;
-        return diabeticDays.size();
     }
 
 
@@ -190,10 +198,10 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         @Override
         public void onClick(View v) {
             DiabeticDay diabeticDay = diabeticDays.get(getAdapterPosition());
-            long dayId = diabeticDay.getDayId();
+            long dayId = diabeticDay.getDayId();    //on mock days this will be 0
             long date = diabeticDay.getDate();
 
-            dayClickHandler.onDayClicked(dayId, date);
+            dayClickHandler.onDayClicked(dayId, date);  //callback implemented in MainActivity
         }
     }
 

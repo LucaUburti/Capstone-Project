@@ -7,7 +7,6 @@ import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ import java.util.Date;
 import java.util.List;
 
 import uburti.luca.fitnessfordiabetics.AppExecutors;
-import uburti.luca.fitnessfordiabetics.DayDetail;
 import uburti.luca.fitnessfordiabetics.R;
 import uburti.luca.fitnessfordiabetics.appwidget.AppWidgetService;
 import uburti.luca.fitnessfordiabetics.database.AppDatabase;
@@ -34,6 +32,8 @@ public class Utils {
     private static final int EDITTEXT_MAX_LINES = 6;
 
     public static void checkInputsAndSetTempDiabeticDay(DiabeticDay tempDiabeticDay, EditText editText, Context context) {
+        //this method gets the working DiabeticDay and an EditText which got modified: check which EditText called and also check for unexpected input
+
         int parentId = ((ViewGroup) editText.getParent()).getId();
         if (parentId == R.id.meal_detail_cl || parentId == R.id.bedtime_detail_cl) {   //EditTexts inside the meal/bedtime includes are 2 views deep
             parentId = ((ViewGroup) editText.getParent().getParent()).getId();
@@ -43,11 +43,11 @@ public class Utils {
             editText.getText().delete(editText.getText().length() - 1, editText.getText().length()); //disallow typing too many lines
         }
         String inputText = editText.getText().toString();
-        switch (parentId) {
+        switch (parentId) { //check who is the parent Layout
             case R.id.breakfast_detail:    //grandparent layout is breakfast_detail include
-                switch (editTextId) {
+                switch (editTextId) { //check which EditText got changed
                     case R.id.meal_description_et:
-                        tempDiabeticDay.setBreakfast(inputText);
+                        tempDiabeticDay.setBreakfast(inputText);    //save changes to the working DiabeticDay
                         break;
                     case R.id.meal_rapid_injection_et:
                         tempDiabeticDay.setBreakfastInjectionRapid(valueOfStringWithInputCheck(inputText));
@@ -187,10 +187,12 @@ public class Utils {
     }
 
     public static List<DiabeticDay> insertMockDays(List<DiabeticDay> diabeticDays) {
+        //takes a list of days as retrieved from the DB and returns a list with any gaps filled with mock days
+
         List<DiabeticDay> diabeticDaysNoGaps = new ArrayList<>(diabeticDays);  //work on a copy, we don't want to make changes to the original List
 
         List<Long> retrievedDates = new ArrayList<>();
-        for (int i = 0; i < diabeticDaysNoGaps.size(); i++) { //build a list of the dates where we have actual data in the DB
+        for (int i = 0; i < diabeticDaysNoGaps.size(); i++) { //from the input list builds another list of just the dates (type Long)
             retrievedDates.add(diabeticDaysNoGaps.get(i).getDate());
         }
 
@@ -207,12 +209,14 @@ public class Utils {
             } else {
                 Log.d("MainActivity", "Day at position: " + i + " unchanged. List already has info for day " + getReadableDate(dateToBeChecked));
             }
-            cal.add(Calendar.DATE, -1);
+            cal.add(Calendar.DATE, -1); //go backward one day and redo the checks
         }
         return diabeticDaysNoGaps;
     }
 
     public static long getStartDate() {
+        //uses the Calendar object set at midnight to get the time a predefined number of days in the past
+
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
@@ -223,8 +227,9 @@ public class Utils {
     }
 
 
-
     public static void updateWidget(final Context context) {
+        //when we need to update the Widget, launches two queries to get relevant data then set up a proper message to display inside the widget
+
         final AppDatabase appDatabase = AppDatabase.getInstance(context);
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
@@ -247,6 +252,8 @@ public class Utils {
     }
 
     private static String getTextToBeDisplayedInWidget(DiabeticDay latestDayWithGlycemiaSet, DiabeticDay latestDayWithInjectionSet, Context context) {
+        //a somewhat long but straightforward method which generates a proper message to be displayed inside the widget
+
         String textToBeDisplayedInWidget;
 
         //first half of the widget text: get latest glycemia value, its date and the time of day when the measure was taken

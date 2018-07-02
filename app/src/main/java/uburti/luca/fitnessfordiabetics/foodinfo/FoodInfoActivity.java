@@ -20,15 +20,15 @@ import uburti.luca.fitnessfordiabetics.R;
 import uburti.luca.fitnessfordiabetics.utils.NetworkUtils;
 
 public class FoodInfoActivity extends AppCompatActivity implements NetworkUtils.FoodInfoAsyncTask.AsyncResponseListener {
-    public static final String FITNESSFORDIABETICS_URL = "https://fitnessfordiabetics.firebaseio.com/food_info.json";
-    public static final int MIN_SEARCH_CHARS = 2;
+    private static final String FITNESSFORDIABETICS_URL = "https://fitnessfordiabetics.firebaseio.com/food_info.json";
+    private static final int MIN_SEARCH_CHARS = 2;
     @BindView(R.id.food_info_results_rv)
     RecyclerView resultsRv;
     @BindView(R.id.food_info_search_et)
     EditText foodInfoSearchEt;
 
-    FoodInfoAdapter foodInfoAdapter;
-    ArrayList<FoodInfoPOJO> foodList;
+    private FoodInfoAdapter foodInfoAdapter;
+    private ArrayList<FoodInfoPOJO> foodList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class FoodInfoActivity extends AppCompatActivity implements NetworkUtils.
         if (!NetworkUtils.isOnline(this)) {
             Toast.makeText(this, R.string.check_connectivity, Toast.LENGTH_LONG).show();
         } else {
-            NetworkUtils.FoodInfoAsyncTask foodInfoAsyncTask = new NetworkUtils.FoodInfoAsyncTask();
+            NetworkUtils.FoodInfoAsyncTask foodInfoAsyncTask = new NetworkUtils.FoodInfoAsyncTask(); //call the AsyncTask
             foodInfoAsyncTask.callback = this;
             foodInfoAsyncTask.execute(FITNESSFORDIABETICS_URL);
         }

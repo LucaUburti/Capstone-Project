@@ -19,8 +19,8 @@ import uburti.luca.fitnessfordiabetics.utils.Utils;
  */
 public class AppWidget extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, String widgetMsg,
-                                int appWidgetId) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, String widgetMsg,
+                                        int appWidgetId) {
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget);
         views.setTextViewText(R.id.appwidget_text, widgetMsg);
@@ -35,10 +35,7 @@ public class AppWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
-//        for (int appWidgetId : appWidgetIds) {
-//            updateAppWidget(context, appWidgetManager, appWidgetId);
-//        }
+        //launch the Widget Service with data from Shared Preferences
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         String textToBeDisplayedInWidget = sharedPrefs.getString(Utils.WIDGET_TEXT, context.getString(R.string.empty_widget_text));

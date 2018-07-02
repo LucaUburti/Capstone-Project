@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import uburti.luca.fitnessfordiabetics.database.AppDatabase;
 
 public class DayDetailViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+    //Factory ViewModel class for DayDetail: used to pass the dayID to the viewmodel constructor
+
     private final AppDatabase appDatabase;
     private final long dayId;
 

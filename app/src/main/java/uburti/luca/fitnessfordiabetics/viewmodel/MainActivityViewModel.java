@@ -12,6 +12,8 @@ import uburti.luca.fitnessfordiabetics.database.AppDatabase;
 import uburti.luca.fitnessfordiabetics.database.DiabeticDay;
 
 public class MainActivityViewModel extends ViewModel {
+    //ViewModel class for MainActivity, uses the MainActivityViewModelFactory to have a startDate in the constructor
+
     private LiveData<List<DiabeticDay>> diabeticDays;
 
     MainActivityViewModel(AppDatabase appDatabase, long startDate) {

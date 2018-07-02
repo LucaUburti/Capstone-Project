@@ -28,7 +28,7 @@ public interface DayDao {
             " (glycemiaAfterDinner > 0) OR\n" +
             " (glycemiaBedtime > 0)" +
             " ORDER BY date DESC LIMIT 1")
-    DiabeticDay loadLatestDayWithGlycemiaSet();
+    DiabeticDay loadLatestDayWithGlycemiaSet(); //used to display relevant data for the Widget
 
     @Query("SELECT * FROM DiabeticDay WHERE" +
             " (breakfastInjectionRapid > 0) OR\n" +
@@ -42,7 +42,7 @@ public interface DayDao {
             " (dinnerInjectionRapidExtra > 0) OR\n" +
             " (bedtimeInjectionRapidExtra > 0)" +
             " ORDER BY date DESC LIMIT 1")
-    DiabeticDay loadLatestDayWithInjectionSet();
+    DiabeticDay loadLatestDayWithInjectionSet();  //used to display relevant data for the Widget
 
     @Query("SELECT * FROM DiabeticDay WHERE dayId = :dayId")
     LiveData<DiabeticDay> loadDay(long dayId);
@@ -57,6 +57,6 @@ public interface DayDao {
     void deleteDay(DiabeticDay diabeticDay);
 
     @Query("DELETE from DiabeticDay")
-    void deleteAll();
+    void deleteAll();   //first used by the debugging menu option which overwrites the DB with random data
 
 }

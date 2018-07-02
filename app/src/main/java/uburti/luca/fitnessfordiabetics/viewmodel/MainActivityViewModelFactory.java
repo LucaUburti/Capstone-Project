@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import uburti.luca.fitnessfordiabetics.database.AppDatabase;
 
 public class MainActivityViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+    //ViewModel Factory class for the MainActivity, its constructor takes a startDate
+
     private final AppDatabase appDatabase;
     private final long startDate;
 

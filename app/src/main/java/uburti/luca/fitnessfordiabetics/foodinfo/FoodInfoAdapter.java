@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import uburti.luca.fitnessfordiabetics.R;
 
 public class FoodInfoAdapter extends RecyclerView.Adapter<FoodInfoAdapter.FoodInfoHolder> {
+    //simple adapter for the RecyclerView in the FoodInfo Activity
 
     private ArrayList<FoodInfoPOJO> foodList;
     private Context context;

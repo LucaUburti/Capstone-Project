@@ -12,6 +12,9 @@ import android.util.Log;
 import uburti.luca.fitnessfordiabetics.utils.Utils;
 
 public class AppWidgetService extends IntentService {
+    //Service to update the Widget content. This gets called by the AppWidget.onUpdate (on phone startup and Widget refresh)
+    // or by the Utils.updateWidget (after someone made changes in the DB)
+
     private String textToBeDisplayedInWidget;
     private static final String ACTION_SET_MSG = "ACTION_SET_MSG";
 

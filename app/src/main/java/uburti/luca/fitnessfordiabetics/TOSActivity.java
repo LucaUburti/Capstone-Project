@@ -14,6 +14,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TOSActivity extends AppCompatActivity {
+    //Terms of service Activity. Displayed on first launch
+
     public static final String TOS_ACCEPTED = "TOS_ACCEPTED";
     @BindView(R.id.tos_button)
     Button TOSButton;
@@ -30,12 +32,12 @@ public class TOSActivity extends AppCompatActivity {
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
         }
-
         TOSScrollView.setScrollbarFadingEnabled(false);
 
         final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean TOSAccepted = sharedPrefs.getBoolean(TOS_ACCEPTED, false);
-        if (!TOSAccepted) {
+
+        if (!TOSAccepted) { //TOS not accepted
             if (ab != null) {   //hide the back arrow in the actionbar
                 ab.setDisplayHomeAsUpEnabled(false);
                 ab.setHomeButtonEnabled(false);
@@ -46,9 +48,9 @@ public class TOSActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     SharedPreferences.Editor editor = sharedPrefs.edit();
-                    editor.putBoolean(TOS_ACCEPTED, true);      //write in SharedPrefs that the user accepted the TOS
+                    editor.putBoolean(TOS_ACCEPTED, true);      //when clicking on the Accept button write in SharedPrefs that the user accepted the TOS
                     editor.apply();
-                    TOSButton.setVisibility(View.GONE);
+                    TOSButton.setVisibility(View.GONE); //hide the TOS button and show the back arrow
                     if (ab != null) {
                         ab.setDisplayHomeAsUpEnabled(true);
                         ab.setHomeButtonEnabled(true);
@@ -60,7 +62,7 @@ public class TOSActivity extends AppCompatActivity {
                 }
             });
         } else {
-            TOSButton.setVisibility(View.GONE);
+            TOSButton.setVisibility(View.GONE); //TOS already accepted, just hide the TOS button
         }
 
     }
