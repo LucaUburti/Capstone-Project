@@ -102,6 +102,7 @@
     <string name="cancel">Cancel</string>
     <string name="empty_widget_text">No glycemic data found\n\nNo injections data found</string>
     <string name="not_enough_chart_data">Not enough data to display</string>
+    <string name="error_retrieving_data">Error retrieving data for this day</string>
 
 
 </resources>

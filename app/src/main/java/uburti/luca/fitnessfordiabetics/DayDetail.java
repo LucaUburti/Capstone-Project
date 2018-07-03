@@ -3,6 +3,7 @@ package uburti.luca.fitnessfordiabetics;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -93,41 +94,52 @@ public class DayDetail extends AppCompatActivity {
 
         appDatabase = AppDatabase.getInstance(getApplicationContext());
 
-        Bundle extras = getIntent().getExtras();
         if (viewModel.unsavedChanges) {
             populateUI(viewModel.tempDiabeticDay);  //redraw the UI with the working DiabeticDay
-        } else if (extras != null) {
+        } else {
+            Intent intent = getIntent();
+            Bundle extras;
+            if (intent != null && intent.getExtras() != null) {
+                extras = getIntent().getExtras();
+                if (extras != null) {
 
-            dayIdFromBundle = extras.getLong(DAY_ID_EXTRA); // on mock days this will be 0
-            dateFromBundle = extras.getLong(DATE_EXTRA);
+                    dayIdFromBundle = extras.getLong(DAY_ID_EXTRA); // on mock days this will be 0
+                    dateFromBundle = extras.getLong(DATE_EXTRA);
 
-            if (dayIdFromBundle != 0) {   //we retrieved the dayIdFromBundle, this means we are working with an exiting row: update the UI with data retrieved from the DB
-                Log.d("DayDetail", "onCreate: dayIdFromBundle retrieved: " + dayIdFromBundle);
-                DayDetailViewModelFactory factory = new DayDetailViewModelFactory(appDatabase, dayIdFromBundle);
-                final DayDetailViewModelWithFactory viewModelWithFactory = ViewModelProviders.of(this, factory).get(DayDetailViewModelWithFactory.class);
-                viewModelWithFactory.getDiabeticDay().observe(this, new Observer<DiabeticDay>() {
-                    @Override
-                    public void onChanged(@Nullable DiabeticDay diabeticDayFromDb) {
-                        viewModelWithFactory.getDiabeticDay().removeObserver(this);
-                        viewModel.tempDiabeticDay = diabeticDayFromDb; //update the working copy of the object: used later for UI editing and saving
-                        populateUI(diabeticDayFromDb);
+                    if (dayIdFromBundle != 0) {   //we retrieved the dayIdFromBundle, this means we are working with an exiting row: update the UI with data retrieved from the DB
+                        Log.d("DayDetail", "onCreate: dayIdFromBundle retrieved: " + dayIdFromBundle);
+                        DayDetailViewModelFactory factory = new DayDetailViewModelFactory(appDatabase, dayIdFromBundle);
+                        final DayDetailViewModelWithFactory viewModelWithFactory = ViewModelProviders.of(this, factory).get(DayDetailViewModelWithFactory.class);
+                        viewModelWithFactory.getDiabeticDay().observe(this, new Observer<DiabeticDay>() {
+                            @Override
+                            public void onChanged(@Nullable DiabeticDay diabeticDayFromDb) {
+                                viewModelWithFactory.getDiabeticDay().removeObserver(this);
+                                viewModel.tempDiabeticDay = diabeticDayFromDb; //update the working copy of the object: used later for UI editing and saving
+                                populateUI(diabeticDayFromDb);
+                            }
+                        });
+
+                    } else if (dateFromBundle != 0) { //we have the dateFromBundle but not an id, this means we are working with a new row: update the UI with a blank day with just the date set
+                        Log.d("DayDetail", "onCreate: dayIdFromBundle not set, dateFromBundle: " + Utils.getReadableDate(dateFromBundle));
+                        viewModel.tempDiabeticDay = new DiabeticDay(dateFromBundle, true);
+                        warningIv.setVisibility(View.GONE);
+                        populateUI(viewModel.tempDiabeticDay);
+
+                    } else { //uh oh
+                        Toast.makeText(this, R.string.error_retrieving_data, Toast.LENGTH_LONG).show();
+                        Crashlytics.log(Log.ERROR, "DayDetail", "Error retrieving day data: dayIdFromBundle and dateFromBundle are zero!");
                     }
-                });
 
-            } else if (dateFromBundle != 0) { //we have the dateFromBundle but not an id, this means we are working with a new row: update the UI with a blank day with just the date set
-                Log.d("DayDetail", "onCreate: dayIdFromBundle not set, dateFromBundle: " + Utils.getReadableDate(dateFromBundle));
-                viewModel.tempDiabeticDay = new DiabeticDay(dateFromBundle, true);
-                warningIv.setVisibility(View.GONE);
-                populateUI(viewModel.tempDiabeticDay);
 
-            } else { //uh oh
-                Toast.makeText(this, "Error retrieving data for this day", Toast.LENGTH_LONG).show();
-                Crashlytics.log(Log.ERROR, "DayDetail", "Error retrieving day data: dayIdFromBundle and dateFromBundle are zero!");
+                } else { //extras null!
+                    Toast.makeText(this, R.string.error_retrieving_data, Toast.LENGTH_LONG).show();
+                    Crashlytics.log(Log.ERROR, "DayDetail", "Error retrieving day data: extras is null!");
+                }
+            } else {
+                Toast.makeText(this, R.string.error_retrieving_data, Toast.LENGTH_LONG).show();
+                Crashlytics.log(Log.ERROR, "DayDetail", "Error retrieving day data: intent is null!");
             }
-
-
         }
-
     }
 
 
